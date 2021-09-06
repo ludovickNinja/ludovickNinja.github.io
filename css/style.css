@@ -1,4 +1,4 @@
-html {
+﻿html {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     font-size: 100%;
@@ -79,6 +79,23 @@ a {
             font-style: italic;
             font-weight: normal;
         }
+
+b {
+    display: block;
+    max-width: 400px;
+    margin: 0 auto 15px auto;
+    font-size: 0.95rem;
+    /*
+        padding: 15px 20px;
+        background-color: var(--color1);
+        border: 2px solid var(--color2);
+        border-radius: 26px;    
+    */
+    color: var(--color2);
+    text-decoration: none;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+}
 
 h2 {
     font-size: 1rem;
