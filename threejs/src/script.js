@@ -15,10 +15,10 @@ render();
 const gui = new dat.GUI()
 
 function init() {
-/*
+
 	const container = document.createElement( 'div' );
 	document.body.appendChild( container );
-*/
+
     const canvas = document.querySelector('canvas.webgl')
 
 	camera = new THREE.PerspectiveCamera( 1, window.innerWidth / window.innerHeight, 1, 2000 );
@@ -112,7 +112,7 @@ function init() {
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
 	renderer.toneMappingExposure = 1;
 	renderer.outputEncoding = THREE.sRGBEncoding;
-	//container.appendChild( renderer.domElement );
+	container.appendChild( renderer.domElement );
 
     
 	const controls = new OrbitControls( camera, renderer.domElement );
