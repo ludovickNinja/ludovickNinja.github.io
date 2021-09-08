@@ -9,10 +9,10 @@ import { RoughnessMipmapper } from 'three/examples/jsm/utils/RoughnessMipmapper.
 
 import * as THREE from 'https://cdn.skypack.dev/three';
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import { RoughnessMipmapper } from 'three/examples/jsm/utils/RoughnessMipmapper.js';
+import { OrbitControls } from 'https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'https://cdn.skypack.dev/three/examples/jsm/loaders/GLTFLoader.js';
+import { RGBELoader } from 'https://cdn.skypack.dev/three/examples/jsm/loaders/RGBELoader.js';
+import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three/examples/jsm/utils/RoughnessMipmapper.js';
 
 
 let camera, scene, renderer;
