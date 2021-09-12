@@ -1,0 +1,71 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 0px;
+}
+
+:root{
+  --color1: #202020;
+  --color2: #ffffff;
+}
+
+body {
+  background : var(--color2);
+  padding : 0px;
+  margin : auto;
+}
+  
+a {
+  display: block;
+  max-width: 400px;
+  margin: 0 auto 0px auto;
+  padding: 15px 20px;
+  font-size: 0.95rem;
+  background-color: var(--color1);
+  color: var(--color2);
+  border: 2px solid var(--color2);
+  border-radius: 26px;
+  text-decoration: none;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  text-align: center;
+}
+
+/* Style the header */
+.header {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+
+  text-align: center;
+  padding: 10px 16px;
+  background: #ffffff;
+  
+  color: #2c3e50;
+}
+
+/* Page content */
+.content {
+  padding: 0px;
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 102px;
+}
+
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
