@@ -1,12 +1,3 @@
-/*
-import * as THREE from 'three';
-
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-import { RoughnessMipmapper } from 'three/examples/jsm/utils/RoughnessMipmapper.js';
-*/
-
 import * as THREE from 'https://cdn.skypack.dev/three';
 
 import { OrbitControls } from './jsm/controls/OrbitControls.js';
@@ -14,15 +5,12 @@ import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from './jsm/utils/RoughnessMipmapper.js';
 
-
 let camera, scene, renderer;
 
 const clock = new THREE.Clock()
 
 init();
-render();
-
-const gui = new dat.GUI()
+render()
 
 function init() {
 /*
@@ -115,23 +103,19 @@ function init() {
 	} 
     );
 
-	renderer = new THREE.WebGLRenderer( { antialias: true,
-        canvas: canvas } );
+	renderer = new THREE.WebGLRenderer( { antialias: true,  canvas: canvas } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
 	renderer.toneMappingExposure = 1;
 	renderer.outputEncoding = THREE.sRGBEncoding;
 	//container.appendChild( renderer.domElement );
-
     
 	const controls = new OrbitControls( camera, renderer.domElement );
 	controls.addEventListener( 'change', render ); // use if there is no animation loop
     controls.minDistance = 2;
 	controls.maxDistance = 10;
-    
 	controls.target.set( 0, 0, 0);
-	
     controls.enableDamping = true
     controls.update();
     
