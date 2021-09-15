@@ -48,11 +48,11 @@ a {
 }
 
 canvas {
-  width: 100%;
+  width: 4000px;
   /*height: 0;
   padding-top: 100%;
   padding-bottom: 100%;*/
-  background-color: rgb(120, 148, 201);
+  background-color: rgb(122, 197, 141);
   position: relative;
 }
 
