@@ -10,6 +10,7 @@
 :root{
   --color1: #202020;
   --color2: #ffffff;
+  --color3: #2c3e50;
 }
 
 body {
@@ -43,25 +44,25 @@ a {
   padding: 10px 16px;
   background: #ffffff;
   
-  color: #2c3e50;
+  color: var(--color3);
 }
 
-/* Page content */
+/* Page content 
 .content {
   padding: 0px;
-}
+}*/
 
-/* The sticky class is added to the header with JS when it reaches its scroll position */
+/* The sticky class is added to the header with JS when it reaches its scroll position 
 .sticky {
   position: fixed;
   top: 0;
   width: 100%
-}
+}*/
 
-/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) 
 .sticky + .content {
   padding-top: 102px;
-}
+}*/
 
 canvas {
   width: 100%;
