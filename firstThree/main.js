@@ -17,9 +17,6 @@ canvasWidth = canvasContainer.offsetWidth;
 
 init();
 
-console.log(camera.position.z);
-console.log(camera.position.z);
-
 render();
 
 function init() {
@@ -28,16 +25,13 @@ function init() {
   //canvasHeight = window.innerHeight - document.getElementById('myHeader').clientHeight;
   //canvasWidth = document.body.clientWidth - (25*2);
   //canvasWidth = document.getElementById('myHeader').children[0].clientWidth;
-  
-
 
   /*
 	const container = document.createElement( 'div' );
 	document.body.appendChild( container );
-  */
-  
+  */  
 
-	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight * 100 / 100, 1, 2000 );
+	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
   	camera.lookAt( 0, 0, 0 );
   	camera.setFocalLength(canvasHeight + canvasWidth);
