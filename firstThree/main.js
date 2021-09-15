@@ -147,10 +147,9 @@ function onWindowResize() {
   canvasHeight = canvasContainer.offsetHeight;
   canvasWidth = canvasContainer.offsetWidth;
 
-  const ratio = calculateAspectRatioFit(10000, 10000, canvasWidth, canvasHeight)
-
-	camera.aspect = canvasWidth / canvasHeight;
-  camera.setFocalLength(canvasHeight + canvasWidth);
+  const ratio = calculateAspectRatioFit(10000, 10000, canvasWidth, canvasHeight);
+  camera.aspect = canvasWidth / canvasHeight;
+  //camera.setFocalLength(canvasHeight + canvasWidth);
   
 	//camera.aspect = canvasWidth / canvasHeight * 1.25;
 	camera.updateProjectionMatrix();
