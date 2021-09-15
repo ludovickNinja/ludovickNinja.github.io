@@ -58,8 +58,14 @@ canvas {
   height: 0;
   padding-top: 100%;
   padding-bottom: 100%;*/
-  background-color: rgb(236, 233, 39);
+  background-color: rgb(91, 39, 236);
   position: relative;
+}
+
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
 }
 
 #idCanvas {
@@ -69,12 +75,6 @@ canvas {
   margin-right: auto;
   display: block;
 }
-/*
-.square:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}*/
 
 /* Page content 
 .content {
