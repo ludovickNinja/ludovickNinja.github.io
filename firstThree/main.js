@@ -10,6 +10,7 @@ let camera, scene, renderer, canvasWidth, canvasHeight, object, controls;
 const clock = new THREE.Clock()
 
 const canvasContainer = document.querySelector('#canvasContainer')
+const canvas = document.querySelector('canvas.webgl')
 
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
