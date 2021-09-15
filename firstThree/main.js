@@ -7,11 +7,12 @@ import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@latest/example
 
 let camera, scene, renderer, canvasWidth, canvasHeight, object, controls;
 
-let SCREEN_WIDTH = window.innerWidth;
-let SCREEN_HEIGHT = window.innerHeight;
-let aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
-
 const clock = new THREE.Clock()
+
+const canvasContainer = document.querySelector('#canvasContainer')
+
+canvasHeight = canvasContainer.offsetHeight;
+canvasWidth = canvasContainer.offsetWidth;
 
 init();
 
@@ -23,22 +24,23 @@ render();
 function init() {
 
   //canvasHeight = window.innerHeight - document.getElementById('myHeader').children[0].clientHeight;
-  canvasHeight = window.innerHeight - document.getElementById('myHeader').clientHeight;
+  //canvasHeight = window.innerHeight - document.getElementById('myHeader').clientHeight;
   //canvasWidth = document.body.clientWidth - (25*2);
-  canvasWidth = document.getElementById('myHeader').children[0].clientWidth;
+  //canvasWidth = document.getElementById('myHeader').children[0].clientWidth;
   
+
+
   /*
 	const container = document.createElement( 'div' );
 	document.body.appendChild( container );
   */
   
-  const canvas = document.querySelector('canvas.webgl')
 
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight * 100 / 100, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
-  camera.lookAt( 0, 0, 0 );
-  camera.setFocalLength(canvasHeight + canvasWidth);
-  camera.updateProjectionMatrix;
+  	camera.lookAt( 0, 0, 0 );
+  	camera.setFocalLength(canvasHeight + canvasWidth);
+  	camera.updateProjectionMatrix;
 
 	scene = new THREE.Scene();
 
@@ -144,8 +146,11 @@ function init() {
 
 function onWindowResize() {
 
-  canvasHeight = window.innerHeight - document.getElementById('myHeader').clientHeight;
-  canvasWidth = document.body.clientWidth - (25*2);
+  //canvasHeight = window.innerHeight - document.getElementById('myHeader').clientHeight;
+  //canvasWidth = document.body.clientWidth - (25*2);
+
+  canvasHeight = canvasContainer.offsetHeight;
+  canvasWidth = canvasContainer.offsetWidth;
 
   const ratio = calculateAspectRatioFit(10000, 10000, canvasWidth, canvasHeight)
 
