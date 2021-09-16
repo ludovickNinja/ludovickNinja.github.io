@@ -5,7 +5,9 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/lo
 import { RGBELoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@latest/examples/jsm/utils/RoughnessMipmapper.js';
 
-let camera, scene, renderer, canvasWidth, canvasHeight, object, controls;
+let camera, scene, renderer;
+let canvasWidth, canvasHeight;
+let object, controls;
 
 const clock = new THREE.Clock()
 
@@ -16,20 +18,9 @@ canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
 init();
-
 render();
 
 function init() {
-
-  //canvasHeight = window.innerHeight - document.getElementById('myHeader').children[0].clientHeight;
-  //canvasHeight = window.innerHeight - document.getElementById('myHeader').clientHeight;
-  //canvasWidth = document.body.clientWidth - (25*2);
-  //canvasWidth = document.getElementById('myHeader').children[0].clientWidth;
-
-  /*
-	const container = document.createElement( 'div' );
-	document.body.appendChild( container );
-  */  
 
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
@@ -44,7 +35,8 @@ function init() {
 	//.setPath( 'textures/equirectangular/' )
 	.load( 
         // resource URL
-        'https://ludovickninja.github.io/Studio.hdr', 
+        'https://ludovickninja.github.io/Studio.hdr',
+
         // called when the resource is loaded
         function ( texture ) {
 		texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -63,6 +55,7 @@ function init() {
 		loader.load( 
         // model URL
         'https://ludovickninja.github.io/MTL1.glb', 
+
         // called when the model is loaded
         function ( gltf ) {
 
@@ -79,7 +72,7 @@ function init() {
             object = gltf.scene;
             object.position.set(0, 0, 0);
 
-			scene.add( gltf.scene );
+			scene.add( object );
 
             const tick = () =>
             {
@@ -126,14 +119,14 @@ function init() {
 	renderer.outputEncoding = THREE.sRGBEncoding;
 	//container.appendChild( renderer.domElement );
     
-  controls = new OrbitControls( camera, renderer.domElement );
+  	controls = new OrbitControls( camera, renderer.domElement );
 	controls.addEventListener( 'change', render ); // use if there is no animation loop
-  controls.minDistance = 2;
+  	controls.minDistance = 2;
 	//controls.maxDistance = controls.minDistance;
-  controls.maxDistance = 10;  
+  	controls.maxDistance = 10;  
 	controls.target.set( 0, 0, 0);
-  controls.enableDamping = true
-  controls.update();
+  	controls.enableDamping = true
+  	controls.update();
     
 	window.addEventListener( 'resize', onWindowResize );
   
@@ -141,23 +134,17 @@ function init() {
 
 function onWindowResize() {
 
-  //canvasHeight = window.innerHeight - document.getElementById('myHeader').clientHeight;
-  //canvasWidth = document.body.clientWidth - (25*2);
+  	canvasHeight = canvasContainer.offsetHeight;
+  	canvasWidth = canvasContainer.offsetWidth;
 
-  canvasHeight = canvasContainer.offsetHeight;
-  canvasWidth = canvasContainer.offsetWidth;
-
-  const ratio = calculateAspectRatioFit(10000, 10000, canvasWidth, canvasHeight);
-  camera.aspect = canvasWidth / canvasHeight;
-  //camera.setFocalLength(canvasHeight + canvasWidth);
+  	camera.aspect = canvasWidth / canvasHeight;
+  	camera.setFocalLength(canvasHeight + canvasWidth);
   
-	//camera.aspect = canvasWidth / canvasHeight * 1.25;
 	camera.updateProjectionMatrix();
 
 	renderer.setSize( canvasWidth  , canvasHeight );
-	//renderer.setSize( ratio.width , ratio.height );
-
-  console.log(camera.aspect)
+	
+  	console.log(camera.aspect)
 
 	render();
 
@@ -229,9 +216,8 @@ function fitCameraToObject ( camera, object, offset, controls ) {
 
 function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 
-  var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+  	var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
 
-  return { width: srcWidth*ratio, height: srcHeight*ratio, ratioValue: ratio };
+  	return { width: srcWidth*ratio, height: srcHeight*ratio, ratioValue: ratio };
 
-  //return Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
 }
