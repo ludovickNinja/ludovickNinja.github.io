@@ -54,10 +54,10 @@ a {
 }
 
 #canvasContainer {
-  
   margin: 0 auto 0px auto;
   background-color: var(--colorTest);
   max-width: 400px;
+  height: width;
   position: relative;
   display: block;
 }
