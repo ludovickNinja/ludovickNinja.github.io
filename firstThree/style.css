@@ -11,7 +11,7 @@
   --color1: #202020;
   --color2: #ffffff;
   --color3: #2c3e50;
-  --colorTest : #1900ff;
+  --colorTest : #ff0080;
 }
 
 body {
@@ -63,9 +63,11 @@ a {
 }
 
 canvas {
+
   display: block;
   background-color: var(--colorTest);
-  }
+
+}
 
 /*
 #idCanvas {
