@@ -15,19 +15,22 @@
 }
 
 body {
-  font-size: 1rem;
-
   background : var(--color2);
   padding : 0px;
   margin : auto;
   font-family: 'Roboto', sans-serif;
+}
+
+h2{
+  font-size: 1rem;
+  padding: 10px, 20px;
 }
   
 a {
   display: block;
   max-width: 400px;
   margin: 0 auto 0px auto;
-  padding: 15px 20px;
+  padding: 10px 20px;
   font-size: 0.95rem;
   background-color: var(--color1);
   color: var(--color2);
