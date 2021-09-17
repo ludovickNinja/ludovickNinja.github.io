@@ -25,7 +25,7 @@ function init() {
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
   	camera.lookAt( 0, 0, 0 );
-  	camera.setFocalLength(canvasHeight + canvasWidth);
+  	//camera.setFocalLength(canvasHeight + canvasWidth);
   	camera.updateProjectionMatrix;
 
 	scene = new THREE.Scene();
@@ -138,7 +138,7 @@ function onWindowResize() {
   	canvasWidth = canvasContainer.offsetWidth;
 
   	camera.aspect = canvasWidth / canvasHeight;
-  	camera.setFocalLength(canvasHeight + canvasWidth);
+  	//camera.setFocalLength(canvasHeight + canvasWidth);
   
 	camera.updateProjectionMatrix();
 
