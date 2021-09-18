@@ -8,14 +8,10 @@ import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@latest/example
 let modelHeader = document.querySelector('h2');
 let select = document.querySelector('select');
 
-select.addEventListener('change', () => {
-	modelHeader.innerText = select.value;
-	console.log('https://ludovickninja.github.io/' + select.value + '.glb')
-})
-
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
+let file = 'https://ludovickninja.github.io/MTL1.glb';
 
 const clock = new THREE.Clock()
 
@@ -25,10 +21,18 @@ const canvas = document.querySelector('canvas.webgl')
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
-init();
-render();
 
-function init() {
+select.addEventListener('change', () => {
+	modelHeader.innerText = select.value;
+	file = 'https://ludovickninja.github.io/' + select.value + '.glb'
+	console.log(file)
+
+	init(file);
+	render();
+})
+
+
+function init(file) {
 
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
@@ -62,7 +66,7 @@ function init() {
         //.setPath( 'models/gltf/DamagedHelmet/glTF/' );
 		loader.load( 
         // model URL
-        'https://ludovickninja.github.io/MTL1.glb', 
+        file, 
 
         // called when the model is loaded
         function ( gltf ) {
