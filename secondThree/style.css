@@ -70,7 +70,7 @@ canvas {
   
 }
 
-.select {
+select {
   padding: 8px 12px;
   color:#202020;
   background-color: #ff0080;
@@ -88,12 +88,12 @@ canvas {
 
 }
 
-.select:focus,
-.select:hover{
+select:focus,
+select:hover{
   outline: none;
   border: 1px solid #ffffff;
 }
 
-.select option{
+select option{
   background: #ffffff;
 }
