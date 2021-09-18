@@ -5,13 +5,6 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/lo
 import { RGBELoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@latest/examples/jsm/utils/RoughnessMipmapper.js';
 
-let model = document.querySelector('h2');
-let select = document.querySelector('select');
-
-select.addEventListener('change', () => {
-	model.innerText = select.value;
-})
-
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
