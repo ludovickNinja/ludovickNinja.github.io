@@ -34,15 +34,13 @@ select.addEventListener('change', () => {
 
 function init(file) {
 
-	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
-	camera.position.set( -0.5, 0.75, 1 );
-  	camera.lookAt( 0, 0, 0 );
-  	//camera.setFocalLength(canvasHeight + canvasWidth);
-  	camera.updateProjectionMatrix;
+	
 
 	scene = new THREE.Scene();
 
-    //Loaders
+    ///
+	/// Set Object / Environment
+	///
 	new RGBELoader()
 	//.setPath( 'textures/equirectangular/' )
 	.load( 
@@ -123,6 +121,18 @@ function init(file) {
 	} 
     );
 
+	///
+	/// Set Camera
+	///
+	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
+	camera.position.set( -0.5, 0.75, 1 );
+  	camera.lookAt(object.getWorldPosition());
+  	//camera.setFocalLength(canvasHeight + canvasWidth);
+  	camera.updateProjectionMatrix;
+
+	///
+	/// Set Renderer
+	///
 	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( canvasWidth, canvasHeight );
@@ -130,7 +140,10 @@ function init(file) {
 	renderer.toneMappingExposure = 1;
 	renderer.outputEncoding = THREE.sRGBEncoding;
 	//container.appendChild( renderer.domElement );
-    
+
+	///
+	/// Set Controls
+	///
   	controls = new OrbitControls( camera, renderer.domElement );
 	controls.addEventListener( 'change', render ); // use if there is no animation loop
   	controls.minDistance = 2;
