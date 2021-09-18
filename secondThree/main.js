@@ -5,11 +5,12 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/lo
 import { RGBELoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@latest/examples/jsm/utils/RoughnessMipmapper.js';
 
-let model = document.querySelector('h2');
+let modelHeader = document.querySelector('h2');
 let select = document.querySelector('select');
 
 select.addEventListener('change', () => {
-	model.innerText = select.value;
+	modelHeader.innerText = select.value;
+	console.log('https://ludovickninja.github.io/' + select.value + '.glb')
 })
 
 let camera, scene, renderer;
