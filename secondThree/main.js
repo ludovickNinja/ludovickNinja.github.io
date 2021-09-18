@@ -34,8 +34,6 @@ select.addEventListener('change', () => {
 
 function init(file) {
 
-	
-
 	scene = new THREE.Scene();
 
     ///
@@ -126,7 +124,8 @@ function init(file) {
 	///
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
-  	camera.lookAt(object.getWorldPosition());
+	camera.lookAt(0, 0, 0);
+  	//camera.lookAt(object.getWorldPosition());
   	//camera.setFocalLength(canvasHeight + canvasWidth);
   	camera.updateProjectionMatrix;
 
