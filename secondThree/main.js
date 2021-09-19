@@ -21,8 +21,16 @@ const canvas = document.querySelector('canvas.webgl')
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
-init(file);
-render();
+select.selectedIndex = 0;
+
+select.addEventListener('change', () => {
+	modelHeader.innerText = select.value;
+	file = 'https://ludovickninja.github.io/' + select.value + '.glb'
+	console.log(file)
+
+	init(file);
+	render();
+});
 
 function init(file) {
 
@@ -151,15 +159,6 @@ function init(file) {
   	controls.update();
     
 	window.addEventListener( 'resize', onWindowResize );
-
-	select.addEventListener('change', () => {
-		modelHeader.innerText = select.value;
-		file = 'https://ludovickninja.github.io/' + select.value + '.glb'
-		console.log(file)
-
-		init(file);
-		render();
-	});
   
 }
 
