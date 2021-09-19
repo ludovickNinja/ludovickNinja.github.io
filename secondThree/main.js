@@ -21,16 +21,8 @@ const canvas = document.querySelector('canvas.webgl')
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
-
-select.addEventListener('change', () => {
-	modelHeader.innerText = select.value;
-	file = 'https://ludovickninja.github.io/' + select.value + '.glb'
-	console.log(file)
-
-	init(file);
-	render();
-})
-
+init(file);
+render();
 
 function init(file) {
 
@@ -83,7 +75,6 @@ function init(file) {
 			console.log(object);
 			//console.log(getObjCenter(object));
 			console.log(object.getCenter());
-  	
 
 			scene.add( object );
 
@@ -160,6 +151,15 @@ function init(file) {
   	controls.update();
     
 	window.addEventListener( 'resize', onWindowResize );
+
+	select.addEventListener('change', () => {
+		modelHeader.innerText = select.value;
+		file = 'https://ludovickninja.github.io/' + select.value + '.glb'
+		console.log(file)
+
+		init(file);
+		render();
+	})
   
 }
 
