@@ -81,7 +81,8 @@ function init(file) {
             object.position.set(0, 0, 0);
 
 			console.log(object);
-			console.log(getObjCenter(object));
+			//console.log(getObjCenter(object));
+			console.log(object.getCenter());
   	
 
 			scene.add( object );
