@@ -29,7 +29,7 @@ h2{
 a {
   display: block;
   max-width: 400px;
-  margin: 0 auto 0px auto;
+  margin: 10px auto 0px auto;
   padding: 10px 20px;
   font-size: 0.95rem;
   background-color: var(--color1);
