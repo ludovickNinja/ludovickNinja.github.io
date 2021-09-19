@@ -125,6 +125,8 @@ function init(file) {
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
 	camera.lookAt(0, 0, 0);
+	console.log(object);
+	console.log(object.center);
   	//camera.lookAt(object.getWorldPosition());
   	//camera.setFocalLength(canvasHeight + canvasWidth);
   	camera.updateProjectionMatrix;
