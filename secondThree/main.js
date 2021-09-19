@@ -81,7 +81,7 @@ function init(file) {
             object.position.set(0, 0, 0);
 
 			console.log(object);
-			console.log(object.center);
+			console.log(getObjCenter(object));
   	
 
 			scene.add( object );
@@ -185,6 +185,19 @@ function render() {
 	renderer.render( scene, camera );
 
 }
+
+function getObjCenter ( object ) {
+
+	const boundingBox = new THREE.Box3();
+
+	// get bounding box of object - this will be used to setup controls and camera
+	boundingBox.setFromObject( object );
+
+	const center = boundingBox.getCenter();
+
+	return center;
+
+} 
 
 function fitCameraToObject ( camera, object, offset, controls ) {
 
