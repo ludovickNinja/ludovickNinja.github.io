@@ -74,7 +74,7 @@ function init(file) {
 
 			console.log(object);
 			//console.log(getObjCenter(object));
-			console.log(object.getCenter());
+			//console.log(object.getCenter());
 
 			scene.add( object );
 
@@ -159,7 +159,7 @@ function init(file) {
 
 		init(file);
 		render();
-	})
+	});
   
 }
 
