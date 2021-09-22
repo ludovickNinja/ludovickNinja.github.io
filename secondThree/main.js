@@ -79,10 +79,12 @@ function init(file) {
 
             object = gltf.scene;
             object.position.set(0, 0, 0);
+			
 
 			console.log(object);
 			//console.log(getObjCenter(object));
 			//console.log(object.getCenter());
+			getObjsCenter(object);
 
 			scene.add( object );
 
@@ -197,6 +199,24 @@ function getObjCenter ( object ) {
 
 	return center;
 
+} 
+
+function getObjsCenter ( object ) {
+
+	for (let i = 0; i < object.children.count; i++)
+	{
+		const boundingBox = new THREE.Box3();
+
+		// get bounding box of object - this will be used to setup controls and camera
+		boundingBox.setFromObject( object.children[i] );
+
+		const center = boundingBox.getCenter();
+
+		console.log(i);
+		console.log(center);
+
+	}
+	
 } 
 
 function fitCameraToObject ( camera, object, offset, controls ) {
