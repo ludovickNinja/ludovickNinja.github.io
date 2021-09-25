@@ -145,6 +145,6 @@ h2 {
 }
 
 .logo:hover{
-    transform: rotateY(180deg);
+    transform: rotateY(360deg);
     width: 150px;
 }
