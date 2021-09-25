@@ -28,7 +28,7 @@ body {
 
 .logo {
     width: 150px;
-    filter: invert(100%) sepia(1%) saturate(7%) hue-rotate(1deg) brightness(105%) contrast(100%);
+    /*filter: invert(100%) sepia(1%) saturate(7%) hue-rotate(1deg) brightness(105%) contrast(100%);*/
 }
 
 a:hover, a.featured:hover {
@@ -148,7 +148,7 @@ img{
     background-color: var(--color1);
     color: var(--color2);
     border: 2px solid var(--color2);
-    border-radius: 26px;
+    border-radius: 50%;
     text-decoration: none;
     -webkit-transition: all 150ms ease-in-out;
     transition: all 150ms ease-in-out;
