@@ -126,7 +126,7 @@ h2 {
         .socials a:hover {
             text-decoration: underline;
         }
-        
+
 .logo {
     width: 150px;
     display: block;
@@ -145,5 +145,6 @@ h2 {
 }
 
 .logo:hover{
-    transform: rotateY(90deg);
+    transform: rotateY(180deg);
+    width: 150px;
 }
