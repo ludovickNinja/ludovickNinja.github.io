@@ -21,7 +21,10 @@ const canvas = document.querySelector('canvas.webgl')
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
-select.selectedIndex = 0;
+window.addEventListener('load', (event) => {
+    init(file);
+	render();
+});
 
 select.addEventListener('change', () => {
 	modelHeader.innerText = select.value;
@@ -77,14 +80,17 @@ function init(file) {
 
 			} );
 
+			const box = new THREE.Box3().setFromObject( gltf.scene );
+			const center = box.getCenter( new THREE.Vector3() );
+
+			gltf.scene.position.x += ( gltf.scene.position.x - center.x );
+			gltf.scene.position.y += ( gltf.scene.position.y - center.y );
+			gltf.scene.position.z += ( gltf.scene.position.z - center.z );
+
             object = gltf.scene;
             object.position.set(0, 0, 0);
 			
-
 			console.log(object);
-			//console.log(getObjCenter(object));
-			//console.log(object.getCenter());
-			getObjsCenter(object);
 
 			scene.add( object );
 
@@ -153,7 +159,7 @@ function init(file) {
 	///
   	controls = new OrbitControls( camera, renderer.domElement );
 	controls.addEventListener( 'change', render ); // use if there is no animation loop
-  	controls.minDistance = 2;
+  	//controls.minDistance = 2;
 	//controls.maxDistance = controls.minDistance;
   	controls.maxDistance = 10;  
 	controls.target.set( 0, 0, 0);
@@ -216,7 +222,6 @@ function getObjsCenter ( object ) {
 		console.log(center);
 
 	}
-	
 } 
 
 function fitCameraToObject ( camera, object, offset, controls ) {
