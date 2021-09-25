@@ -86,12 +86,6 @@ b {
     max-width: 400px;
     margin: 0 auto 15px auto;
     font-size: 0.95rem;
-    /*
-        padding: 15px 20px;
-        background-color: var(--color1);
-        border: 2px solid var(--color2);
-        border-radius: 26px;    
-    */
     color: var(--color2);
     text-decoration: none;
     -webkit-transition: all 150ms ease-in-out;
@@ -137,7 +131,6 @@ h2 {
         .socials a:hover {
             text-decoration: underline;
         }
-/*# sourceMappingURL=style.css.map */
 
 img{
     display: block;
@@ -152,13 +145,4 @@ img{
     text-decoration: none;
     -webkit-transition: all 150ms ease-in-out;
     transition: all 150ms ease-in-out;
-}
-
-.midConsole{
-    z-index: -1;
-    color: #ffffff;
-    height: 100vh;
-    position: absolute;
-    width: 500px;
-    display: block;
 }
