@@ -138,8 +138,8 @@ h2 {
     border: 2px solid var(--color1);
     border-radius: 50%;
     text-decoration: none;
-    -webkit-transition: all 150ms ease-in-out;
-    transition: all 150ms ease-in-out;
+    -webkit-transition: all 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
 
     /*filter: invert(100%) sepia(1%) saturate(7%) hue-rotate(1deg) brightness(105%) contrast(100%);*/
 }
