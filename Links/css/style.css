@@ -146,3 +146,6 @@ img{
     -webkit-transition: all 150ms ease-in-out;
     transition: all 150ms ease-in-out;
 }
+img:hover{
+    transform: rotateY(90);
+}
