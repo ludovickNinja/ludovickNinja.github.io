@@ -145,9 +145,9 @@ img{
     margin: 0 auto 15px auto;
     padding: 15px 20px;
     font-size: 0.95rem;
-    background-color: var(--color1);
+    background-color: var(--color2);
     color: var(--color2);
-    border: 2px solid var(--color2);
+    border: 2px solid var(--color1);
     border-radius: 50%;
     text-decoration: none;
     -webkit-transition: all 150ms ease-in-out;
