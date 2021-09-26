@@ -11,7 +11,7 @@ let select = document.querySelector('select');
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
-let file = 'https://ludovickninja.github.io/Select a Model.glb';
+let file = 'https://ludovickninja.github.io/Model.glb';
 
 const clock = new THREE.Clock()
 
