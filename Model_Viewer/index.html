@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href=".">
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+
+    <title>Model Viewer</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="style.css">
+    
+    <div class="header" id="myHeader" >
+      
+      <h2>Select a Model</h2>
+      
+      <select class="select">
+
+        <option value="Model">Model</option>
+        <option value="MTL">MTL1</option>
+        <option value="MTL1">MTL1</option>
+        <option value="MTL Black">MTL Black</option>
+        <option value="Beveled Edge W65 T22 S105">Beveled Edge W65 T22 S105</option>
+        <option value="Bombe Mid W65 T22 S105">Bombe Mid W65 T22 S105</option>
+        <option value="Bombe W65 T22 S105">Bombe W65 T22 S105</option>
+
+      </select>
+      
+      <a onclick="history.back()">Back</a>
+
+    </div>
+    
+    <div class="square" id="canvasContainer">
+
+      <canvas class="webgl" id="idCanvas"></canvas>
+
+    </div>
+    
+    <script type="module" src="main.js"></script>
+
+  </body>
+</html>
