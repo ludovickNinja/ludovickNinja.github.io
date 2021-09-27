@@ -11,6 +11,7 @@ let select = document.querySelector('select');
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
+const baseURL = 'https://ludovickninja.github.io/';
 let file = 'https://ludovickninja.github.io/Model.glb';
 
 const clock = new THREE.Clock()
@@ -21,14 +22,15 @@ const canvas = document.querySelector('canvas.webgl')
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
-window.addEventListener('load', (event) => {
+window.addEventListener('load', () => {
     init(file);
 	render();
 });
 
 select.addEventListener('change', () => {
 	modelHeader.innerText = select.value;
-	file = 'https://ludovickninja.github.io/' + select.value + '.glb'
+
+	file = baseURL + encodeURIComponent(select.value) + '.glb'
 	console.log(file)
 
 	init(file);
