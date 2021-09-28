@@ -22,8 +22,8 @@ const canvas = document.querySelector('canvas.webgl')
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 */
-canvas = canvasContainer.offsetHeight;
-canvas = canvasContainer.offsetWidth;
+canvasHeight = canvas.offsetHeight;
+canvasWidth = canvas.offsetWidth;
 
 
 init(file);
