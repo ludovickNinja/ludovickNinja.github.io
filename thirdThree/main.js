@@ -52,8 +52,7 @@ function init(file) {
         function ( texture ) {
 		texture.mapping = THREE.EquirectangularReflectionMapping;
 
-		//scene.background = texture;
-        scene.background = new THREE.Color( 0xffffff );
+		scene.background = null;
 		scene.environment = texture;
 
 		render();
