@@ -21,9 +21,6 @@
     </div>
     
     <div id="container">
-
-      <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a><span>Select sources &amp; outputs</span>
-      </h1>
   
       <p>Get available audio, video sources and audio output devices from <code>mediaDevices.enumerateDevices()</code>
           then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.</p>
@@ -41,7 +38,7 @@
           <label for="videoSource">Video source: </label><select id="videoSource"></select>
       </div>
   
-      <div>
+      <div id="canvasContainer">
 
         <video id="video" playsinline autoplay></video>
         <canvas class="webgl" id="idCanvas"></canvas>
