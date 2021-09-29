@@ -54,7 +54,7 @@ function init() {
         //.setPath( 'models/gltf/DamagedHelmet/glTF/' );
 		loader.load( 
         // model URL
-        'https://ludovickninja.github.io/MTL1.glb', 
+        'https://ludovickninja.github.io/MTL%20WG.glb', 
 
         // called when the model is loaded
         function ( gltf ) {
