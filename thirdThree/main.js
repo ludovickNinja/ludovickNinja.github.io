@@ -5,9 +5,6 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/lo
 import { RGBELoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@latest/examples/jsm/utils/RoughnessMipmapper.js';
 
-let modelHeader = document.querySelector('h2');
-let select = document.querySelector('select');
-
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
@@ -128,8 +125,6 @@ function init(file) {
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
 	camera.lookAt(0, 0, 0);
-  	//camera.lookAt(object.getWorldPosition());
-  	//camera.setFocalLength(canvasHeight + canvasWidth);
   	camera.updateProjectionMatrix;
 
 	///
