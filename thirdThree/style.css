@@ -62,12 +62,17 @@ a {
 }
 
 canvas {
-
   height: 100vh;
   max-height: 400px;
   display: block;
   /*background-color: var(--colorTest);*/
-  
+  position: absolute;
+}
+
+#video{
+  position: absolute;
+  justify-content: center;
+  align-content: center;
 }
 
 select {
