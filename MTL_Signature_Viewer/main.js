@@ -51,10 +51,10 @@ function init() {
 		const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
 		const loader = new GLTFLoader()
-        //.setPath( 'models/gltf/DamagedHelmet/glTF/' );
+        .setPath( 'models/' );
 		loader.load( 
         // model URL
-        'https://ludovickninja.github.io/MTL%20WG.glb', 
+        'MTL%20WG.glb', 
 
         // called when the model is loaded
         function ( gltf ) {
