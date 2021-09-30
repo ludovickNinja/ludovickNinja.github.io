@@ -9,7 +9,7 @@ import { RGBELoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/lo
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@latest/examples/jsm/utils/RoughnessMipmapper.js';
 */
 
-import * as THREE from '../three.js-master/build/three.js';
+import * as THREE from '../three.js-master/build/three.module.js';
 
 import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
