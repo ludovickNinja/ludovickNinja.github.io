@@ -1,20 +1,13 @@
 
 
-/*
-import * as THREE from 'https://cdn.skypack.dev/three@latest';
 
-import { OrbitControls } from 'https://cdn.skypack.dev/three@latest/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/loaders/GLTFLoader.js';
-import { RGBELoader } from 'https://cdn.skypack.dev/three@latest/examples/jsm/loaders/RGBELoader.js';
-import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@latest/examples/jsm/utils/RoughnessMipmapper.js';
-*/
+import * as THREE from 'https://cdn.skypack.dev/three@0.132.0';
 
-import * as THREE from '../three.js-master/build/three.module.js';
+import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/GLTFLoader.js';
+import { RGBELoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/RGBELoader.js';
+import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/utils/RoughnessMipmapper.js';
 
-import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
-import { RGBELoader } from '../three.js-master/examples/jsm/loaders/RGBELoader.js';
-import { RoughnessMipmapper } from '../three.js-master/examples/jsm/utils/RoughnessMipmapper.js';
 
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
