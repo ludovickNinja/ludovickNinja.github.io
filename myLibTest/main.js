@@ -20,13 +20,10 @@ canvasWidth = canvas.offsetWidth;
 
 logLog();
 
-init(canvas);
-render(canvas);
+init();
+render();
 
-function init(canvas) {
-
-	canvasHeight = canvas.offsetHeight;
-	canvasWidth = canvas.offsetWidth;
+function init() {
 
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
@@ -135,10 +132,10 @@ function init(canvas) {
   
 }
 
-function onWindowResize(canvas) {
+function onWindowResize() {
 
-  	canvasHeight = canvas.offsetHeight;
-  	canvasWidth = canvas.offsetWidth;
+	canvasHeight = canvas.offsetHeight;
+	canvasWidth = canvas.offsetWidth;
 
   	camera.aspect = canvasWidth / canvasHeight;
   	//camera.setFocalLength(canvasHeight + canvasWidth);
