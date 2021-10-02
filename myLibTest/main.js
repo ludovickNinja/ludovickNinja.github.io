@@ -13,7 +13,7 @@ let object, controls;
 
 const clock = new THREE.Clock()
 
-//const canvas = document.querySelector('canvas.webgl')
+const canvas = document.querySelector('canvas.webgl')
 const canvasContainer = document.querySelector('#canvasContainer')
 
 //canvasHeight = canvas.clientHeight;
