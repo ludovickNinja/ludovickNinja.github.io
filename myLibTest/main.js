@@ -14,9 +14,13 @@ let object, controls;
 const clock = new THREE.Clock()
 
 const canvas = document.querySelector('canvas.webgl')
+//const canvas = document.querySelector('canvas.webgl')
 
-canvasHeight = canvas.offsetHeight;
-canvasWidth = canvas.offsetWidth;
+//canvasHeight = canvas.offsetHeight;
+//canvasWidth = canvas.offsetWidth;
+
+canvasHeight = canvas.clientHeight;
+canvasWidth = canvas.clientWidth;
 
 logLog();
 
@@ -134,8 +138,11 @@ function init() {
 
 function onWindowResize() {
 
-	canvasHeight = canvas.offsetHeight;
-	canvasWidth = canvas.offsetWidth;
+	//canvasHeight = canvas.offsetHeight;
+	//canvasWidth = canvas.offsetWidth;
+
+	canvasHeight = canvas.clientHeight;
+	canvasWidth = canvas.clientWidth;
 
   	camera.aspect = canvasWidth / canvasHeight;
   	//camera.setFocalLength(canvasHeight + canvasWidth);
