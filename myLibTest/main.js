@@ -29,8 +29,6 @@ logLog();
 init();
 render();
 
-
-
 function init() {
 
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 0.1, 2000 );
