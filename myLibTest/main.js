@@ -160,3 +160,12 @@ function render() {
 	renderer.render( scene, camera );
 
 }
+
+function TopView(){
+	camera.position.set( -0.5, 0.75, 1 );
+  	camera.lookAt( 0, 0, 0 );
+  	camera.updateProjectionMatrix;
+
+	// Render
+	render();
+} 
