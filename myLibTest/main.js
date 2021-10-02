@@ -15,8 +15,8 @@ const clock = new THREE.Clock()
 
 const canvas = document.querySelector('canvas.webgl')
 
-canvasHeight = canvasContainer.offsetHeight;
-canvasWidth = canvasContainer.offsetWidth;
+canvasHeight = canvas.offsetHeight;
+canvasWidth = canvas.offsetWidth;
 
 logLog();
 
