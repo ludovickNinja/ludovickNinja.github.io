@@ -9,7 +9,7 @@ import { logLog } from '../lib/myThreeJSlib.js';
 
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
-let object, controls;
+//let controls;
 
 const clock = new THREE.Clock()
 
@@ -73,7 +73,7 @@ function init() {
 
 			} );
 
-            object = gltf.scene;
+            let object = gltf.scene;
             object.position.set(0, 0, 0);
 
 			scene.add( object );
@@ -122,7 +122,7 @@ function init() {
 	renderer.toneMappingExposure = 1;
 	renderer.outputEncoding = THREE.sRGBEncoding;
     
-  	controls = new OrbitControls( camera, renderer.domElement );
+  	let controls = new OrbitControls( camera, renderer.domElement );
 	controls.addEventListener( 'change', render ); // use if there is no animation loop
   	controls.minDistance = 2;
 	//controls.maxDistance = controls.minDistance;
