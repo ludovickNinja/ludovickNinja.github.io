@@ -15,6 +15,9 @@ const clock = new THREE.Clock()
 
 const canvas = document.querySelector('canvas.webgl')
 const canvasContainer = document.querySelector('#canvasContainer')
+const topViewButton = document.querySelector('topView');
+
+topViewButton.addEventListener("click", TopView());
 
 //canvasHeight = canvas.clientHeight;
 //canvasWidth = canvas.clientWidth;
@@ -25,6 +28,8 @@ logLog();
 
 init();
 render();
+
+
 
 function init() {
 
