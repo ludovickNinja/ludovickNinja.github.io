@@ -5,6 +5,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/l
 import { RGBELoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/utils/RoughnessMipmapper.js';
 
+import { logLog } from '../lib/myThreeJSlib.js';
 
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
