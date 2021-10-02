@@ -166,9 +166,11 @@ function render() {
 
 }
 
-function TopView(){
-	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 0.1, 2000 );
-	camera.position.set( -0.5, 0.75, 1 );
+function TopView() {
+
+	init();
+
+	camera.position.set( 0, 0, 1 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
 
