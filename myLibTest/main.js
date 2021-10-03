@@ -170,6 +170,22 @@ function TopView() {
 	console.log('init');
 	console.log(camera);
 
+	camera.position.set( 0, -1, 0 );
+  	camera.lookAt( 0, 0, 0 );
+  	camera.updateProjectionMatrix;
+	console.log(camera);
+
+	// Render
+	render();
+	console.log('Render');
+} 
+
+function FrontView() {
+
+	init();
+	console.log('init');
+	console.log(camera);
+
 	camera.position.set( 0, 0, 1 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
