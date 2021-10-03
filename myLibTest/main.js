@@ -15,7 +15,7 @@ const clock = new THREE.Clock()
 
 const canvas = document.querySelector('canvas.webgl')
 const canvasContainer = document.querySelector('#canvasContainer')
-const topViewButton = document.querySelector('button.topView');
+const topViewButton = document.querySelector('#TopView');
 
 topViewButton.addEventListener("click", TopView());
 
