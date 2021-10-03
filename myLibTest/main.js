@@ -17,7 +17,7 @@ const canvas = document.querySelector('canvas.webgl')
 const canvasContainer = document.querySelector('#canvasContainer')
 const topViewButton = document.querySelector('#TopView');
 
-topViewButton.addEventListener("click", TopView());
+topViewButton.addEventListener("click", TopView);
 
 //canvasHeight = canvas.clientHeight;
 //canvasWidth = canvas.clientWidth;
