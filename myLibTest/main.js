@@ -16,8 +16,10 @@ const clock = new THREE.Clock()
 const canvas = document.querySelector('canvas.webgl')
 const canvasContainer = document.querySelector('#canvasContainer')
 const topViewButton = document.querySelector('#TopView');
+const frontViewButton = document.querySelector('#FrontView');
 
 topViewButton.addEventListener("click", TopView);
+frontViewButton.addEventListener("click", FrontView);
 
 //canvasHeight = canvas.clientHeight;
 //canvasWidth = canvas.clientWidth;
@@ -181,10 +183,6 @@ function TopView() {
 } 
 
 function FrontView() {
-
-	init();
-	console.log('init');
-	console.log(camera);
 
 	camera.position.set( 0, 0, 1 );
   	camera.lookAt( 0, 0, 0 );
