@@ -148,7 +148,7 @@ function init() {
 	///
 	/// Set Renderer
 	///
-	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas, preserveDrawingBuffer: true } );
+	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( canvasWidth, canvasHeight );
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
