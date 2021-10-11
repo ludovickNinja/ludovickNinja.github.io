@@ -7,6 +7,8 @@ import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/exampl
 
 import { logLog } from '../lib/myThreeJSlib.js';
 
+let file = 'https://ludovickninja.github.io/Model.glb';
+
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 //let controls;
@@ -31,16 +33,13 @@ logLog();
 init();
 render();
 
-function init() {
-
-	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 0.1, 2000 );
-	camera.position.set( -0.5, 0.75, 1 );
-  	camera.lookAt( 0, 0, 0 );
-  	camera.updateProjectionMatrix;
+function init(file) {
 
 	scene = new THREE.Scene();
 
-    //Loaders
+    ///
+	/// Set Object / Environment
+	///
 	new RGBELoader()
 	//.setPath( 'textures/equirectangular/' )
 	.load( 
@@ -51,6 +50,7 @@ function init() {
         function ( texture ) {
 		texture.mapping = THREE.EquirectangularReflectionMapping;
 
+		//scene.background = texture;
         scene.background = new THREE.Color( 0xffffff );
 		scene.environment = texture;
 
@@ -60,10 +60,10 @@ function init() {
 		const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
 		const loader = new GLTFLoader()
-        .setPath( '../models/' );
+        //.setPath( 'models/gltf/DamagedHelmet/glTF/' );
 		loader.load( 
         // model URL
-        'Model.glb', 
+        file, 
 
         // called when the model is loaded
         function ( gltf ) {
@@ -129,16 +129,35 @@ function init() {
 	} 
     );
 
+	///
+	/// Set Camera
+	///
+	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
+	camera.position.set( -0.5, 0.75, 1 );
+	camera.lookAt(0, 0, 0);
+	//console.log(object);
+	//console.log(object.center);
+  	//camera.lookAt(object.getWorldPosition());
+  	//camera.setFocalLength(canvasHeight + canvasWidth);
+  	camera.updateProjectionMatrix;
+
+	///
+	/// Set Renderer
+	///
 	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( canvasWidth, canvasHeight );
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
 	renderer.toneMappingExposure = 1;
 	renderer.outputEncoding = THREE.sRGBEncoding;
-    
-  	let controls = new OrbitControls( camera, renderer.domElement );
+	//container.appendChild( renderer.domElement );
+
+	///
+	/// Set Controls
+	///
+  	controls = new OrbitControls( camera, renderer.domElement );
 	controls.addEventListener( 'change', render ); // use if there is no animation loop
-  	controls.minDistance = 2;
+  	//controls.minDistance = 2;
 	//controls.maxDistance = controls.minDistance;
   	controls.maxDistance = 10;  
 	controls.target.set( 0, 0, 0);
