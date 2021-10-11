@@ -80,7 +80,7 @@ function init() {
 
 			const box = new THREE.Box3().setFromObject( object );
 			const center = box.getCenter( new THREE.Vector3() );
-			const size = box.getSize();
+			const size = box.getSize( new THREE.Vector3() );
 			const maxDim = Math.max( size.x, size.y, size.z );
 			console.log( size );
 			console.log( maxDim );
