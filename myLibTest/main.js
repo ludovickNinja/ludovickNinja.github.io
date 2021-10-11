@@ -82,6 +82,7 @@ function init() {
 
 			const box = new THREE.Box3().setFromObject( object );
 			const center = box.getCenter( new THREE.Vector3() );
+			console.log(box.getSize());
 
 			object.position.x += ( object.position.x - center.x );
 			object.position.y += ( object.position.y - center.y );
@@ -160,8 +161,6 @@ function init() {
   	controls.update();
     
 	window.addEventListener( 'resize', onWindowResize );
-
-	fitCameraToObject ( camera, object, 5, controls );  
 }
 
 function onWindowResize() {
@@ -201,13 +200,9 @@ function SetTopView() {
   	camera.updateProjectionMatrix;
 	console.log(camera);
 
-	fitCameraToObject ( camera, object, 5, controls );  
-
 	// Render
 	render();
 	console.log('Render');
-
-
 } 
 
 function SetFrontView() {
@@ -220,8 +215,6 @@ function SetFrontView() {
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
 	console.log(camera);
-
-	fitCameraToObject ( camera, object, 5, controls );  
 
 	// Render
 	render();
@@ -238,8 +231,6 @@ function SetPerspectiveView() {
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
 	console.log(camera);
-
-	fitCameraToObject ( camera, object, 5, controls );  
 
 	// Render
 	render();
