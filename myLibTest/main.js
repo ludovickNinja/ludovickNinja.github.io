@@ -148,7 +148,7 @@ function init() {
 	///
 	/// Set Renderer
 	///
-	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas } );
+	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas, preserveDrawingBuffer: true } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( canvasWidth, canvasHeight );
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -199,6 +199,7 @@ function render() {
 
 function SetTopView() {
 
+	renderer.clear();
 	init();
 	console.log('init');
 	console.log( camera );
