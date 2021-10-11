@@ -21,9 +21,9 @@ const topViewButton = document.querySelector('#TopView');
 const frontViewButton = document.querySelector('#FrontView');
 const perspectiveViewButton = document.querySelector('#FrontView');
 
-topViewButton.addEventListener("click", TopView);
-frontViewButton.addEventListener("click", FrontView);
-perspectiveViewButton.addEventListener("click", PerspectiveView);
+topViewButton.addEventListener("click", SetTopView);
+frontViewButton.addEventListener("click", SetFrontView);
+perspectiveViewButton.addEventListener("click", SetPerspectiveView);
 
 //canvasHeight = canvas.clientHeight;
 //canvasWidth = canvas.clientWidth;
@@ -196,7 +196,7 @@ function render() {
 
 }
 
-function TopView() {
+function SetTopView() {
 
 	init();
 	console.log('init');
@@ -212,7 +212,7 @@ function TopView() {
 	console.log('Render');
 } 
 
-function FrontView() {
+function SetFrontView() {
 
 	camera.position.set( 0, 0, 1 );
   	camera.lookAt( 0, 0, 0 );
@@ -224,7 +224,7 @@ function FrontView() {
 	console.log('Render');
 } 
 
-function PerspectiveView() {
+function SetPerspectiveView() {
 
 	camera.position.set( -0.5, 0.75, 1 );
   	camera.lookAt( 0, 0, 0 );
