@@ -11,7 +11,7 @@ let file = 'https://ludovickninja.github.io/Model.glb';
 
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
-//let controls;
+let controls;
 
 const clock = new THREE.Clock()
 
