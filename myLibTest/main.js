@@ -85,7 +85,7 @@ function init() {
 			gltf.scene.position.y += ( gltf.scene.position.y - center.y );
 			gltf.scene.position.z += ( gltf.scene.position.z - center.z );
 
-            object = gltf.scene;
+            let object = gltf.scene;
 			
 			console.log(object);
 			console.log(object.position);
@@ -93,7 +93,7 @@ function init() {
 			scene.add( object );
 
             const tick = () =>	{
-				
+
                 const elapsedTime = clock.getElapsedTime()
             
                 // Update objects
