@@ -2,7 +2,7 @@
 const captureControlButton = document.querySelector('#CaptureControl');
 const canvas = document.querySelector('canvas.webgl');
 
-turntableControlButton.addEventListener("click", Capture);
+captureControlButton.addEventListener("click", Capture);
 
 function Capture() {
     /*
