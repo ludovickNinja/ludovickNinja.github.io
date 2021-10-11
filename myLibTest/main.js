@@ -19,10 +19,12 @@ const canvasContainer = document.querySelector('#canvasContainer')
 const topViewButton = document.querySelector('#TopView');
 const frontViewButton = document.querySelector('#FrontView');
 const perspectiveViewButton = document.querySelector('#PerspectiveView');
+const turntableControlButton = document.querySelector('#TurntableControl');
 
 topViewButton.addEventListener("click", SetTopView);
 frontViewButton.addEventListener("click", SetFrontView);
 perspectiveViewButton.addEventListener("click", SetPerspectiveView);
+turntableControlButton.addEventListener("click", SetPerspectiveView);
 
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
@@ -97,24 +99,24 @@ function init() {
 
             const tick = () =>	{
 
-                const elapsedTime = clock.getElapsedTime()
+                const elapsedTime = clock.getElapsedTime();
             
                 // Update objects
-                object.rotation.y = .5 * elapsedTime
+                if(turnTable) object.rotation.y = .5 * elapsedTime;
 
                 // Update Orbital Controls
-                controls.update()
+                controls.update();
             
                 // Render
                 render();
             
                 // Call tick again on the next frame
-                window.requestAnimationFrame(tick)
+                window.requestAnimationFrame(tick);
             }
                         
 			roughnessMipmapper.dispose();
 
-            if(turnTable)tick();
+            tick();
 		},
         
         function ( xhr ) {
@@ -237,6 +239,16 @@ function SetPerspectiveView() {
 	// Render
 	render();
 	console.log( 'Render' );
+} 
+
+function ToggleTurnTable() {
+
+	if (turnTable){
+		turnTable = false;
+	}
+	else if (!turnTable){
+		turnTable = true;
+	}
 } 
 
 function fitCameraToObject ( camera, object, offset, controls ) {
