@@ -202,12 +202,13 @@ function SetTopView() {
 	renderer.clear();
 	init();
 	console.log('init');
-	console.log( camera );
+	console.log( 'OG Camera' + camera );
 
 	camera.position.set( 0, -1.25, 0 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
-	console.log( camera );
+	console.log( 'New Camera' + camera );
+
 
 	// Render
 	render();
@@ -216,14 +217,12 @@ function SetTopView() {
 
 function SetFrontView() {
 
-	init();
-	console.log( 'init' );
-	console.log( camera );
+	console.log( 'OG Camera' + camera );
 
 	camera.position.set( 0, 0, 1.25 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
-	console.log( camera );
+	console.log( 'New Camera' + camera );
 
 	// Render
 	render();
