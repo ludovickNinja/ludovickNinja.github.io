@@ -245,11 +245,11 @@ function ToggleTurnTable() {
 
 	if (turnTable){
 		turnTable = false;
-		turntableControlButton.value = 'Turn Table : Off'
+		turntableControlButton.innerHTML = 'Turn Table : Off'
 	}
 	else if (!turnTable){
 		turnTable = true;
-		turntableControlButton.value = 'Turn Table : On'
+		turntableControlButton.innerHTML = 'Turn Table : On'
 	}
 } 
 
