@@ -71,6 +71,6 @@ canvas {
   background-color: var(--colorTest);
 }
 
-#controls {
+#viewControls {
   padding: 10px 16px;
 }

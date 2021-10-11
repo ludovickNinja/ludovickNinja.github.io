@@ -10,6 +10,7 @@ import { logLog } from '../lib/myThreeJSlib.js';
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let controls, object;
+let turnTable = true;
 
 const clock = new THREE.Clock()
 
@@ -113,7 +114,7 @@ function init() {
                         
 			roughnessMipmapper.dispose();
 
-            tick()
+            if(turnTable)tick();
 		},
         
         function ( xhr ) {
