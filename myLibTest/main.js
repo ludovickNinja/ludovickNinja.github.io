@@ -78,14 +78,14 @@ function init() {
 
 			} );
 
-			const box = new THREE.Box3().setFromObject( gltf.scene );
+            let object = gltf.scene;
+
+			const box = new THREE.Box3().setFromObject( object );
 			const center = box.getCenter( new THREE.Vector3() );
 
-			gltf.scene.position.x += ( gltf.scene.position.x - center.x );
-			gltf.scene.position.y += ( gltf.scene.position.y - center.y );
-			gltf.scene.position.z += ( gltf.scene.position.z - center.z );
-
-            let object = gltf.scene;
+			object.position.x += ( object.position.x - center.x );
+			object.position.y += ( object.position.y - center.y );
+			object.position.z += ( object.position.z - center.z );
 			
 			console.log(object);
 			console.log(object.position);
@@ -133,8 +133,8 @@ function init() {
 	///
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
-	camera.lookAt(0, 0, 0);
-  	camera.updateProjectionMatrix;
+	camera.lookAt(0, 0, 0);  	
+	camera.updateProjectionMatrix;
 
 	///
 	/// Set Renderer
@@ -160,7 +160,8 @@ function init() {
   	controls.update();
     
 	window.addEventListener( 'resize', onWindowResize );
-  
+
+	fitCameraToObject ( camera, object, 5, controls );  
 }
 
 function onWindowResize() {
@@ -195,14 +196,18 @@ function SetTopView() {
 	console.log('init');
 	console.log(camera);
 
-	camera.position.set( 0, -2, 0 );
+	camera.position.set( 0, -1.25, 0 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
 	console.log(camera);
 
+	fitCameraToObject ( camera, object, 5, controls );  
+
 	// Render
 	render();
 	console.log('Render');
+
+
 } 
 
 function SetFrontView() {
@@ -211,10 +216,12 @@ function SetFrontView() {
 	console.log('init');
 	console.log(camera);
 
-	camera.position.set( 0, 0, 1 );
+	camera.position.set( 0, 0, 1.25 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
 	console.log(camera);
+
+	fitCameraToObject ( camera, object, 5, controls );  
 
 	// Render
 	render();
@@ -232,7 +239,67 @@ function SetPerspectiveView() {
   	camera.updateProjectionMatrix;
 	console.log(camera);
 
+	fitCameraToObject ( camera, object, 5, controls );  
+
 	// Render
 	render();
 	console.log('Render');
 } 
+
+function fitCameraToObject ( camera, object, offset, controls ) {
+
+	offset = offset || 5;
+
+	const boundingBox = new THREE.Box3();
+
+	// get bounding box of object - this will be used to setup controls and camera
+	boundingBox.setFromObject( object );
+
+	const center = boundingBox.getCenter();
+
+	const size = boundingBox.getSize();
+
+	// get the max side of the bounding box (fits to width OR height as needed )
+	const maxDim = Math.max( size.x, size.y, size.z );
+	const fov = camera.fov * ( Math.PI / 180 );
+	let cameraZ = Math.abs( maxDim / 2 * Math.tan( fov * 2 ) ); //Applied fifonik correction
+
+	cameraZ *= offset; // zoom out a little so that objects don't fill the screen
+
+	// <--- NEW CODE
+	//Method 1 to get object's world position
+	scene.updateMatrixWorld(); //Update world positions
+	var objectWorldPosition = new THREE.Vector3();
+	objectWorldPosition.setFromMatrixPosition( object.matrixWorld );
+	
+	//Method 2 to get object's world position
+	//objectWorldPosition = object.getWorldPosition();
+
+	const directionVector = camera.position.sub(objectWorldPosition); 	//Get vector from camera to object
+	const unitDirectionVector = directionVector.normalize(); // Convert to unit vector
+	camera.position = unitDirectionVector.multiplyScalar(cameraZ); //Multiply unit vector times cameraZ distance
+	camera.lookAt(objectWorldPosition); //Look at object
+	// --->
+
+	const minZ = boundingBox.min.z;
+	const cameraToFarEdge = ( minZ < 0 ) ? -minZ + cameraZ : cameraZ - minZ;
+
+	camera.far = cameraToFarEdge * 4;
+	camera.updateProjectionMatrix();
+
+	if ( controls ) {
+
+	  // set camera to rotate around center of loaded object
+	  controls.target = center;
+
+	  // prevent camera from zooming out far enough to create far plane cutoff
+	  controls.maxDistance = cameraToFarEdge * 2;
+
+	  controls.saveState();
+
+	} else {
+
+		camera.lookAt( center )
+
+   }
+}
