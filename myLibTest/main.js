@@ -14,8 +14,8 @@ let turnTable = true;
 
 const clock = new THREE.Clock()
 
-const canvas = document.querySelector('canvas.webgl')
-const canvasContainer = document.querySelector('#canvasContainer')
+const canvas = document.querySelector('canvas.webgl');
+const canvasContainer = document.querySelector('#canvasContainer');
 const topViewButton = document.querySelector('#TopView');
 const frontViewButton = document.querySelector('#FrontView');
 const perspectiveViewButton = document.querySelector('#PerspectiveView');
@@ -102,7 +102,7 @@ function init() {
                 const elapsedTime = clock.getElapsedTime();
             
                 // Update objects
-                object.rotation.y = .5 * elapsedTime;
+                if(turnTable) object.rotation.y = .5 * elapsedTime;
 
                 // Update Orbital Controls
                 controls.update();
@@ -116,7 +116,7 @@ function init() {
                         
 			roughnessMipmapper.dispose();
 
-            if(turnTable) tick();
+            tick();
 		},
         
         function ( xhr ) {
