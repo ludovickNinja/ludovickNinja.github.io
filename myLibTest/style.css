@@ -62,7 +62,6 @@ a {
 }
 
 canvas {
-
   height: 100vh;
   max-height: 400px;
   display: flex;
@@ -70,5 +69,8 @@ canvas {
 
   justify-content: center;
   background-color: var(--colorTest);
-  
+}
+
+#controls {
+  padding: 10px 16px;
 }
