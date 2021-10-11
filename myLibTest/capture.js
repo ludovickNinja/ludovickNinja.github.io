@@ -1,8 +1,10 @@
-
-const captureControlButton = document.querySelector('#CaptureControl');
 const canvas = document.querySelector('canvas.webgl');
 
-captureControlButton.addEventListener("click", Capture);
+
+
+
+
+
 
 function Capture() {
     /*

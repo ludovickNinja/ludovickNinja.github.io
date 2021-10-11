@@ -11,6 +11,7 @@ let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let controls, object;
 let turnTable = true;
+var strDownloadMime = "image/octet-stream";
 
 const clock = new THREE.Clock()
 
@@ -25,6 +26,9 @@ topViewButton.addEventListener("click", SetTopView);
 frontViewButton.addEventListener("click", SetFrontView);
 perspectiveViewButton.addEventListener("click", SetPerspectiveView);
 turntableControlButton.addEventListener("click", ToggleTurnTable);
+
+const captureControlButton = document.querySelector('#CaptureControl');
+captureControlButton.addEventListener("click", saveAsImage);
 
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
@@ -144,7 +148,7 @@ function init() {
 	///
 	/// Set Renderer
 	///
-	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas } );
+	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas, preserveDrawingBuffer: true } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( canvasWidth, canvasHeight );
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -309,4 +313,33 @@ function fitCameraToObject ( camera, object, offset, controls ) {
 		camera.lookAt( center )
 
    }
+}
+
+function saveAsImage() {
+	var imgData, imgNode;
+
+	try {
+		var strMime = "image/jpeg";
+		imgData = renderer.domElement.toDataURL(strMime);
+
+		saveFile(imgData.replace(strMime, strDownloadMime), "test.jpg");
+
+	} catch (e) {
+		console.log(e);
+		return;
+	}
+
+}
+
+var saveFile = function (strData, filename) {
+	var link = document.createElement('a');
+	if (typeof link.download === 'string') {
+		document.body.appendChild(link); //Firefox requires the link to be in the body
+		link.download = filename;
+		link.href = strData;
+		link.click();
+		document.body.removeChild(link); //remove the link when done
+	} else {
+		location.replace(uri);
+	}
 }
