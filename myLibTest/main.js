@@ -24,7 +24,7 @@ const turntableControlButton = document.querySelector('#TurntableControl');
 topViewButton.addEventListener("click", SetTopView);
 frontViewButton.addEventListener("click", SetFrontView);
 perspectiveViewButton.addEventListener("click", SetPerspectiveView);
-turntableControlButton.addEventListener("click", SetPerspectiveView);
+turntableControlButton.addEventListener("click", ToggleTurnTable);
 
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
