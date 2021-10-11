@@ -17,7 +17,7 @@ const canvas = document.querySelector('canvas.webgl')
 const canvasContainer = document.querySelector('#canvasContainer')
 const topViewButton = document.querySelector('#TopView');
 const frontViewButton = document.querySelector('#FrontView');
-const perspectiveViewButton = document.querySelector('#FrontView');
+const perspectiveViewButton = document.querySelector('#PerspectiveView');
 
 topViewButton.addEventListener("click", SetTopView);
 frontViewButton.addEventListener("click", SetFrontView);
@@ -195,7 +195,7 @@ function SetTopView() {
 	console.log('init');
 	console.log(camera);
 
-	camera.position.set( 0, -1, 0 );
+	camera.position.set( 0, -2, 0 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
 	console.log(camera);
@@ -206,6 +206,10 @@ function SetTopView() {
 } 
 
 function SetFrontView() {
+
+	init();
+	console.log('init');
+	console.log(camera);
 
 	camera.position.set( 0, 0, 1 );
   	camera.lookAt( 0, 0, 0 );
@@ -218,6 +222,10 @@ function SetFrontView() {
 } 
 
 function SetPerspectiveView() {
+
+	init();
+	console.log('init');
+	console.log(camera);
 
 	camera.position.set( -0.5, 0.75, 1 );
   	camera.lookAt( 0, 0, 0 );
