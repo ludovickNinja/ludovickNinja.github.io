@@ -41,10 +41,10 @@ function init() {
 	/// Set Object / Environment
 	///
 	new RGBELoader()
-	//.setPath( 'textures/equirectangular/' )
+	.setPath( '../assets/environment/' )
 	.load( 
         // resource URL
-        'https://ludovickninja.github.io/Studio.hdr',
+        'Studio.hdr',
 
         // called when the resource is loaded
         function ( texture ) {
@@ -92,9 +92,8 @@ function init() {
 
 			scene.add( object );
 
-            const tick = () =>
-            {
-            
+            const tick = () =>	{
+				
                 const elapsedTime = clock.getElapsedTime()
             
                 // Update objects
@@ -135,10 +134,6 @@ function init() {
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
 	camera.lookAt(0, 0, 0);
-	//console.log(object);
-	//console.log(object.center);
-  	//camera.lookAt(object.getWorldPosition());
-  	//camera.setFocalLength(canvasHeight + canvasWidth);
   	camera.updateProjectionMatrix;
 
 	///
