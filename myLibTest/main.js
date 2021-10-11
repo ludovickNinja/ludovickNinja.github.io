@@ -80,7 +80,10 @@ function init() {
 
 			const box = new THREE.Box3().setFromObject( object );
 			const center = box.getCenter( new THREE.Vector3() );
-			console.log( box.getSize() );
+			const size = box.getSize();
+			const maxDim = Math.max( size.x, size.y, size.z );
+			console.log( size );
+			console.log( maxDim );
 
 			object.position.x += ( object.position.x - center.x );
 			object.position.y += ( object.position.y - center.y );
@@ -132,7 +135,7 @@ function init() {
 	///
 	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
 	camera.position.set( -0.5, 0.75, 1 );
-	camera.lookAt(0, 0, 0);  	
+	camera.lookAt( 0, 0, 0 );  	
 	camera.updateProjectionMatrix;
 
 	///
@@ -154,7 +157,7 @@ function init() {
   	//controls.minDistance = 2;
 	//controls.maxDistance = controls.minDistance;
   	controls.maxDistance = 10;  
-	controls.target.set( 0, 0, 0);
+	controls.target.set( 0, 0, 0 );
   	controls.enableDamping = true
   	controls.update();
     
