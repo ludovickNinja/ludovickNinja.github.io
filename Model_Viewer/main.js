@@ -90,7 +90,6 @@ function init(file) {
 			gltf.scene.position.z += ( gltf.scene.position.z - center.z );
 
             object = gltf.scene;
-            //object.position.set(0, 0, 0);
 			
 			console.log(object);
 			console.log(object.position);

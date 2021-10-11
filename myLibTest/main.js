@@ -78,8 +78,17 @@ function init() {
 
 			} );
 
-            let object = gltf.scene;
-            object.position.set(0, 0, 0);
+			const box = new THREE.Box3().setFromObject( gltf.scene );
+			const center = box.getCenter( new THREE.Vector3() );
+
+			gltf.scene.position.x += ( gltf.scene.position.x - center.x );
+			gltf.scene.position.y += ( gltf.scene.position.y - center.y );
+			gltf.scene.position.z += ( gltf.scene.position.z - center.z );
+
+            object = gltf.scene;
+			
+			console.log(object);
+			console.log(object.position);
 
 			scene.add( object );
 
