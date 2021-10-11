@@ -102,7 +102,7 @@ function init() {
                 const elapsedTime = clock.getElapsedTime();
             
                 // Update objects
-                if(turnTable) object.rotation.y = .5 * elapsedTime;
+                object.rotation.y = .5 * elapsedTime;
 
                 // Update Orbital Controls
                 controls.update();
@@ -116,7 +116,7 @@ function init() {
                         
 			roughnessMipmapper.dispose();
 
-            tick();
+            if(turnTable) tick();
 		},
         
         function ( xhr ) {
