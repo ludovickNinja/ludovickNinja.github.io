@@ -7,8 +7,6 @@ import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/exampl
 
 import { logLog } from '../lib/myThreeJSlib.js';
 
-let file = 'https://ludovickninja.github.io/Model.glb';
-
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let controls;
@@ -35,7 +33,7 @@ logLog();
 init();
 render();
 
-function init(file) {
+function init() {
 
 	scene = new THREE.Scene();
 
@@ -62,10 +60,10 @@ function init(file) {
 		const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
 		const loader = new GLTFLoader()
-        //.setPath( 'models/gltf/DamagedHelmet/glTF/' );
+        .setPath( '../models/' );
 		loader.load( 
         // model URL
-        file, 
+        'Model.glb', 
 
         // called when the model is loaded
         function ( gltf ) {
