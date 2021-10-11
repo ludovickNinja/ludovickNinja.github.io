@@ -9,7 +9,7 @@ import { logLog } from '../lib/myThreeJSlib.js';
 
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
-let controls;
+let controls, object;
 
 const clock = new THREE.Clock()
 
@@ -23,8 +23,6 @@ topViewButton.addEventListener("click", SetTopView);
 frontViewButton.addEventListener("click", SetFrontView);
 perspectiveViewButton.addEventListener("click", SetPerspectiveView);
 
-//canvasHeight = canvas.clientHeight;
-//canvasWidth = canvas.clientWidth;
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
@@ -78,18 +76,18 @@ function init() {
 
 			} );
 
-            let object = gltf.scene;
+            object = gltf.scene;
 
 			const box = new THREE.Box3().setFromObject( object );
 			const center = box.getCenter( new THREE.Vector3() );
-			console.log(box.getSize());
+			console.log( box.getSize() );
 
 			object.position.x += ( object.position.x - center.x );
 			object.position.y += ( object.position.y - center.y );
 			object.position.z += ( object.position.z - center.z );
 			
-			console.log(object);
-			console.log(object.position);
+			console.log( object );
+			console.log( object.position );
 
 			scene.add( object );
 
@@ -193,48 +191,48 @@ function SetTopView() {
 
 	init();
 	console.log('init');
-	console.log(camera);
+	console.log( camera );
 
 	camera.position.set( 0, -1.25, 0 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
-	console.log(camera);
+	console.log( camera );
 
 	// Render
 	render();
-	console.log('Render');
+	console.log( 'Render' );
 } 
 
 function SetFrontView() {
 
 	init();
-	console.log('init');
-	console.log(camera);
+	console.log( 'init' );
+	console.log( camera );
 
 	camera.position.set( 0, 0, 1.25 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
-	console.log(camera);
+	console.log( camera );
 
 	// Render
 	render();
-	console.log('Render');
+	console.log( 'Render' );
 } 
 
 function SetPerspectiveView() {
 
 	init();
-	console.log('init');
-	console.log(camera);
+	console.log( 'init' );
+	console.log( camera );
 
 	camera.position.set( -0.5, 0.75, 1 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
-	console.log(camera);
+	console.log( camera );
 
 	// Render
 	render();
-	console.log('Render');
+	console.log( 'Render' );
 } 
 
 function fitCameraToObject ( camera, object, offset, controls ) {
