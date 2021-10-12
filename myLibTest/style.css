@@ -88,7 +88,11 @@ canvas {
   border: 2.5px solid var(--color1);
   border-radius: 35%;
   -webkit-transition: all 500ms ease-in-out;
-  transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out; 
+}
+
+#cameraContainer:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 #viewControls {
