@@ -17,6 +17,8 @@ const clock = new THREE.Clock()
 
 const canvas = document.querySelector('canvas.webgl');
 const canvasContainer = document.querySelector('#canvasContainer');
+
+/*
 const topViewButton = document.querySelector('#TopView');
 const frontViewButton = document.querySelector('#FrontView');
 const perspectiveViewButton = document.querySelector('#PerspectiveView');
@@ -26,7 +28,7 @@ topViewButton.addEventListener("click", SetTopView);
 frontViewButton.addEventListener("click", SetFrontView);
 perspectiveViewButton.addEventListener("click", SetPerspectiveView);
 turntableControlButton.addEventListener("click", ToggleTurnTable);
-
+*/
 const captureControlButton = document.querySelector('.CaptureButton');
 captureControlButton.addEventListener("click", saveAsImage);
 
@@ -45,19 +47,7 @@ ctrls.forEach(function (btn) {
 			console.log("perspectiveView");
 			SetPerspectiveView();
 		} else {
-
-			/*
-			if (turnTable){
-				turnTable = false;
-				e.currentTarget.innerHTML = 'Turn Table : Off'
-			}
-			else if (!turnTable){
-				turnTable = true;
-				e.currentTarget.innerHTML = 'Turn Table : On'
-			}
-			*/
-
-			ToggleTurnTable1(e.currentTarget);
+			ToggleTurnTable(e.currentTarget);
 			console.log("test function");
 		}
 		});
@@ -277,7 +267,7 @@ function SetPerspectiveView() {
 	render();
 	console.log( 'Render' );
 } 
-
+/*
 function ToggleTurnTable() {
 
 	if (turnTable){
@@ -288,8 +278,8 @@ function ToggleTurnTable() {
 		turnTable = true;
 		turntableControlButton.innerHTML = 'Turn Table : On'
 	}
-} 
-function ToggleTurnTable1(btn) {
+} */
+function ToggleTurnTable(btn) {
 
 	if (turnTable){
 		turnTable = false;
