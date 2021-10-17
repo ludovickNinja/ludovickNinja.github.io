@@ -7,6 +7,8 @@ import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/exampl
 
 import { logLog } from '../lib/myThreeJSlib.js';
 
+
+// variables
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let controls, object;
@@ -15,10 +17,14 @@ var strDownloadMime = "image/octet-stream";
 
 const clock = new THREE.Clock()
 
+// get canvas
 const canvas = document.querySelector('canvas.webgl');
 const canvasContainer = document.querySelector('#canvasContainer');
+canvasHeight = canvasContainer.offsetHeight;
+canvasWidth = canvasContainer.offsetWidth;
 
-/*
+// old button query
+/* 
 const topViewButton = document.querySelector('#TopView');
 const frontViewButton = document.querySelector('#FrontView');
 const perspectiveViewButton = document.querySelector('#PerspectiveView');
@@ -29,11 +35,9 @@ frontViewButton.addEventListener("click", SetFrontView);
 perspectiveViewButton.addEventListener("click", SetPerspectiveView);
 turntableControlButton.addEventListener("click", ToggleTurnTable);
 */
-const captureControlButton = document.querySelector('.CaptureButton');
-captureControlButton.addEventListener("click", saveAsImage);
 
+// new button query
 const ctrls = document.querySelectorAll(".ctrl");
-
 ctrls.forEach(function (btn) {
   	btn.addEventListener("click", function (e) {
 		const styles = e.currentTarget.classList;
@@ -51,16 +55,19 @@ ctrls.forEach(function (btn) {
 			console.log("test function");
 		}
 		});
-	  });
+});
 
-canvasHeight = canvasContainer.offsetHeight;
-canvasWidth = canvasContainer.offsetWidth;
+const captureControlButton = document.querySelector('.CaptureButton');
+captureControlButton.addEventListener("click", saveAsImage);
 
+// test log from lib
 logLog();
 
+// start
 init();
 render();
 
+// initialize scene
 function init() {
 
 	scene = new THREE.Scene();
@@ -194,6 +201,7 @@ function init() {
 	window.addEventListener( 'resize', onWindowResize );
 }
 
+// resize content
 function onWindowResize() {
 
 	//canvasHeight = canvas.clientHeight;
@@ -214,12 +222,14 @@ function onWindowResize() {
 
 }
 
+// render scene
 function render() {
 
 	renderer.render( scene, camera );
 
 }
 
+// change camera position to topView
 function SetTopView() {
 
 	console.log( 'OG Camera' );
@@ -236,6 +246,7 @@ function SetTopView() {
 	console.log( 'Render' );
 } 
 
+// change camera position to frontView
 function SetFrontView() {
 
 	console.log( 'OG Camera' );
@@ -252,6 +263,7 @@ function SetFrontView() {
 	console.log( 'Render' );
 } 
 
+// change camera position to perspectiveView
 function SetPerspectiveView() {
 
 	console.log( 'OG Camera' );
@@ -349,6 +361,7 @@ function fitCameraToObject ( camera, object, offset, controls ) {
    }
 }
 
+// create the capture
 function saveAsImage() {
 	var imgData, imgNode;
 
