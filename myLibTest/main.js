@@ -45,6 +45,8 @@ ctrls.forEach(function (btn) {
 			console.log("perspectiveView");
 			SetPerspectiveView();
 		} else {
+
+			/*
 			if (turnTable){
 				turnTable = false;
 				e.currentTarget.innerHTML = 'Turn Table : Off'
@@ -53,6 +55,10 @@ ctrls.forEach(function (btn) {
 				turnTable = true;
 				e.currentTarget.innerHTML = 'Turn Table : On'
 			}
+			*/
+
+			ToggleTurnTable1(e.currentTarget);
+			console.log("test function");
 		}
 		});
 	  });
@@ -281,6 +287,17 @@ function ToggleTurnTable() {
 	else if (!turnTable){
 		turnTable = true;
 		turntableControlButton.innerHTML = 'Turn Table : On'
+	}
+} 
+function ToggleTurnTable1(btn) {
+
+	if (turnTable){
+		turnTable = false;
+		btn.innerHTML = 'Turn Table : Off'
+	}
+	else if (!turnTable){
+		turnTable = true;
+		btn.innerHTML = 'Turn Table : On'
 	}
 } 
 
