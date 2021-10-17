@@ -37,10 +37,13 @@ ctrls.forEach(function (btn) {
 		const styles = e.currentTarget.classList;
 		if (styles.contains("topView")) {
 			console.log("topView");
+			SetTopView();
 		} else if (styles.contains("frontView")) {
 			console.log("frontView");
+			SetFrontView();
 		} else {
 			console.log("perspectiveView");
+			SetPerspectiveView();
 		}
 		});
 	  });
