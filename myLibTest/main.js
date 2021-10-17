@@ -45,7 +45,8 @@ ctrls.forEach(function (btn) {
 			console.log("perspectiveView");
 			SetPerspectiveView();
 		} else {
-			
+			console.log("TurntableControl");
+			ToggleTurnTable();
 		}
 		});
 	  });
