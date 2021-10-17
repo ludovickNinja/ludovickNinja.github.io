@@ -33,15 +33,17 @@ captureControlButton.addEventListener("click", saveAsImage);
 const ctrls = document.querySelectorAll(".ctrl");
 
 ctrls.forEach(function (btn) {
-  btn.addEventListener("click", function (e) {
-    const styles = e.currentTarget.classList;
-    if (styles.contains("topView")) {
-		console.log("topView");
-    } else if (styles.contains("frontView")) {
-		console.log("frontView");
-    } else {
-		console.log("perspectiveView");
-    }
+  	btn.addEventListener("click", function (e) {
+		const styles = e.currentTarget.classList;
+		if (styles.contains("topView")) {
+			console.log("topView");
+		} else if (styles.contains("frontView")) {
+			console.log("frontView");
+		} else {
+			console.log("perspectiveView");
+		}
+		});
+	  });
 
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
@@ -352,7 +354,8 @@ var saveFile = function (strData, filename) {
 		link.href = strData;
 		link.click();
 		document.body.removeChild(link); //remove the link when done
-	} else {
+	} 
+	else {
 		location.replace(uri);
 	}
 }
