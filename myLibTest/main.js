@@ -30,6 +30,19 @@ turntableControlButton.addEventListener("click", ToggleTurnTable);
 const captureControlButton = document.querySelector('.CaptureButton');
 captureControlButton.addEventListener("click", saveAsImage);
 
+const ctrls = document.querySelectorAll(".ctrl");
+
+ctrls.forEach(function (btn) {
+  btn.addEventListener("click", function (e) {
+    const styles = e.currentTarget.classList;
+    if (styles.contains("topView")) {
+		console.log("topView");
+    } else if (styles.contains("frontView")) {
+		console.log("frontView");
+    } else {
+		console.log("perspectiveView");
+    }
+
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
