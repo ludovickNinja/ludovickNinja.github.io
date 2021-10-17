@@ -1,6 +1,3 @@
-
-
-
 import * as THREE from 'https://cdn.skypack.dev/three@0.132.0';
 
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/controls/OrbitControls.js';
@@ -36,10 +33,10 @@ function init() {
 
     //Loaders
 	new RGBELoader()
-	//.setPath( 'textures/equirectangular/' )
+	.setPath( '../assets/environment/' )
 	.load( 
         // resource URL
-        'https://ludovickninja.github.io/Studio.hdr',
+        'Studio.hdr',
 
         // called when the resource is loaded
         function ( texture ) {

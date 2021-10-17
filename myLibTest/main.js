@@ -86,7 +86,7 @@ function init() {
 		const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
 		const loader = new GLTFLoader()
-        .setPath( '../models/' );
+        .setPath( '../assets/models/' );
 		loader.load( 
         // model URL
         'Model.glb', 

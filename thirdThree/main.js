@@ -21,17 +21,6 @@ canvasWidth = canvas.offsetWidth;
 init(file);
 render();
 
-/*
-navigator.mediaDevices.getUserMedia({video: true})
-  .then(gotMedia)
-  .catch(error => console.error('getUserMedia() error:', error));
-
-function gotMedia(mediaStream) {
-  const mediaStreamTrack = mediaStream.getVideoTracks()[0];
-  const imageCapture = new ImageCapture(mediaStreamTrack);
-  console.log(imageCapture);
-}
-*/
 function init(file) {
 
 	scene = new THREE.Scene();
