@@ -41,9 +41,11 @@ ctrls.forEach(function (btn) {
 		} else if (styles.contains("frontView")) {
 			console.log("frontView");
 			SetFrontView();
-		} else {
+		}  else if (styles.contains("perspectiveView")) {
 			console.log("perspectiveView");
 			SetPerspectiveView();
+		} else {
+			
 		}
 		});
 	  });
