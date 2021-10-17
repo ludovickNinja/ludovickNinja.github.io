@@ -45,8 +45,14 @@ ctrls.forEach(function (btn) {
 			console.log("perspectiveView");
 			SetPerspectiveView();
 		} else {
-			console.log("TurntableControl");
-			ToggleTurnTable();
+			if (turnTable){
+				turnTable = false;
+				e.currentTarget.innerHTML = 'Turn Table : Off'
+			}
+			else if (!turnTable){
+				turnTable = true;
+				e.currentTarget.innerHTML = 'Turn Table : On'
+			}
 		}
 		});
 	  });
