@@ -27,7 +27,7 @@ frontViewButton.addEventListener("click", SetFrontView);
 perspectiveViewButton.addEventListener("click", SetPerspectiveView);
 turntableControlButton.addEventListener("click", ToggleTurnTable);
 
-const captureControlButton = document.querySelector('CaptureButton');
+const captureControlButton = document.querySelector('.CaptureButton');
 captureControlButton.addEventListener("click", saveAsImage);
 
 canvasHeight = canvasContainer.offsetHeight;
