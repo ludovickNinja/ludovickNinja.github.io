@@ -16,7 +16,7 @@
 
 body {
     background-color: var(--color1);
-    background-image: url("../img/108226_1.jpg");
+    background-image: url("../assets/img/108226_1.jpg");
     background-size: 400px;
     background-repeat: repeat;
     color: var(--color2);
