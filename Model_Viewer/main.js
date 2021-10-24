@@ -62,6 +62,8 @@ select.addEventListener('change', () => {
 	file = baseURL + encodeURIComponent(select.value) + '.glb'
 	console.log(file)
 
+	renderer.renderLists.dispose()
+
 	init(file);
 	render();
 });
