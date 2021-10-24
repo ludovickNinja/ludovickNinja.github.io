@@ -32,8 +32,8 @@ const models = [
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
-const baseURL = 'https://ludovickninja.github.io/';
-let file = 'https://ludovickninja.github.io/Model.glb';
+const baseURL = 'https://ludovickninja.github.io/assets/models/';
+let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
 
 const clock = new THREE.Clock()
 
@@ -80,7 +80,7 @@ function init(file) {
 	//.setPath( 'textures/equirectangular/' )
 	.load( 
         // resource URL
-        'https://ludovickninja.github.io/Studio.hdr',
+        'https://ludovickninja.github.io/assets/environment/Studio.hdr',
 
         // called when the resource is loaded
         function ( texture ) {
