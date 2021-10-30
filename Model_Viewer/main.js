@@ -65,7 +65,7 @@ select.addEventListener('change', () => {
 	console.clear();
 	renderer.renderLists.dispose();
 	//disposeHierarchy (YOUR_OBJECT3D, disposeNode);
-	BufferGeometry.dispose();
+	//BufferGeometry.dispose();
 
 	init(file);
 	render();
