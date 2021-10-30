@@ -62,7 +62,8 @@ select.addEventListener('change', () => {
 	file = baseURL + encodeURIComponent(select.value) + '.glb'
 	console.log(file)
 
-	//renderer.renderLists.dispose()
+	console.clear();
+	renderer.renderLists.dispose();
 	//disposeHierarchy (YOUR_OBJECT3D, disposeNode);
 	BufferGeometry.dispose();
 
