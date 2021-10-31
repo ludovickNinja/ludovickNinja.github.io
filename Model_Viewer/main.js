@@ -86,7 +86,7 @@ window.addEventListener('load', () => {
 
 			for (var j = 0; j < collections[i].models.length; j++ ) {
 
-				console.log( collections[i].models[j] );
+				console.log( collections[i].models[j].name );
 
 			}
 
