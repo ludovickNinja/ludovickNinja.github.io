@@ -27,28 +27,29 @@
     <button class="accordion">Controls</button>
     <div class="panel">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div id = "controls">
+
+            <div class="buttonControl" id="ControlsContainer">
+                <center>
+                    <button class="ctrl perspectiveView" id="PerspectiveView">Perspective View</button>
+                    <button class="ctrl topView" id="TopView">Top View</button>
+                    <button class="ctrl frontView" id="FrontView">Front View</button>
+                </center>
+            </div>
+        
+            <div class="buttonControl" id="animationControls">
+                <center>
+                    <button class="ctrl turntableControl" id="TurntableControl">Turn Table : On</button>
+                </center>
+            </div>
+            
+        </div>
     </div>
 
-    <div id = "controls">
-
-        <div class="buttonControl" id="ControlsContainer">
-            <center>
-                <button class="ctrl perspectiveView" id="PerspectiveView">Perspective View</button>
-                <button class="ctrl topView" id="TopView">Top View</button>
-                <button class="ctrl frontView" id="FrontView">Front View</button>
-            </center>
-        </div>
     
-        <div class="buttonControl" id="animationControls">
-            <center>
-                <button class="ctrl turntableControl" id="TurntableControl">Turn Table : On</button>
-            </center>
-        </div>
 
-        <div class="CaptureButton" id="cameraContainer">
-            <img id="camera" src="../assets/svg/camera.svg" />
-        </div>
-        
+    <div class="CaptureButton" id="cameraContainer">
+        <img id="camera" src="../assets/svg/camera.svg" />
     </div>
     
     <script type="module" src="../lib/myThreeJSlib.js"></script>
