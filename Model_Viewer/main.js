@@ -10,11 +10,21 @@ const collections = [
 	  id: 0,
 	  collection: "Models",
 	  models: [
-		  {
-			  name: "Model",
-			  file: "../assets/models/Model.glb",
-			  details: "Logo Medallion"
-		  }
+		{
+			name: "Model",
+			file: "../assets/models/Model.glb",
+			details: "Logo Medallion"
+		},
+		{
+			name: "MTL Signature",
+			file: "../assets/models/MTL%20WG.glb",
+			details: "MTL Signature Ring in Script"
+		},
+		{
+			name: "Round Brilliant Diamond",
+			file: "../assets/models/Diamond.glb",
+			details: "MTL Signature Ring in Script"
+		}
 	  ]
 	},
 	{
@@ -22,9 +32,19 @@ const collections = [
 		collection: "Aurélie",
 		models: [
 			{
-				name: "Model",
-				file: "../assets/models/Model.glb",
-				details: "Logo Medallion"
+				name: "Beveled Edge",
+				file: "../assets/models/Beveled%20Edge%20W65%20T22%20S105.glb",
+				details: "Beveled Edge Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
+			},
+			{
+				name: "Bombe Mid",
+				file: "../assets/models/Bombe%20Mid%20W65%20T22%20S105.glb",
+				details: "Bombe Mid Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
+			},
+			{
+				name: "Bombe",
+				file: "../assets/models/Bombe%20W65%20T22%20S105.glb",
+				details: "Bombe Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
 			}
 		]
 	}
@@ -38,6 +58,7 @@ let canvasWidth, canvasHeight;
 let object, controls;
 const baseURL = 'https://ludovickninja.github.io/assets/models/';
 let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
+let ref = "Aurélie";
 
 const clock = new THREE.Clock()
 
@@ -58,9 +79,18 @@ canvasWidth = canvasContainer.offsetWidth;
 window.addEventListener('load', () => {
     init(file);
 	render();
+
+	for (var i = 0; i < collections.length; i++ ){
+
+		console.log(collections[i].collection);
+
+	}
+
 });
 
 select.addEventListener('change', () => {
+
+
 	modelHeader.innerText = select.value;
 
 	file = baseURL + encodeURIComponent(select.value) + '.glb'
@@ -238,6 +268,12 @@ function render() {
 
 }
 
+function getParameters() {
+
+}
+
+
+/*
 function disposeNode (node)
 {
     if (node instanceof THREE.Mesh)
@@ -302,3 +338,4 @@ function disposeHierarchy (node, callback)
     }
 }
 
+*/
