@@ -63,10 +63,9 @@ a {
 canvas {
   height: 100vh;
   max-height: 400px;
-  display: flex;
-  margin: auto;
-
-  justify-content: center;
+  max-width: 400px;
+  position: relative;
+  display: block;
   background-color: var(--colorTest);
 }
 
