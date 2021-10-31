@@ -93,21 +93,11 @@ canvas {
   background-color: var(--color1);
 }
 
-
-
 .controls {
   padding: 10px 16px;
 }
 
 .buttonControl {
-  padding: 10px 16px;
-}
-
-#animationControls {
-  padding: 10px 16px;
-}
-
-#captureControls {
   padding: 10px 16px;
 }
 

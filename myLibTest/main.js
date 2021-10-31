@@ -7,7 +7,6 @@ import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/exampl
 
 import { logLog } from '../lib/myThreeJSlib.js';
 
-
 // variables
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
@@ -78,7 +77,6 @@ for (var i = 0; i < acc.length; i++) {
     }
   });
 }
-
 
 // test log from lib
 logLog();
