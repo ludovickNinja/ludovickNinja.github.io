@@ -102,11 +102,11 @@ canvas {
 }
 
 .accordion {
-  background-color: #eee;
-  color: #444;
+  /*background-color: #eee;*/
+  color: var (--color1);
   cursor: pointer;
   padding: 18px;
-  width: 100%;
+  max-width: 400px;
   border: none;
   text-align: left;
   outline: none;
