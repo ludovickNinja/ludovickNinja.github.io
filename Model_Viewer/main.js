@@ -80,8 +80,18 @@ window.addEventListener('load', () => {
     init(file);
 	render();
 
-	for (var i = 0; i < collections.length; i++ ){
+	for (var i = 0; i < collections.length; i++ ) {
 
+		if (collections[i].collection == ref) {
+
+			for (var j = 0; j < collections[i].models.length; j++ ) {
+
+				console.log( collections[i].models[j] );
+
+			}
+
+		}
+		
 		console.log(collections[i].collection);
 
 	}
