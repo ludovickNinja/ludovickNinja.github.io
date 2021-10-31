@@ -93,6 +93,10 @@ canvas {
   background-color: var(--color1);
 }
 
+#controls {
+  padding: 10px 16px;
+}
+
 #viewControls {
   padding: 10px 16px;
 }
