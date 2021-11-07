@@ -1,0 +1,46 @@
+{
+    "collections":[
+       {
+          "id":0,
+          "collection":"Models",
+          "models":[
+             {
+                "name":"Model",
+                "file":"../assets/models/Model.glb",
+                "details":"Logo Medallion"
+             },
+             {
+                "name":"MTL Signature",
+                "file":"../assets/models/MTL%20WG.glb",
+                "details":"MTL Signature Ring in Script"
+             },
+             {
+                "name":"Round Brilliant Diamond",
+                "file":"../assets/models/Diamond.glb",
+                "details":"MTL Signature Ring in Script"
+             }
+          ]
+       },
+       {
+          "id":1,
+          "collection":"Aurélie",
+          "models":[
+             {
+                "name":"Beveled Edge",
+                "file":"../assets/models/Beveled%20Edge%20W65%20T22%20S105.glb",
+                "details":"Beveled Edge Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
+             },
+             {
+                "name":"Bombe Mid",
+                "file":"../assets/models/Bombe%20Mid%20W65%20T22%20S105.glb",
+                "details":"Bombe Mid Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
+             },
+             {
+                "name":"Bombe",
+                "file":"../assets/models/Bombe%20W65%20T22%20S105.glb",
+                "details":"Bombe Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
+             }
+          ]
+       }
+    ]
+ }
