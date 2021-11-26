@@ -1,32 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href=".">
-    <link rel="icon" type="image/svg+xml" href="../assets/svg/logo.svg" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-
-    <title>MTL Signature Viewer</title>
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="https://ludovickninja.github.io/assets/svg/logo.svg" />
+    <title>Test Page</title>
+</head>
+<body>
     <link rel="stylesheet" href="style.css">
     
     <div class="header" id="myHeader" >
       
-      <h2>MTL Signature</h2>
+      <h2>Test Page</h2>
       
-      <a onclick="history.back()">Back</a>
+      <a class="" href="../Links/index.html"
+           onclick="gtag('event', 'link-click', { 'event_category' : 'links', 'event_label' : 'links' });">
+           Back
+        </a>
 
     </div>
-    
+
     <div class="square" id="canvasContainer">
 
-      <canvas class="webgl" id="idCanvas"></canvas>
-
+        <canvas class="webgl" id="idCanvas"></canvas>
+  
     </div>
-    
-    <script type="module" src="main.js"></script>
 
-  </body>
+    <center style="padding: 10px 16px; max-width: 100vw; overflow: hidden;">
+        <button class="accordion">Controls</button>
+        <div class="panel">
+            <div class="controls" id = "controls">
+    
+                <div class="controls" id="ControlsContainer">
+                    <center>
+                        <button class="ctrl perspectiveView" id="PerspectiveView">Perspective View</button>
+                        <button class="ctrl topView" id="TopView">Top View</button>
+                        <button class="ctrl frontView" id="FrontView">Front View</button>
+                    </center>
+                </div>
+            
+                <div class="controls" id="animationControls">
+                    <center>
+                        <button class="ctrl turntableControl" id="TurntableControl">Turn Table : On</button>
+                    </center>
+                </div>
+
+                <div class="CaptureButton" id="cameraContainer">
+                    <img id="camera" src="https://ludovickninja.github.io/assets/svg/camera.svg" />
+                </div>
+                
+            </div>
+        </div>
+    </center>
+    
+    <!-- <script type="module" src="main.js"></script> -->
+    <script type="module" src="capture.js"></script>
+    <script>
+        /// Accordion
+        var acc = document.getElementsByClassName("accordion");
+
+        for (var i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+            panel.style.display = "none";
+            } else {
+            panel.style.display = "block";
+            }
+        });
+        }
+    </script>
+</body>
 </html>

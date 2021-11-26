@@ -5,35 +5,92 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/l
 import { RGBELoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/utils/RoughnessMipmapper.js';
 
-
+// variables
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
-let object, controls;
+let controls, object;
+let turnTable = true;
+var jsonModels;
+var modelName = "Model";
 
 const clock = new THREE.Clock()
 
-const canvasContainer = document.querySelector('#canvasContainer')
-const canvas = document.querySelector('canvas.webgl')
+///JSON
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+		//console.log(xhttp.responseText);
+		/*
+		var response = JSON.parse(xhttp.responseText);
+		console.log(response.collections)
+		*/
+		jsonModels = JSON.parse(xhttp.responseText);
+		console.log(jsonModels.collections)
 
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		if (urlParams.has('collection')) {
+			for (let i = 0; i < jsonModels.collections.length; i++) {
+				if (jsonModels.collections[i].collection == urlParams.get('collection')) {
+					console.log("Success");
+					if (urlParams.has('model')) {
+						for (let j = 0; j < jsonModels.collections[i].models.length; j++) {
+							if (jsonModels.collections[i].models[j].name == urlParams.get('model')) {
+								console.log("Double Success");
+								console.log(jsonModels.collections[i].models[j].file)
+								console.log(jsonModels.collections[i].models[j].details)
+							}
+							else console.log("Success but Fail")
+						}
+					}
+				}
+				else console.log("Fail");
+			}
+		}
+	}
+};
+xhttp.open("GET", "https://ludovickninja.github.io/api/Models.json", true);
+xhttp.send();
+
+// get canvas
+const canvas = document.querySelector('canvas.webgl');
+const canvasContainer = document.querySelector('#canvasContainer');
 canvasHeight = canvasContainer.offsetHeight;
 canvasWidth = canvasContainer.offsetWidth;
 
+///
+/// new button query
+///
+const ctrls = document.querySelectorAll(".ctrl");
+ctrls.forEach(function (btn) {
+  	btn.addEventListener("click", function (e) {
+		const styles = e.currentTarget.classList;
+		if (styles.contains("topView")) {
+			SetTopView();
+		} else if (styles.contains("frontView")) {
+			SetFrontView();
+		}  else if (styles.contains("perspectiveView")) {
+			SetPerspectiveView();
+		} else {
+			ToggleTurnTable(e.currentTarget);
+		}
+		});
+});
+
+// start
 init();
 render();
 
+// initialize scene
 function init() {
-
-	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 1, 2000 );
-	camera.position.set( -0.5, 0.75, 1 );
-  	camera.lookAt( 0, 0, 0 );
-  	//camera.setFocalLength(canvasHeight + canvasWidth);
-  	camera.updateProjectionMatrix;
 
 	scene = new THREE.Scene();
 
-    //Loaders
+    ///
+	/// Set Object / Environment
+	///
 	new RGBELoader()
-	.setPath( '../assets/environment/' )
+	.setPath( 'https://ludovickninja.github.io/assets/environment/' )
 	.load( 
         // resource URL
         'Studio.hdr',
@@ -52,10 +109,10 @@ function init() {
 		const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
 		const loader = new GLTFLoader()
-        .setPath( '../models/' );
+        .setPath( 'https://ludovickninja.github.io/assets/models/' );
 		loader.load( 
         // model URL
-        'MTL%20WG.glb', 
+        'Model.glb', 
 
         // called when the model is loaded
         function ( gltf ) {
@@ -71,31 +128,43 @@ function init() {
 			} );
 
             object = gltf.scene;
-            object.position.set(0, 0, 0);
+
+			const box = new THREE.Box3().setFromObject( object );
+			const center = box.getCenter( new THREE.Vector3() );
+			const size = box.getSize( new THREE.Vector3() );
+			const maxDim = Math.max( size.x, size.y, size.z );
+			console.log( size );
+			console.log( maxDim );
+
+			object.position.x += ( object.position.x - center.x );
+			object.position.y += ( object.position.y - center.y );
+			object.position.z += ( object.position.z - center.z );
+			
+			console.log( object );
+			console.log( object.position );
 
 			scene.add( object );
 
-            const tick = () =>
-            {
-            
-                const elapsedTime = clock.getElapsedTime()
+            const tick = () =>	{
+
+                const elapsedTime = clock.getElapsedTime();
             
                 // Update objects
-                object.rotation.y = .5 * elapsedTime
+                if(turnTable) object.rotation.y = .5 * elapsedTime;
 
                 // Update Orbital Controls
-                controls.update()
+                controls.update();
             
                 // Render
                 render();
             
                 // Call tick again on the next frame
-                window.requestAnimationFrame(tick)
+                window.requestAnimationFrame(tick);
             }
                         
 			roughnessMipmapper.dispose();
 
-            tick()
+            tick();
 		},
         
         function ( xhr ) {
@@ -112,35 +181,47 @@ function init() {
 	} 
     );
 
-	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas } );
+	///
+	/// Set Camera
+	///
+	camera = new THREE.PerspectiveCamera( 1.25, canvasWidth / canvasHeight, 0.1, 2000 );
+	camera.position.set( -0.5, 0.75, 1 );
+	camera.lookAt( 0, 0, 0 );  	
+	camera.updateProjectionMatrix;
+
+	///
+	/// Set Renderer
+	///
+	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas, preserveDrawingBuffer: true } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( canvasWidth, canvasHeight );
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
 	renderer.toneMappingExposure = 1;
 	renderer.outputEncoding = THREE.sRGBEncoding;
-	//container.appendChild( renderer.domElement );
-    
+
+	///
+	/// Set Controls
+	///
   	controls = new OrbitControls( camera, renderer.domElement );
 	controls.addEventListener( 'change', render ); // use if there is no animation loop
-  	controls.minDistance = 2;
+  	controls.minDistance = 0.2;
 	//controls.maxDistance = controls.minDistance;
   	controls.maxDistance = 10;  
-	controls.target.set( 0, 0, 0);
+	controls.target.set( 0, 0, 0 );
   	controls.enableDamping = true
   	controls.update();
     
 	window.addEventListener( 'resize', onWindowResize );
-  
 }
 
+// resize content
 function onWindowResize() {
 
-  	canvasHeight = canvasContainer.offsetHeight;
-  	canvasWidth = canvasContainer.offsetWidth;
+	canvasHeight = canvasContainer.offsetHeight;
+	canvasWidth = canvasContainer.offsetWidth;
 
   	camera.aspect = canvasWidth / canvasHeight;
-  	//camera.setFocalLength(canvasHeight + canvasWidth);
-  
+  	
 	camera.updateProjectionMatrix();
 
 	renderer.setSize( canvasWidth  , canvasHeight );
@@ -151,74 +232,107 @@ function onWindowResize() {
 
 }
 
+// render scene
 function render() {
 
 	renderer.render( scene, camera );
 
 }
 
-function fitCameraToObject ( camera, object, offset, controls ) {
+// change camera position to topView
+function SetTopView() {
 
-	offset = offset || 5;
+	console.log( 'OG Camera' );
+	console.log( camera );
 
-	const boundingBox = new THREE.Box3();
-
-	// get bounding box of object - this will be used to setup controls and camera
-	boundingBox.setFromObject( object );
-
-	const center = boundingBox.getCenter();
-
-	const size = boundingBox.getSize();
-
-	// get the max side of the bounding box (fits to width OR height as needed )
-	const maxDim = Math.max( size.x, size.y, size.z );
-	const fov = camera.fov * ( Math.PI / 180 );
-	let cameraZ = Math.abs( maxDim / 2 * Math.tan( fov * 2 ) ); //Applied fifonik correction
-
-	cameraZ *= offset; // zoom out a little so that objects don't fill the screen
-
-	// <--- NEW CODE
-	//Method 1 to get object's world position
-	scene.updateMatrixWorld(); //Update world positions
-	var objectWorldPosition = new THREE.Vector3();
-	objectWorldPosition.setFromMatrixPosition( object.matrixWorld );
+	camera.position.set( 0, -1.25, 0 );
+  	camera.lookAt( 0, 0, 0 );
+  	camera.updateProjectionMatrix;
+	console.log( 'New Camera' );
+	console.log( camera );
 	
-	//Method 2 to get object's world position
-	//objectWorldPosition = object.getWorldPosition();
+	// Render
+	render();
+	console.log( 'Render' );
+} 
 
-	const directionVector = camera.position.sub(objectWorldPosition); 	//Get vector from camera to object
-	const unitDirectionVector = directionVector.normalize(); // Convert to unit vector
-	camera.position = unitDirectionVector.multiplyScalar(cameraZ); //Multiply unit vector times cameraZ distance
-	camera.lookAt(objectWorldPosition); //Look at object
-	// --->
+// change camera position to frontView
+function SetFrontView() {
 
-	const minZ = boundingBox.min.z;
-	const cameraToFarEdge = ( minZ < 0 ) ? -minZ + cameraZ : cameraZ - minZ;
+	console.log( 'OG Camera' );
+	console.log( camera );
 
-	camera.far = cameraToFarEdge * 4;
-	camera.updateProjectionMatrix();
+	camera.position.set( 0, 0, 1.25 );
+  	camera.lookAt( 0, 0, 0 );
+  	camera.updateProjectionMatrix;
+	console.log( 'New Camera' );
+	console.log( camera );
 
-	if ( controls ) {
+	// Render
+	render();
+	console.log( 'Render' );
+} 
 
-	  // set camera to rotate around center of loaded object
-	  controls.target = center;
+// change camera position to perspectiveView
+function SetPerspectiveView() {
 
-	  // prevent camera from zooming out far enough to create far plane cutoff
-	  controls.maxDistance = cameraToFarEdge * 2;
+	console.log( 'OG Camera' );
+	console.log( camera );
 
-	  controls.saveState();
+	camera.position.set( -0.5, 0.75, 1 );
+  	camera.lookAt( 0, 0, 0 );
+  	camera.updateProjectionMatrix;
+	console.log( 'New Camera' );
+	console.log( camera );
 
-	} else {
+	// Render
+	render();
+	console.log( 'Render' );
+} 
 
-		camera.lookAt( center )
+function ToggleTurnTable(btn) {
 
-   }
+	if (turnTable){
+		turnTable = false;
+		btn.innerHTML = 'Turn Table : Off'
+	}
+	else if (!turnTable){
+		turnTable = true;
+		btn.innerHTML = 'Turn Table : On'
+	}
+} 
+
+/*
+// create the capture
+function saveAsImage() {
+	var imgData, imgNode;
+
+	try {
+		var strMime = "image/jpeg";
+		imgData = renderer.domElement.toDataURL(strMime);
+
+		saveFile(imgData.replace(strMime, strDownloadMime), "test.jpg");
+
+	} catch (e) {
+		console.log(e);
+		return;
+	}
+
 }
 
-function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
-
-  	var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-
-  	return { width: srcWidth*ratio, height: srcHeight*ratio, ratioValue: ratio };
-
+var saveFile = function (strData, filename) {
+	var link = document.createElement('a');
+	if (typeof link.download === 'string') {
+		document.body.appendChild(link); //Firefox requires the link to be in the body
+		link.download = filename;
+		link.href = strData;
+		link.click();
+		document.body.removeChild(link); //remove the link when done
+	} 
+	else {
+		location.replace(uri);
+	}
 }
+*/
+
+export { renderer , modelName};
