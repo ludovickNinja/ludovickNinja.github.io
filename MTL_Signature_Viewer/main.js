@@ -14,6 +14,12 @@ var jsonModels;
 var modelName = "Model";
 
 const clock = new THREE.Clock()
+//var startTime = clock.getElapsedTime();
+//var elapsedTime = clock.getElapsedTime();
+//var currentTime = clock.getElapsedTime() - startTime;
+var rotation = 0;
+var startTime;
+var previousTime = 0;
 
 ///JSON
 var xhttp = new XMLHttpRequest();
@@ -71,8 +77,10 @@ ctrls.forEach(function (btn) {
 			SetFrontView();
 		}  else if (styles.contains("perspectiveView")) {
 			SetPerspectiveView();
-		} else {
+		} else if (styles.contains("turntableControl")) {
 			ToggleTurnTable(e.currentTarget);
+		} else {
+			ResetPosition();
 		}
 		});
 });
@@ -149,8 +157,12 @@ function init() {
 
                 const elapsedTime = clock.getElapsedTime();
             
+				rotation += 0.5 * ( elapsedTime - previousTime);
+
+				previousTime = elapsedTime;
+
                 // Update objects
-                if(turnTable) object.rotation.y = .5 * elapsedTime;
+                if(turnTable) object.rotation.y = rotation;
 
                 // Update Orbital Controls
                 controls.update();
@@ -192,7 +204,10 @@ function init() {
 	///
 	/// Set Renderer
 	///
-	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas, preserveDrawingBuffer: true } );
+	renderer = new THREE.WebGLRenderer( { 
+		antialias: true, 
+		canvas: canvas, 
+		preserveDrawingBuffer: true } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( canvasWidth, canvasHeight );
 	renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -302,6 +317,13 @@ function ToggleTurnTable(btn) {
 	}
 } 
 
+function ResetPosition() {
+	//startTime = clock.getElapsedTime();
+	rotation = 0;
+	object.rotation.y = 0;
+	//render();
+} 
+
 /*
 // create the capture
 function saveAsImage() {
@@ -334,5 +356,6 @@ var saveFile = function (strData, filename) {
 	}
 }
 */
+
 
 export { renderer , modelName};
