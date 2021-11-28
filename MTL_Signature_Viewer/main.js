@@ -12,14 +12,42 @@ let controls, object;
 let turnTable = true;
 var jsonModels;
 var modelName = "Model";
+let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
+var modelList = [];
 
-const clock = new THREE.Clock()
-//var startTime = clock.getElapsedTime();
-//var elapsedTime = clock.getElapsedTime();
-//var currentTime = clock.getElapsedTime() - startTime;
+
+const clock = new THREE.Clock();
 var rotation = 0;
-var startTime;
 var previousTime = 0;
+
+// get canvas
+const canvas = document.querySelector('canvas.webgl');
+const canvasContainer = document.querySelector('#canvasContainer');
+canvasHeight = canvasContainer.offsetHeight;
+canvasWidth = canvasContainer.offsetWidth;
+
+///
+/// new button query
+///
+const ctrls = document.querySelectorAll(".ctrl");
+ctrls.forEach(function (btn) {
+  	btn.addEventListener("click", function (e) {
+		const styles = e.currentTarget.classList;
+		if (styles.contains("topView")) {
+			SetTopView();
+		} else if (styles.contains("frontView")) {
+			SetFrontView();
+		}  else if (styles.contains("perspectiveView")) {
+			SetPerspectiveView();
+		} else if (styles.contains("turntableControl")) {
+			ToggleTurnTable(e.currentTarget);
+		} else {
+			ResetPosition();
+		}
+		});
+});
+
+const modelHeader = document.querySelector('h2');
 
 ///JSON
 var xhttp = new XMLHttpRequest();
@@ -49,48 +77,33 @@ xhttp.onreadystatechange = function() {
 							else console.log("Success but Fail")
 						}
 					}
+					else {
+						for (let j = 0; j < jsonModels.collections[i].models.length; j++) {
+							modelList.push(jsonModels.collections[i].models[j].name)
+						}
+
+					}
 				}
 				else console.log("Fail");
 			}
 		}
+		else {
+			file = "https://ludovickninja.github.io/assets/models/MTL%20WG.glb";
+			modelName = "MTL Signature"
+			console.log(file);
+		}
+
+		// start
+		init(file);
+		console.log(modelList);
 	}
 };
 xhttp.open("GET", "https://ludovickninja.github.io/api/Models.json", true);
 xhttp.send();
 
-// get canvas
-const canvas = document.querySelector('canvas.webgl');
-const canvasContainer = document.querySelector('#canvasContainer');
-canvasHeight = canvasContainer.offsetHeight;
-canvasWidth = canvasContainer.offsetWidth;
-
-///
-/// new button query
-///
-const ctrls = document.querySelectorAll(".ctrl");
-ctrls.forEach(function (btn) {
-  	btn.addEventListener("click", function (e) {
-		const styles = e.currentTarget.classList;
-		if (styles.contains("topView")) {
-			SetTopView();
-		} else if (styles.contains("frontView")) {
-			SetFrontView();
-		}  else if (styles.contains("perspectiveView")) {
-			SetPerspectiveView();
-		} else if (styles.contains("turntableControl")) {
-			ToggleTurnTable(e.currentTarget);
-		} else {
-			ResetPosition();
-		}
-		});
-});
-
-// start
-init();
-render();
 
 // initialize scene
-function init() {
+function init(file) {
 
 	scene = new THREE.Scene();
 
@@ -117,10 +130,10 @@ function init() {
 		const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
 		const loader = new GLTFLoader()
-        .setPath( 'https://ludovickninja.github.io/assets/models/' );
+        //.setPath( 'https://ludovickninja.github.io/assets/models/' );
 		loader.load( 
         // model URL
-        'Model.glb', 
+        file, 
 
         // called when the model is loaded
         function ( gltf ) {
@@ -141,8 +154,8 @@ function init() {
 			const center = box.getCenter( new THREE.Vector3() );
 			const size = box.getSize( new THREE.Vector3() );
 			const maxDim = Math.max( size.x, size.y, size.z );
-			console.log( size );
-			console.log( maxDim );
+			//console.log( size );
+			//console.log( maxDim );
 
 			object.position.x += ( object.position.x - center.x );
 			object.position.y += ( object.position.y - center.y );
@@ -241,7 +254,7 @@ function onWindowResize() {
 
 	renderer.setSize( canvasWidth  , canvasHeight );
 	
-  	console.log(camera.aspect)
+  	//console.log(camera.aspect)
 
 	render();
 
@@ -251,58 +264,59 @@ function onWindowResize() {
 function render() {
 
 	renderer.render( scene, camera );
+	modelHeader.innerText = modelName;
 
 }
 
 // change camera position to topView
 function SetTopView() {
 
-	console.log( 'OG Camera' );
-	console.log( camera );
+	//console.log( 'OG Camera' );
+	//console.log( camera );
 
 	camera.position.set( 0, -1.25, 0 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
-	console.log( 'New Camera' );
-	console.log( camera );
+	//console.log( 'New Camera' );
+	//console.log( camera );
 	
 	// Render
 	render();
-	console.log( 'Render' );
+	//console.log( 'Render' );
 } 
 
 // change camera position to frontView
 function SetFrontView() {
 
-	console.log( 'OG Camera' );
-	console.log( camera );
+	//console.log( 'OG Camera' );
+	//console.log( camera );
 
 	camera.position.set( 0, 0, 1.25 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
-	console.log( 'New Camera' );
-	console.log( camera );
+	//console.log( 'New Camera' );
+	//console.log( camera );
 
 	// Render
 	render();
-	console.log( 'Render' );
+	//console.log( 'Render' );
 } 
 
 // change camera position to perspectiveView
 function SetPerspectiveView() {
 
-	console.log( 'OG Camera' );
-	console.log( camera );
+	//console.log( 'OG Camera' );
+	//console.log( camera );
 
 	camera.position.set( -0.5, 0.75, 1 );
   	camera.lookAt( 0, 0, 0 );
   	camera.updateProjectionMatrix;
-	console.log( 'New Camera' );
-	console.log( camera );
+	//console.log( 'New Camera' );
+	//console.log( camera );
 
 	// Render
 	render();
-	console.log( 'Render' );
+	//console.log( 'Render' );
 } 
 
 function ToggleTurnTable(btn) {
@@ -323,39 +337,5 @@ function ResetPosition() {
 	object.rotation.y = 0;
 	//render();
 } 
-
-/*
-// create the capture
-function saveAsImage() {
-	var imgData, imgNode;
-
-	try {
-		var strMime = "image/jpeg";
-		imgData = renderer.domElement.toDataURL(strMime);
-
-		saveFile(imgData.replace(strMime, strDownloadMime), "test.jpg");
-
-	} catch (e) {
-		console.log(e);
-		return;
-	}
-
-}
-
-var saveFile = function (strData, filename) {
-	var link = document.createElement('a');
-	if (typeof link.download === 'string') {
-		document.body.appendChild(link); //Firefox requires the link to be in the body
-		link.download = filename;
-		link.href = strData;
-		link.click();
-		document.body.removeChild(link); //remove the link when done
-	} 
-	else {
-		location.replace(uri);
-	}
-}
-*/
-
 
 export { renderer , modelName};
