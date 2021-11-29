@@ -13,6 +13,7 @@ let turnTable = true;
 var jsonModels;
 var modelName = "Model";
 let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
+let details = "Logo Medallion";
 var modelList = [];
 
 
@@ -48,6 +49,7 @@ ctrls.forEach(function (btn) {
 });
 
 const modelHeader = document.querySelector('h2');
+const seeDetailsText = document.querySelector('.tooltiptext');
 
 ///JSON
 var xhttp = new XMLHttpRequest();
@@ -59,38 +61,42 @@ xhttp.onreadystatechange = function() {
 		console.log(response.collections)
 		*/
 		jsonModels = JSON.parse(xhttp.responseText);
-		console.log(jsonModels.collections)
+		console.log(jsonModels.collections);
 
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		if (urlParams.has('collection')) {
 			for (let i = 0; i < jsonModels.collections.length; i++) {
 				if (jsonModels.collections[i].collection == urlParams.get('collection')) {
-					console.log("Success");
+					for (let j = 0; j < jsonModels.collections[i].models.length; j++) {
+						modelList.push(jsonModels.collections[i].models[j]);
+					}
 					if (urlParams.has('model')) {
-						for (let j = 0; j < jsonModels.collections[i].models.length; j++) {
-							if (jsonModels.collections[i].models[j].name == urlParams.get('model')) {
-								console.log("Double Success");
-								console.log(jsonModels.collections[i].models[j].file)
-								console.log(jsonModels.collections[i].models[j].details)
+						for (let j = 0; j < modelList.length; j++) {
+							if (modelList[j].name == urlParams.get('model')) {
+								file = modelList[j].file.replace("..", "https://ludovickninja.github.io");
+								modelName = modelList[j].name;
+								details = modelList[j].details;
 							}
-							else console.log("Success but Fail")
+							else {
+								file = modelList[0].file.replace("..", "https://ludovickninja.github.io");
+								modelName = modelList[0].name;
+								details = modelList[0].details;
+							}
 						}
 					}
 					else {
-						for (let j = 0; j < jsonModels.collections[i].models.length; j++) {
-							modelList.push(jsonModels.collections[i].models[j].name)
-						}
-
+						file = modelList[0].file.replace("..", "https://ludovickninja.github.io");
+						modelName = modelList[0].name;
+						details = modelList[0].details;
 					}
 				}
-				else console.log("Fail");
 			}
 		}
 		else {
 			file = "https://ludovickninja.github.io/assets/models/MTL%20WG.glb";
-			modelName = "MTL Signature"
-			console.log(file);
+			modelName = "MTL Signature";
+			details = "MTL Signature Ring in Script";
 		}
 
 		// start
@@ -265,6 +271,7 @@ function render() {
 
 	renderer.render( scene, camera );
 	modelHeader.innerText = modelName;
+	seeDetailsText.innerText = details;
 
 }
 
@@ -337,5 +344,33 @@ function ResetPosition() {
 	object.rotation.y = 0;
 	//render();
 } 
+/*
+function CreateSelectList() {
+
+	var selectList = document.createElement("select");
+
+	var container = document.querySelector( '.accordionContainer' );
+	container.insertBefore( selectList, container.firstChild );
+	
+	for (var j = 0; j < modelList.length; j++) {
+		var option = document.createElement("option");
+		option.value = modelList[j].name;
+		option.text = modelList[j].name;
+		selectList.appendChild(option);
+	}
+
+	selectList.addEventListener('change', () => {
+
+		modelName = modelList[selectList.selectedIndex].name;
+		file = modelList[selectList.selectedIndex].file.replace("..", "https://ludovickninja.github.io");
+		console.log(file);
+		details = modelList[selectList.selectedIndex].details;
+		
+		renderer.renderLists.dispose();
+
+		init(file);
+		render();
+	});
+}*/
 
 export { renderer , modelName};

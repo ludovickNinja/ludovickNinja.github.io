@@ -96,6 +96,10 @@ canvas {
   padding: 10px 16px;
 }
 
+/* -------- */
+/* Accordion */
+/* -------- */
+
 .accordion {
   display: block;
   width: 100%;
@@ -134,4 +138,48 @@ canvas {
   display: none;
   background-color: white;
   overflow: hidden;
+}
+
+/* -------- */
+/* ToolTips */
+/* -------- */
+
+.tooltip {
+  position: relative;
+  margin: 0 auto 0px auto;
+  text-align: center;
+  padding: 10px 16px 0px 16px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -125px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
