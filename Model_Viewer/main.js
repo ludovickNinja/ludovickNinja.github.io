@@ -13,7 +13,7 @@ let canvasWidth, canvasHeight;
 let object, controls;
 const baseURL = 'https://ludovickninja.github.io/assets/models/';
 let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
-let ref = "Aurélie";
+console.log("hello");
 
 const clock = new THREE.Clock()
 
