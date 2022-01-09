@@ -5,6 +5,51 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/l
 import { RGBELoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/utils/RoughnessMipmapper.js';
 
+const collections = [
+	{
+	  id: 0,
+	  collection: "Models",
+	  models: [
+		{
+			name: "Model",
+			file: "../assets/models/Model.glb",
+			details: "Logo Medallion"
+		},
+		{
+			name: "MTL Signature",
+			file: "../assets/models/MTL%20WG.glb",
+			details: "MTL Signature Ring in Script"
+		},
+		{
+			name: "Round Brilliant Diamond",
+			file: "../assets/models/Diamond.glb",
+			details: "MTL Signature Ring in Script"
+		}
+	  ]
+	},
+	{
+		id: 1,
+		collection: "Aurélie",
+		models: [
+			{
+				name: "Beveled Edge",
+				file: "../assets/models/Beveled%20Edge%20W65%20T22%20S105.glb",
+				details: "Beveled Edge Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
+			},
+			{
+				name: "Bombe Mid",
+				file: "../assets/models/Bombe%20Mid%20W65%20T22%20S105.glb",
+				details: "Bombe Mid Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
+			},
+			{
+				name: "Bombe",
+				file: "../assets/models/Bombe%20W65%20T22%20S105.glb",
+				details: "Bombe Band, Width: 6.5mm, Thickness: 2.2mm, Size: 10.5"
+			}
+		]
+	}
+  ];
+
 ///
 ///	Variables
 ///
@@ -13,7 +58,7 @@ let canvasWidth, canvasHeight;
 let object, controls;
 const baseURL = 'https://ludovickninja.github.io/assets/models/';
 let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
-console.log("hello");
+let ref = "Aurélie";
 
 const clock = new THREE.Clock()
 
@@ -32,13 +77,29 @@ canvasWidth = canvasContainer.offsetWidth;
 ///	Event Listener
 ///
 window.addEventListener('load', () => {
-
-	init(file);
+    init(file);
 	render();
+
+	for (var i = 0; i < collections.length; i++ ) {
+
+		if (collections[i].collection == ref) {
+
+			for (var j = 0; j < collections[i].models.length; j++ ) {
+
+				console.log( collections[i].models[j].name );
+
+			}
+
+		}
+		
+		console.log(collections[i].collection);
+
+	}
 
 });
 
 select.addEventListener('change', () => {
+
 
 	modelHeader.innerText = select.value;
 
@@ -47,7 +108,7 @@ select.addEventListener('change', () => {
 
 	console.clear();
 
-	//renderer.renderLists.dispose();
+	renderer.renderLists.dispose();
 	//disposeHierarchy (scene, disposeNode);
 	//BufferGeometry.dispose();
 
@@ -216,3 +277,75 @@ function render() {
 	renderer.render( scene, camera );
 
 }
+
+function getParameters() {
+
+}
+
+
+/*
+function disposeNode (node)
+{
+    if (node instanceof THREE.Mesh)
+    {
+        if (node.geometry)
+        {
+            node.geometry.dispose ();
+        }
+
+        if (node.material)
+        {
+            if (node.material instanceof THREE.MeshFaceMaterial)
+            {
+                $.each (node.material.materials, function (idx, mtrl)
+                {
+                    if (mtrl.map)               mtrl.map.dispose ();
+                    if (mtrl.lightMap)          mtrl.lightMap.dispose ();
+                    if (mtrl.bumpMap)           mtrl.bumpMap.dispose ();
+                    if (mtrl.normalMap)         mtrl.normalMap.dispose ();
+                    if (mtrl.specularMap)       mtrl.specularMap.dispose ();
+                    if (mtrl.envMap)            mtrl.envMap.dispose ();
+                    if (mtrl.alphaMap)          mtrl.alphaMap.dispose();
+                    if (mtrl.aoMap)             mtrl.aoMap.dispose();
+                    if (mtrl.displacementMap)   mtrl.displacementMap.dispose();
+                    if (mtrl.emissiveMap)       mtrl.emissiveMap.dispose();
+                    if (mtrl.gradientMap)       mtrl.gradientMap.dispose();
+                    if (mtrl.metalnessMap)      mtrl.metalnessMap.dispose();
+                    if (mtrl.roughnessMap)      mtrl.roughnessMap.dispose();
+
+                    mtrl.dispose ();    // disposes any programs associated with the material
+                });
+            }
+            else
+            {
+                if (node.material.map)              node.material.map.dispose ();
+                if (node.material.lightMap)         node.material.lightMap.dispose ();
+                if (node.material.bumpMap)          node.material.bumpMap.dispose ();
+                if (node.material.normalMap)        node.material.normalMap.dispose ();
+                if (node.material.specularMap)      node.material.specularMap.dispose ();
+                if (node.material.envMap)           node.material.envMap.dispose ();
+                if (node.material.alphaMap)         node.material.alphaMap.dispose();
+                if (node.material.aoMap)            node.material.aoMap.dispose();
+                if (node.material.displacementMap)  node.material.displacementMap.dispose();
+                if (node.material.emissiveMap)      node.material.emissiveMap.dispose();
+                if (node.material.gradientMap)      node.material.gradientMap.dispose();
+                if (node.material.metalnessMap)     node.material.metalnessMap.dispose();
+                if (node.material.roughnessMap)     node.material.roughnessMap.dispose();
+
+                node.material.dispose ();   // disposes any programs associated with the material
+            }
+        }
+    }
+}   // disposeNode
+
+function disposeHierarchy (node, callback)
+{
+    for (var i = node.children.length - 1; i >= 0; i--)
+    {
+        var child = node.children[i];
+        disposeHierarchy (child, callback);
+        callback (child);
+    }
+}
+
+*/
