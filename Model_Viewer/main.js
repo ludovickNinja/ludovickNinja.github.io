@@ -57,8 +57,8 @@ let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
 const baseURL = 'https://ludovickninja.github.io/assets/models/';
-let file = 'https://drive.google.com/file/d/1WNvw9Vsba0R1HlVvB-a6cFmLtdAIXTUW/view?usp=sharing';
-//let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
+//let file = 'https://drive.google.com/file/d/1WNvw9Vsba0R1HlVvB-a6cFmLtdAIXTUW/view?usp=sharing';
+let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
 let ref = "Aurélie";
 
 const clock = new THREE.Clock()
