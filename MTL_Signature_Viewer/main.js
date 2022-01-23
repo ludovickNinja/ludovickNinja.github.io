@@ -10,12 +10,9 @@ let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let controls, object;
 let turnTable = true;
-var jsonModels;
-var modelName = "Model";
-let file = 'https://ludovickninja.github.io/assets/models/Model.glb';
-let details = "Logo Medallion";
-var modelList = [];
-
+var modelName = "MTL Signature";
+let file = "https://ludovickninja.github.io/assets/models/MTL.glb";
+let details = "MTL Signature Ring in Script";
 
 const clock = new THREE.Clock();
 var rotation = 0;
@@ -51,62 +48,8 @@ ctrls.forEach(function (btn) {
 const modelHeader = document.querySelector('h2');
 const seeDetailsText = document.querySelector('.tooltiptext');
 
-///JSON
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-	if (this.readyState == 4 && this.status == 200) {
-		//console.log(xhttp.responseText);
-		/*
-		var response = JSON.parse(xhttp.responseText);
-		console.log(response.collections)
-		*/
-		jsonModels = JSON.parse(xhttp.responseText);
-		console.log(jsonModels.collections);
-
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		if (urlParams.has('collection')) {
-			for (let i = 0; i < jsonModels.collections.length; i++) {
-				if (jsonModels.collections[i].collection == urlParams.get('collection')) {
-					for (let j = 0; j < jsonModels.collections[i].models.length; j++) {
-						modelList.push(jsonModels.collections[i].models[j]);
-					}
-					if (urlParams.has('model')) {
-						for (let j = 0; j < modelList.length; j++) {
-							if (modelList[j].name == urlParams.get('model')) {
-								file = modelList[j].file.replace("..", "https://ludovickninja.github.io");
-								modelName = modelList[j].name;
-								details = modelList[j].details;
-							}
-							else {
-								file = modelList[0].file.replace("..", "https://ludovickninja.github.io");
-								modelName = modelList[0].name;
-								details = modelList[0].details;
-							}
-						}
-					}
-					else {
-						file = modelList[0].file.replace("..", "https://ludovickninja.github.io");
-						modelName = modelList[0].name;
-						details = modelList[0].details;
-					}
-				}
-			}
-		}
-		else {
-			file = "https://ludovickninja.github.io/assets/models/MTL.glb";
-			modelName = "MTL Signature";
-			details = "MTL Signature Ring in Script";
-		}
-
-		// start
-		init(file);
-		console.log(modelList);
-	}
-};
-xhttp.open("GET", "https://ludovickninja.github.io/api/Models.json", true);
-xhttp.send();
-
+// start
+init(file);
 
 // initialize scene
 function init(file) {
