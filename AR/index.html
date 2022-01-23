@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href=".">
+    <link rel="icon" type="image/svg+xml" href="../assets/svg/logo.svg" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+
+    <title>Camera</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="style.css">
+    
+    <div class="header" id="myHeader" >
+      
+      <h2>Camera</h2>
+      
+      <a onclick="history.back()">Back</a>
+
+    </div>
+    
+    <div class="square" id="canvasContainer">
+
+      <canvas class="webgl" id="idCanvas"></canvas>
+
+      <video id="video" playsinline autoplay></video>
+
+    </div>
+
+    <center class="accordionContainer" style="padding: 10px 16px; max-width: 100vw; overflow: hidden;">
+      <button class="accordion">Controls</button>
+      <div class="panel">
+          <div class="controls" id = "controls">
+
+              <div class="controls" id="ControlsContainer">
+                  <center>
+                      <h4>Camera :</h4>
+                      <button class="ctrl perspectiveView" id="PerspectiveView">Perspective View</button>
+                      <button class="ctrl topView" id="TopView">Top View</button>
+                      <button class="ctrl frontView" id="FrontView">Front View</button>
+                  </center>
+              </div>
+          
+              <div class="controls" id="animationControls">
+                  <center>
+                      <h4>Animation :</h4>
+                      <button class="ctrl turntableControl" id="TurntableControl">Turn Table : On</button>
+                      <button class="ctrl resetControl" id="ResetControl">Reset Position</button>
+                  </center>
+              </div>
+
+              <div class="select">
+                <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
+              </div>
+        
+              <div class="select">
+                  <label for="audioOutput">Audio output destination: </label><select id="audioOutput"></select>
+              </div>
+        
+              <div class="select">
+                  <label for="videoSource">Video source: </label><select id="videoSource"></select>
+              </div>
+
+              <div class="CaptureButton" id="cameraContainer">
+                  <img id="camera" src="https://ludovickninja.github.io/assets/svg/camera.svg" />
+              </div>
+              
+          </div>
+      </div>
+  </center>
+
+  
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="webrtc.js" async></script>
+  <script type="module" src="main.js"></script>
+  <script>
+    /// Accordion
+    var acc = document.getElementsByClassName("accordion");
+
+    for (var i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+        panel.style.display = "none";
+        } else {
+        panel.style.display = "block";
+        }
+    });
+    }
+  </script>
+
+  </body>
+</html>
