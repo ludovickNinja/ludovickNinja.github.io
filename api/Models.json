@@ -81,6 +81,12 @@
                "file":"../assets/models/Eric.glb",
                "details":"Custom",
                "UID":"JMQPER"
+            },
+            {
+               "name":"Model2",
+               "file":"../assets/models/Eric1.glb",
+               "details":"Custom",
+               "UID":"WWY4WO"
             }
          ]
       }
