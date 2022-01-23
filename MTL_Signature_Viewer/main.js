@@ -94,7 +94,7 @@ xhttp.onreadystatechange = function() {
 			}
 		}
 		else {
-			file = "https://ludovickninja.github.io/assets/models/MTL%20WG.glb";
+			file = "https://ludovickninja.github.io/assets/models/MTL.glb";
 			modelName = "MTL Signature";
 			details = "MTL Signature Ring in Script";
 		}
