@@ -12,7 +12,7 @@ const videoElement = document.querySelector('video');
 const audioInputSelect = document.querySelector('select#audioSource');
 const audioOutputSelect = document.querySelector('select#audioOutput');
 const videoSelect = document.querySelector('select#videoSource');
-const selectors = [audioInputSelect, audioOutputSelect, videoSelect];
+const selectors = [videoSelect];
 
 audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
 
@@ -49,7 +49,7 @@ function gotDevices(deviceInfos) {
 }
 
 navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
-
+/*
 // Attach audio output device to video element using device/sink ID.
 function attachSinkId(element, sinkId) {
   if (typeof element.sinkId !== 'undefined') {
@@ -69,7 +69,7 @@ function attachSinkId(element, sinkId) {
   } else {
     console.warn('Browser does not support output device selection.');
   }
-}
+}*/
 
 function changeAudioDestination() {
   const audioDestination = audioOutputSelect.value;
