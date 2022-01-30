@@ -4,7 +4,7 @@ import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.0/examples/js
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/utils/RoughnessMipmapper.js';
-import {html2canvas} from 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js';
+//import {html2canvas} from 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js';
   
 
 import { stream , videoElement} from './webrtc.js';
@@ -281,7 +281,7 @@ function ResetPosition() {
 	var t = c.getContext('2d');
 	downloadBase64File('image/png',t,'image');
 */
-	getScreenShot();
+	//getScreenShot();
 
 } 
 
