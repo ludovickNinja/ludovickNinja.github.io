@@ -13,7 +13,7 @@ function saveAsImage() {
 	try {
 		var strMime = "image/jpeg";
 		//imgData = renderer.domElement.toDataURL(strMime);
-		imgData = document.getElementById('canvasContainer').toDataURL(strMime);
+		imgData = document.getElementById('canvasContainer').domElement.toDataURL(strMime);
 		//imgData = canvasContainer.domElement.toDataURL(strMime);
 
 		saveFile(imgData.replace(strMime, strDownloadMime), modelName + ".jpg");
