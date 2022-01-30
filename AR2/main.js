@@ -67,7 +67,7 @@ function init(file) {
         function ( texture ) {
 			texture.mapping = THREE.EquirectangularReflectionMapping;
 	
-			var videobg = stream;
+			var videobg = videoElement;
 	
 			var texturebg = new THREE.VideoTexture( videobg );
 			texturebg.minFilter = THREE.LinearFilter;
