@@ -275,3 +275,5 @@ function ResetPosition() {
 	object.rotation.y = 0;
 	//render();
 } 
+
+export { renderer , modelName};
