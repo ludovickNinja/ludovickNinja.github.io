@@ -71,6 +71,7 @@
           </div>
       </div>
   </center>
+  
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
@@ -103,7 +104,7 @@
     })
       }
 
-    function downloadBase64File(contentType:any, base64Data:any, fileName:any) {
+    function downloadBase64File(contentType, base64Data, fileName) {
     const linkSource = `data:${contentType};base64,${base64Data}`;
     const downloadLink = document.createElement("a");
     downloadLink.href = linkSource;
