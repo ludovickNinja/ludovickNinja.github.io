@@ -14,8 +14,8 @@ function saveAsImage() {
 		var strMime = "image/jpeg";
 		//imgData = renderer.domElement.toDataURL(strMime);
 		//imgData = document.getElementById('canvasContainer').toDataURL(strMime);
-		imgData = canvasContainer.toDataURL(strMime);
-		
+		imgData = canvasContainer.domElement.toDataURL(strMime);
+
 		saveFile(imgData.replace(strMime, strDownloadMime), modelName + ".jpg");
 
 	} catch (e) {
