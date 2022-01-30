@@ -63,7 +63,7 @@ function init(file) {
         // resource URL
         'https://ludovickninja.github.io/assets/environment/Studio.hdr',
 
-        // called when the resource is loaded
+        /*// called when the resource is loaded
         function ( texture ) {
 			texture.mapping = THREE.EquirectangularReflectionMapping;
 	
@@ -78,74 +78,87 @@ function init(file) {
 			scene.environment = texture;
 	
 			render();
+			*/
 
-		// use of RoughnessMipmapper is optional
-		const roughnessMipmapper = new RoughnessMipmapper( renderer );
+		// called when the resource is loaded
+		function ( texture ) {
+			
+			texture.mapping = THREE.EquirectangularReflectionMapping;
+		
+			//scene.background = texture;
+			scene.background = new THREE.Color( 0xffffff );
+			scene.environment = texture;
+			
+			render();
 
-		const loader = new GLTFLoader()
-        //.setPath( 'models/gltf/DamagedHelmet/glTF/' );
-		loader.load( 
-        // model URL
-        file, 
 
-        // called when the model is loaded
-        function ( gltf ) {
+			// use of RoughnessMipmapper is optional
+			const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
-            gltf.scene.traverse( function ( child ) {
+			const loader = new GLTFLoader()
+			//.setPath( 'models/gltf/DamagedHelmet/glTF/' );
+			loader.load( 
+			// model URL
+			file, 
 
-				if ( child.isMesh ) {
+			// called when the model is loaded
+			function ( gltf ) {
 
-					roughnessMipmapper.generateMipmaps( child.material );
+				gltf.scene.traverse( function ( child ) {
 
+					if ( child.isMesh ) {
+
+						roughnessMipmapper.generateMipmaps( child.material );
+
+					}
+
+				} );
+
+				object = gltf.scene;
+				object.position.set(0, 0, 0);
+
+				console.log(object);
+
+				scene.add( object );
+
+				const tick = () =>	{
+
+					const elapsedTime = clock.getElapsedTime();
+				
+					rotation += 0.5 * ( elapsedTime - previousTime);
+
+					previousTime = elapsedTime;
+
+					// Update objects
+					if(turnTable) object.rotation.y = rotation;
+
+					// Update Orbital Controls
+					controls.update();
+				
+					// Render
+					render();
+				
+					// Call tick again on the next frame
+					window.requestAnimationFrame(tick);
 				}
+							
+				roughnessMipmapper.dispose();
 
-			} );
+				tick()
+			},
+			
+			function ( xhr ) {
+				// called while loading is progressing
+				console.log( `${( xhr.loaded / xhr.total * 100 )}% loaded` );
+			},
 
-            object = gltf.scene;
-            object.position.set(0, 0, 0);
+			function ( error ) {
+				// called when loading has errors
+				console.error( 'An error happened', error );
+			},
+			);
 
-			console.log(object);
-
-			scene.add( object );
-
-            const tick = () =>	{
-
-                const elapsedTime = clock.getElapsedTime();
-            
-				rotation += 0.5 * ( elapsedTime - previousTime);
-
-				previousTime = elapsedTime;
-
-                // Update objects
-                if(turnTable) object.rotation.y = rotation;
-
-                // Update Orbital Controls
-                controls.update();
-            
-                // Render
-                render();
-            
-                // Call tick again on the next frame
-                window.requestAnimationFrame(tick);
-            }
-                        
-			roughnessMipmapper.dispose();
-
-            tick()
-		},
-        
-        function ( xhr ) {
-            // called while loading is progressing
-            console.log( `${( xhr.loaded / xhr.total * 100 )}% loaded` );
-        },
-
-        function ( error ) {
-            // called when loading has errors
-            console.error( 'An error happened', error );
-        },
-        );
-
-	} 
+		} 
     );
 
 	///
