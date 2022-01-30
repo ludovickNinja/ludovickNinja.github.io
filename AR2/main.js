@@ -63,7 +63,7 @@ function init(file) {
         // resource URL
         'https://ludovickninja.github.io/assets/environment/Studio.hdr',
 
-        /*// called when the resource is loaded
+        // called when the resource is loaded
         function ( texture ) {
 			texture.mapping = THREE.EquirectangularReflectionMapping;
 	
@@ -78,18 +78,7 @@ function init(file) {
 			scene.environment = texture;
 	
 			render();
-			*/
-
-		// called when the resource is loaded
-		function ( texture ) {
-
-			texture.mapping = THREE.EquirectangularReflectionMapping;
-		
-			//scene.background = texture;
-			scene.background = new THREE.Color( 0xffffff );
-			scene.environment = texture;
 			
-			render();
 
 
 			// use of RoughnessMipmapper is optional
