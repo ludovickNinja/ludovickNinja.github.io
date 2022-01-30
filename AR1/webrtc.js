@@ -97,7 +97,7 @@ function start() {
   const videoSource = videoSelect.value;
   const constraints = {
     //audio: {deviceId: audioSource ? {exact: audioSource} : undefined},
-    video: {deviceId: videoSource ? {exact: videoSource} : undefined, width: {max: 400}, height: {max: 400}, aspectRatio: {ideal: 1}}    
+    video: {deviceId: videoSource ? {exact: videoSource} : undefined, width: document.querySelector('.square').width, height: document.querySelector('.square').height, aspectRatio: {ideal: 1}}    
   };
   navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 }
