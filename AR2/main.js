@@ -288,7 +288,7 @@ function getScreenShot(){
 	})
   }
 
-function downloadBase64File(contentType:any, base64Data:any, fileName:any) {
+function downloadBase64File(contentType, base64Data, fileName) {
   const linkSource = `data:${contentType};base64,${base64Data}`;
   const downloadLink = document.createElement("a");
   downloadLink.href = linkSource;
