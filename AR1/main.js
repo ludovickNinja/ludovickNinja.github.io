@@ -150,7 +150,7 @@ function init(file) {
 	///
 	/// Set Renderer
 	///
-	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas, alpha: true } );
+	renderer = new THREE.WebGLRenderer( { antialias: true, canvas: canvas, alpha: true, preserveDrawingBuffer: true } );
 	renderer.setClearColor( 0x000000, 0 );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( canvasWidth, canvasHeight );
