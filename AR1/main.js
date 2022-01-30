@@ -11,6 +11,8 @@ let object, controls;
 let turnTable = true;
 let file = 'https://ludovickninja.github.io/assets/models/Bombe%20Mid%20W65%20T22%20S105.glb';
 
+var modelName = "Bombe";
+
 const clock = new THREE.Clock()
 var rotation = 0;
 var previousTime = 0;
@@ -264,3 +266,5 @@ function ResetPosition() {
 	object.rotation.y = 0;
 	//render();
 } 
+
+export { renderer , modelName};

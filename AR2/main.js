@@ -11,7 +11,7 @@ let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
 
-var modelName = "MTL Signature";
+var modelName = "Bombe";
 
 let turnTable = true;
 let file = 'https://ludovickninja.github.io/assets/models/Bombe%20Mid%20W65%20T22%20S105.glb';
@@ -82,7 +82,7 @@ function init(file) {
 
 		// called when the resource is loaded
 		function ( texture ) {
-			
+
 			texture.mapping = THREE.EquirectangularReflectionMapping;
 		
 			//scene.background = texture;
