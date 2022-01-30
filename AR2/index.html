@@ -47,7 +47,7 @@
               <div class="controls" id="animationControls">
                   <center>
                       <h4>Animation :</h4>
-                      <button class="ctrl turntableControl" id="TurntableControl">Turn Table : On</button>
+                      <button onclick="getScreenShot()" class="ctrl turntableControl" id="TurntableControl">Turn Table : On</button>
                       <button class="ctrl resetControl" id="ResetControl">Reset Position</button>
                   </center>
               </div>
@@ -92,6 +92,23 @@
         panel.style.display = "block";
         }
     });
+    }
+  </script>
+  <script>
+    function getScreenShot(){
+    let c = this.elem.nativeElement.querySelector('.chartContainer'); // or document.getElementById('canvas');
+    html2canvas(c).then((canvas)=>{
+      var t = canvas.toDataURL().replace("data:image/png;base64,", "");
+      this.downloadBase64File('image/png',t,'image');
+    })
+      }
+
+    function downloadBase64File(contentType:any, base64Data:any, fileName:any) {
+    const linkSource = `data:${contentType};base64,${base64Data}`;
+    const downloadLink = document.createElement("a");
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
     }
   </script>
 
