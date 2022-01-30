@@ -80,7 +80,9 @@
   <!-- <script type="module" src="main.js"></script> -->
   <!-- <script src="webrtc.js" async></script> -->
   <script>
-    /// Accordion
+    /// --------- ///
+    /// Accordion ///
+    /// --------- ///
     var acc = document.getElementsByClassName("accordion");
 
     for (var i = 0; i < acc.length; i++) {
@@ -94,8 +96,10 @@
         }
     });
     }
-  </script>
-  <script>
+
+    /// ---------- ///
+    /// ScreenShot ///
+    /// ---------- ///
     function getScreenShot(){
     let c = this.elem.nativeElement.querySelector('.chartContainer'); // or document.getElementById('canvas');
     html2canvas(c).then((canvas)=>{
