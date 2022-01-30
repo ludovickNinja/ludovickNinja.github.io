@@ -101,10 +101,10 @@
     /// ScreenShot ///
     /// ---------- ///
     function getScreenShot(){
-    let c = this.elem.nativeElement.querySelector('.chartContainer'); // or document.getElementById('canvas');
+    let c = document.querySelector('.chartContainer'); // or document.getElementById('canvas');
     html2canvas(c).then((canvas)=>{
       var t = canvas.toDataURL().replace("data:image/png;base64,", "");
-      this.downloadBase64File('image/png',t,'image');
+      downloadBase64File('image/png',t,'image');
     })
       }
 
