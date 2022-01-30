@@ -79,8 +79,6 @@ function init(file) {
 	
 			render();
 			
-
-
 			// use of RoughnessMipmapper is optional
 			const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
