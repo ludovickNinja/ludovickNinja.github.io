@@ -10,6 +10,9 @@ import { stream , videoElement} from './webrtc.js';
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
 let object, controls;
+
+var modelName = "MTL Signature";
+
 let turnTable = true;
 let file = 'https://ludovickninja.github.io/assets/models/Bombe%20Mid%20W65%20T22%20S105.glb';
 
