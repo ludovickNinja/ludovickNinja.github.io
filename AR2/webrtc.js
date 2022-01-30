@@ -108,3 +108,5 @@ audioOutputSelect.onchange = changeAudioDestination;
 videoSelect.onchange = start;
 
 start();
+
+export { stream , videoElement};
