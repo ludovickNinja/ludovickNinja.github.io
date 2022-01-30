@@ -4,6 +4,7 @@ var strDownloadMime = "image/octet-stream";
 
 const captureControlButton = document.querySelector('.CaptureButton');
 captureControlButton.addEventListener("click", saveAsImage);
+const canvasContainer = document.querySelector('.square');
 
 // create the capture
 function saveAsImage() {
@@ -11,7 +12,8 @@ function saveAsImage() {
 
 	try {
 		var strMime = "image/jpeg";
-		imgData = renderer.domElement.toDataURL(strMime);
+		//imgData = renderer.domElement.toDataURL(strMime);
+		imgData = document.getElementById('canvasContainer').toDataURL(strMime);
 
 		saveFile(imgData.replace(strMime, strDownloadMime), modelName + ".jpg");
 
