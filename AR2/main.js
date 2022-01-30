@@ -281,10 +281,10 @@ function ResetPosition() {
 } 
 
 function getScreenShot(){
-	let c = this.elem.nativeElement.querySelector('.square'); // or document.getElementById('canvas');
+	let c = document.querySelector('.square'); // or document.getElementById('canvas');
 	html2canvas(c).then((canvas)=>{
 	  var t = canvas.toDataURL().replace("data:image/png;base64,", "");
-	  this.downloadBase64File('image/png',t,'image');
+	  downloadBase64File('image/png',t,'image');
 	})
   }
 
