@@ -4,7 +4,7 @@ import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.0/examples/js
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/utils/RoughnessMipmapper.js';
-import * as HTML2Canvas from 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js';
+import * as html2canvas from 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js';
   
 
 import { stream , videoElement} from './webrtc.js';
@@ -287,7 +287,7 @@ function ResetPosition() {
 
  function getScreenShot(){
 	let c = document.querySelector('.square'); // or document.getElementById('canvas');
-	HTML2Canvas(c).then((canvas)=>{
+	html2canvas(c).then((canvas)=>{
 	  var t = canvas.toDataURL().replace("data:image/png;base64,", "");
 	  downloadBase64File('image/png',t,'image');
 	})
