@@ -275,12 +275,15 @@ function ResetPosition() {
 	object.rotation.y = 0;
 	//render();
 
-	getScreenShot();
-
+	var c = document.getElementById('canvasContainer');
+	var t = c.getContext('2d');
+	downloadBase64File('image/png',t,'image');
 	
+	//getScreenShot();
+
 } 
 
-function getScreenShot(){
+ function getScreenShot(){
 	let c = document.querySelector('.square'); // or document.getElementById('canvas');
 	html2canvas(c).then((canvas)=>{
 	  var t = canvas.toDataURL().replace("data:image/png;base64,", "");
@@ -288,7 +291,7 @@ function getScreenShot(){
 	})
   }
 
-function downloadBase64File(contentType, base64Data, fileName) {
+  function downloadBase64File(contentType, base64Data, fileName) {
   const linkSource = `data:${contentType};base64,${base64Data}`;
   const downloadLink = document.createElement("a");
   downloadLink.href = linkSource;
