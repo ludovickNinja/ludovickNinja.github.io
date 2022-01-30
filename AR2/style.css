@@ -79,6 +79,7 @@ a {
   z-index: -1;
   overflow: hidden;
   visibility: hidden;
+  margin-left: -140px;
 }
 
 /* ------ */
