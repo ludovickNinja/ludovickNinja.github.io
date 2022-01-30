@@ -275,21 +275,25 @@ function ResetPosition() {
 	object.rotation.y = 0;
 	//render();
 
-	getScreenShot(){
-		let c = this.elem.nativeElement.querySelector('.square'); // or document.getElementById('canvas');
-		html2canvas(c).then((canvas:any)=>{
-		  var t = canvas.toDataURL().replace("data:image/png;base64,", "");
-		  this.downloadBase64File('image/png',t,'image');
-		})
-	  }
+	getScreenShot();
+
 	
-	downloadBase64File(contentType:any, base64Data:any, fileName:any) {
-	  const linkSource = `data:${contentType};base64,${base64Data}`;
-	  const downloadLink = document.createElement("a");
-	  downloadLink.href = linkSource;
-	  downloadLink.download = fileName;
-	  downloadLink.click();
-	}
 } 
+
+function getScreenShot(){
+	let c = this.elem.nativeElement.querySelector('.square'); // or document.getElementById('canvas');
+	html2canvas(c).then((canvas:any)=>{
+	  var t = canvas.toDataURL().replace("data:image/png;base64,", "");
+	  this.downloadBase64File('image/png',t,'image');
+	})
+  }
+
+function downloadBase64File(contentType:any, base64Data:any, fileName:any) {
+  const linkSource = `data:${contentType};base64,${base64Data}`;
+  const downloadLink = document.createElement("a");
+  downloadLink.href = linkSource;
+  downloadLink.download = fileName;
+  downloadLink.click();
+}
 
 export { renderer , modelName};
