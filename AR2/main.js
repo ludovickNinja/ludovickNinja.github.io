@@ -276,18 +276,18 @@ function ResetPosition() {
 	rotation = 0;
 	object.rotation.y = 0;
 	//render();
-
+/*
 	var c = document.getElementById('canvasContainer');
 	var t = c.getContext('2d');
 	downloadBase64File('image/png',t,'image');
-
-	//getScreenShot();
+*/
+	getScreenShot();
 
 } 
 
  function getScreenShot(){
 	let c = document.querySelector('.square'); // or document.getElementById('canvas');
-	html2canvas(c).then((canvas)=>{
+	HTML2Canvas(c).then((canvas)=>{
 	  var t = canvas.toDataURL().replace("data:image/png;base64,", "");
 	  downloadBase64File('image/png',t,'image');
 	})
