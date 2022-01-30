@@ -5,7 +5,7 @@ import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/l
 import { RGBELoader } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/loaders/RGBELoader.js';
 import { RoughnessMipmapper } from 'https://cdn.skypack.dev/three@0.132.0/examples/jsm/utils/RoughnessMipmapper.js';
 
-import { stream } from './webrtc.js';
+import { videoElement } from './webrtc.js';
 
 let camera, scene, renderer;
 let canvasWidth, canvasHeight;
@@ -64,7 +64,7 @@ function init(file) {
         function ( texture ) {
 			texture.mapping = THREE.EquirectangularReflectionMapping;
 	
-			var videobg = stream;
+			var videobg = videoElement;
 	
 			var texturebg = new THREE.VideoTexture( videobg );
 			texturebg.minFilter = THREE.LinearFilter;
