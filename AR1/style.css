@@ -71,11 +71,13 @@ a {
 }
 
 #video{
-  position: absolute;
+  max-height: 400px;
+  position: relative;
   display: block;
   justify-content: center;
   align-content: center;
   z-index: -1;
+  overflow: hidden;
 }
 
 /* ------ */
