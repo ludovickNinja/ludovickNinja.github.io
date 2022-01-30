@@ -66,13 +66,13 @@ a {
   width: 400px;
   max-height: 400px;
   display: block;
-  position: absolute;
+  position: relative;
   display: block;
 }
 
 #video{
   max-height: 400px;
-  position: relative;
+  position: absolute;
   display: block;
   justify-content: center;
   align-content: center;
