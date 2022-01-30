@@ -13,6 +13,7 @@ const audioInputSelect = document.querySelector('select#audioSource');
 const audioOutputSelect = document.querySelector('select#audioOutput');
 const videoSelect = document.querySelector('select#videoSource');
 const selectors = [videoSelect];
+var stream;
 
 audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
 
