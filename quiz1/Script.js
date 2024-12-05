@@ -34,8 +34,9 @@ startQuizButton.addEventListener("click", () => {
 // Handle answer button clicks
 quiz.addEventListener("click", (e) => {
   if (e.target.classList.contains("answer")) {
-    const isCorrect = e.target.getAttribute("data-correct") === "true";
-    if (isCorrect) score++;
+    if (e.target.getAttribute("data-correct") === "true") {
+      score++;
+    }
 
     // Animate current question out
     questions[currentQuestion].classList.add("fade-out");
@@ -48,7 +49,7 @@ quiz.addEventListener("click", (e) => {
         // Update progress bar
         updateProgressBar();
 
-               // Show next question with animation
+        // Show next question with animation
         questions[currentQuestion].classList.remove("hidden");
         questions[currentQuestion].classList.add("fade-in");
       } else {
@@ -70,11 +71,17 @@ function showResult() {
   resultContainer.classList.remove("hidden");
   resultContainer.classList.add("fade-in");
 
-  const userName = localStorage.getItem("userName");
-  resultText.textContent = `${userName}, you got ${score} out of ${questions.length} correct!`;
-
-  // Save score to localStorage
+  // Save the final score
   localStorage.setItem("score", score);
+
+  const userName = localStorage.getItem("userName");
+  resultText.textContent = `${userName}, you scored ${score}/${questions.length}. ${
+    score === questions.length
+      ? "Amazing! You know your jewelry!"
+      : score > questions.length / 2
+      ? "Great job! You have a solid knowledge of jewelry."
+      : "Keep learning! There's more to discover about jewelry."
+  }`;
 }
 
 // Restart the quiz
@@ -86,7 +93,6 @@ restartButton.addEventListener("click", () => {
 
   setTimeout(() => {
     resultContainer.classList.add("hidden");
-    questions.forEach((question) => question.classList.add("hidden"));
     questions[0].classList.remove("hidden");
     questions[0].classList.add("fade-in");
 
