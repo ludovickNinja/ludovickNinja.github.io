@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jewelry Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="quiz-container">
+    <h1>What's Your Jewelry Style?</h1>
+    <div id="user-info">
+      <p>Enter your name to start:</p>
+      <input type="text" id="user-name" placeholder="Your name" />
+      <button id="start-quiz">Start Quiz</button>
+    </div>
+    <div id="quiz" class="hidden">
+      <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+      </div>
+      <div class="question-container">
+        <p class="question">Which metal do you prefer?</p>
+        <button class="answer" data-score="1">Gold</button>
+        <button class="answer" data-score="2">Silver</button>
+        <button class="answer" data-score="3">Rose Gold</button>
+        <button class="answer" data-score="4">Platinum</button>
+      </div>
+      <div class="question-container hidden">
+        <p class="question">Which occasion do you often wear jewelry for?</p>
+        <button class="answer" data-score="1">Everyday</button>
+        <button class="answer" data-score="2">Parties</button>
+        <button class="answer" data-score="3">Work</button>
+        <button class="answer" data-score="4">Weddings</button>
+      </div>
+      <div id="result-container" class="hidden">
+        <p id="result-text"></p>
+        <button id="restart">Restart Quiz</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
