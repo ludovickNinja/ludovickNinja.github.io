@@ -34,29 +34,45 @@ const quizData = [
 let currentQuestion = 0;
 let score = 0;
 const answers = [];
+let userName = "";
 
+const startScreen = document.getElementById("start-screen");
+const quiz = document.getElementById("quiz");
+const scoreboard = document.getElementById("scoreboard");
+const nameInputField = document.getElementById("name-input-field");
+const startButton = document.getElementById("start-button");
 const questionEl = document.getElementById("question");
 const choicesEl = document.getElementById("choices");
 const nextButton = document.getElementById("next-button");
 const progressBar = document.getElementById("progress-bar");
-const quiz = document.getElementById("quiz");
-const scoreboard = document.getElementById("scoreboard");
 const scoreText = document.getElementById("score-text");
 const nameInput = document.getElementById("name-input");
 const submitScore = document.getElementById("submit-score");
+
+function startQuiz() {
+  userName = nameInputField.value.trim();
+  if (!userName) {
+    alert("Please enter your name to start the quiz.");
+    return;
+  }
+
+  startScreen.classList.add("hidden");
+  quiz.classList.remove("hidden");
+  loadQuestion();
+  updateProgressBar();
+}
 
 function loadQuestion() {
   const currentData = quizData[currentQuestion];
   questionEl.textContent = currentData.question;
   choicesEl.innerHTML = "";
-  currentData.choices.forEach((choice, index) => {
+  currentData.choices.forEach((choice) => {
     const li = document.createElement("li");
     li.textContent = choice;
     li.addEventListener("click", () => selectAnswer(choice));
     choicesEl.appendChild(li);
   });
   nextButton.disabled = true; // Disable Next button until feedback is shown
-  console.log("Loading question:", currentQuestion, quizData[currentQuestion]); // Debug
 }
 
 function selectAnswer(choice) {
@@ -113,20 +129,22 @@ function updateProgressBar() {
 function endQuiz() {
   quiz.classList.add("hidden");
   scoreboard.classList.remove("hidden");
-  scoreText.textContent = `You scored ${score} out of ${quizData.length}!`;
+  scoreText.textContent = `You scored ${score} out of ${quizData.length}, ${userName}!`;
 }
 
 function saveToGoogleSheets() {
-  const playerName = nameInput.value.trim();
-  if (!playerName) return alert("Please enter your name!");
+  if (!userName) {
+    alert("User name is missing.");
+    return;
+  }
 
   const data = {
-    name: playerName,
+    name: userName,
     score: score,
     answers: answers,
   };
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbynKXhASUjQRHkkM1FIH0sy3lYFYhfT001xdSS6xwmhM8-fpzHw7iOEBqgWy9bxkQHmKA/exec"; // Replace with your Apps Script URL
+  const scriptURL = "https://script.google.com/macros/s/AKfycbynKXhASUjQRHkkM1FIH0sy3lYFYhfT001xdSS6xwmhM8-fpzHw7iOEBqgWy9bxkQHmKA/exec";
 
   fetch(scriptURL, {
     method: "POST",
@@ -145,9 +163,6 @@ function saveToGoogleSheets() {
 }
 
 // Event Listeners
+startButton.addEventListener("click", startQuiz);
 nextButton.addEventListener("click", nextQuestion);
 submitScore.addEventListener("click", saveToGoogleSheets);
-
-// Initialize Quiz
-loadQuestion();
-updateProgressBar();
