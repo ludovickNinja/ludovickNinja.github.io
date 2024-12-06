@@ -142,15 +142,20 @@ function endQuiz() {
   scoreText.textContent = `You scored ${score} out of ${quizData.length}, ${userName}!`;
 }
 
-// Submit the score to Google Sheets (if applicable)
+// Submit the score to Google Sheets
 function saveToGoogleSheets() {
+  if (!userName) {
+    alert("User name is missing. Please enter your name before starting the quiz.");
+    return;
+  }
+
   const data = {
     name: userName,
     score: score,
     answers: answers,
   };
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbynKXhASUjQRHkkM1FIH0sy3lYFYhfT001xdSS6xwmhM8-fpzHw7iOEBqgWy9bxkQHmKA/exec";
+  const scriptURL = "https://script.google.com/macros/s/YOUR_SCRIPT_URL_HERE/exec"; // Replace with your actual Apps Script URL
 
   fetch(scriptURL, {
     method: "POST",
@@ -162,10 +167,13 @@ function saveToGoogleSheets() {
       if (json.status === "success") {
         alert("Score successfully saved to Google Sheets!");
       } else {
-        alert("Failed to save score. Please try again.");
+        alert("Failed to save score. Please check your Google Apps Script.");
       }
     })
-    .catch((error) => console.error("Error:", error));
+    .catch((error) => {
+      console.error("Error saving score:", error);
+      alert("An error occurred while saving your score. Please try again.");
+    });
 }
 
 // Event Listeners
