@@ -4,36 +4,75 @@ const quizData = [
     choices: ["Garnet", "Emerald", "Amethyst", "Ruby"],
     answer: "Garnet",
     explanation: "Garnet is known as the birthstone for January, symbolizing protection and trust.",
+    wikiLink: "https://en.wikipedia.org/wiki/Garnet",
   },
   {
     question: "Which gemstone is actually a type of fossilized tree resin?",
     choices: ["Amber", "Topaz", "Turquoise", "Garnet"],
     answer: "Amber",
-    explanation: "Amber is fossilized tree resin, often containing ancient inclusions like insects or plant material, making it unique and valuable in jewelry.",
+    explanation: "Amber is fossilized tree resin, often containing ancient inclusions like insects or plant material.",
+    wikiLink: "https://en.wikipedia.org/wiki/Amber",
   },
   {
     question: "What is the Mohs scale used to measure?",
     choices: ["Weight", "Hardness", "Color", "Value"],
     answer: "Hardness",
     explanation: "The Mohs scale ranks minerals by their ability to scratch softer materials.",
+    wikiLink: "https://en.wikipedia.org/wiki/Mohs_scale_of_mineral_hardness",
   },
   {
     question: "Which gemstone is known as the 'stone of love'?",
     choices: ["Rose Quartz", "Sapphire", "Emerald", "Topaz"],
     answer: "Rose Quartz",
     explanation: "Rose Quartz is associated with love, compassion, and emotional healing.",
+    wikiLink: "https://en.wikipedia.org/wiki/Rose_quartz",
   },
   {
     question: "What is the rarest gemstone in the world?",
     choices: ["Alexandrite", "Tanzanite", "Painite", "Opal"],
     answer: "Painite",
     explanation: "Painite was once considered the rarest gemstone, with only a handful of specimens known.",
+    wikiLink: "https://en.wikipedia.org/wiki/Painite",
+  },
+  {
+    question: "Which gemstone is often associated with royalty?",
+    choices: ["Ruby", "Amethyst", "Emerald", "Sapphire"],
+    answer: "Sapphire",
+    explanation: "Sapphire has been associated with royalty and wisdom for centuries.",
+    wikiLink: "https://en.wikipedia.org/wiki/Sapphire",
+  },
+  {
+    question: "Which gemstone is traditionally given on the 60th wedding anniversary?",
+    choices: ["Ruby", "Diamond", "Emerald", "Amethyst"],
+    answer: "Diamond",
+    explanation: "Diamonds are traditionally given on the 60th wedding anniversary to symbolize enduring love.",
+    wikiLink: "https://en.wikipedia.org/wiki/Diamond",
+  },
+  {
+    question: "What color is natural turquoise?",
+    choices: ["Blue-green", "Red", "Yellow", "Pink"],
+    answer: "Blue-green",
+    explanation: "Turquoise is naturally blue-green due to its copper content.",
+    wikiLink: "https://en.wikipedia.org/wiki/Turquoise",
+  },
+  {
+    question: "Which gem is known as the 'evening emerald' due to its green glow in low light?",
+    choices: ["Alexandrite", "Peridot", "Emerald", "Tourmaline"],
+    answer: "Peridot",
+    explanation: "Peridot glows green under low light, earning it the nickname 'evening emerald.'",
+    wikiLink: "https://en.wikipedia.org/wiki/Peridot",
+  },
+  {
+    question: "Which gemstone changes color under different lighting?",
+    choices: ["Alexandrite", "Topaz", "Spinel", "Zircon"],
+    answer: "Alexandrite",
+    explanation: "Alexandrite is famous for its color change, appearing green in daylight and red in incandescent light.",
+    wikiLink: "https://en.wikipedia.org/wiki/Alexandrite",
   },
 ];
 
 let currentQuestion = 0;
 let score = 0;
-const answers = [];
 let userName = "";
 
 // DOM Elements
@@ -47,7 +86,6 @@ const choicesEl = document.getElementById("choices");
 const nextButton = document.getElementById("next-button");
 const progressBar = document.getElementById("progress-bar");
 const scoreText = document.getElementById("score-text");
-const submitScore = document.getElementById("submit-score");
 
 // Start the quiz
 function startQuiz() {
@@ -91,16 +129,11 @@ function selectAnswer(choice) {
   } else {
     showFeedback(
       "Incorrect!",
-      `The correct answer is "${correctAnswer}". ${currentData.explanation}`
+      `The correct answer is "${correctAnswer}". ${currentData.explanation} <a href="${currentData.wikiLink}" target="_blank">Learn more</a>.`
     );
   }
 
-  answers.push({
-    question: currentData.question,
-    selected: choice,
-    correct: choice === correctAnswer,
-    explanation: currentData.explanation,
-  });
+  nextButton.disabled = false; // Enable the "Next" button
 }
 
 // Show feedback
@@ -112,15 +145,11 @@ function showFeedback(result, explanation) {
   `;
   choicesEl.innerHTML = "";
   choicesEl.appendChild(feedback);
-
-  nextButton.disabled = false; // Enable the "Next" button
 }
 
 // Load the next question
 function nextQuestion() {
   currentQuestion++;
-  nextButton.disabled = true;
-
   if (currentQuestion < quizData.length) {
     updateProgressBar();
     loadQuestion();
@@ -142,41 +171,6 @@ function endQuiz() {
   scoreText.textContent = `You scored ${score} out of ${quizData.length}, ${userName}!`;
 }
 
-// Submit the score to Google Sheets
-function saveToGoogleSheets() {
-  if (!userName) {
-    alert("User name is missing. Please enter your name before starting the quiz.");
-    return;
-  }
-
-  const data = {
-    name: userName,
-    score: score,
-    answers: answers,
-  };
-
-  const scriptURL = "https://script.google.com/macros/s/YOUR_SCRIPT_URL_HERE/exec"; // Replace with your actual Apps Script URL
-
-  fetch(scriptURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      if (json.status === "success") {
-        alert("Score successfully saved to Google Sheets!");
-      } else {
-        alert("Failed to save score. Please check your Google Apps Script.");
-      }
-    })
-    .catch((error) => {
-      console.error("Error saving score:", error);
-      alert("An error occurred while saving your score. Please try again.");
-    });
-}
-
 // Event Listeners
 startButton.addEventListener("click", startQuiz);
 nextButton.addEventListener("click", nextQuestion);
-submitScore.addEventListener("click", saveToGoogleSheets);
