@@ -36,6 +36,7 @@ let score = 0;
 const answers = [];
 let userName = "";
 
+// DOM Elements
 const startScreen = document.getElementById("start-screen");
 const quiz = document.getElementById("quiz");
 const scoreboard = document.getElementById("scoreboard");
@@ -46,9 +47,9 @@ const choicesEl = document.getElementById("choices");
 const nextButton = document.getElementById("next-button");
 const progressBar = document.getElementById("progress-bar");
 const scoreText = document.getElementById("score-text");
-const nameInput = document.getElementById("name-input");
 const submitScore = document.getElementById("submit-score");
 
+// Start the quiz
 function startQuiz() {
   userName = nameInputField.value.trim();
   if (!userName) {
@@ -56,12 +57,16 @@ function startQuiz() {
     return;
   }
 
+  // Hide the start screen and show the quiz
   startScreen.classList.add("hidden");
   quiz.classList.remove("hidden");
+
+  // Load the first question
   loadQuestion();
   updateProgressBar();
 }
 
+// Load a question
 function loadQuestion() {
   const currentData = quizData[currentQuestion];
   questionEl.textContent = currentData.question;
@@ -72,9 +77,10 @@ function loadQuestion() {
     li.addEventListener("click", () => selectAnswer(choice));
     choicesEl.appendChild(li);
   });
-  nextButton.disabled = true; // Disable Next button until feedback is shown
+  nextButton.disabled = true; // Disable the "Next" button until feedback is shown
 }
 
+// Select an answer
 function selectAnswer(choice) {
   const currentData = quizData[currentQuestion];
   const correctAnswer = currentData.answer;
@@ -97,6 +103,7 @@ function selectAnswer(choice) {
   });
 }
 
+// Show feedback
 function showFeedback(result, explanation) {
   const feedback = document.createElement("div");
   feedback.innerHTML = `
@@ -106,9 +113,10 @@ function showFeedback(result, explanation) {
   choicesEl.innerHTML = "";
   choicesEl.appendChild(feedback);
 
-  nextButton.disabled = false; // Enable the Next button after feedback
+  nextButton.disabled = false; // Enable the "Next" button
 }
 
+// Load the next question
 function nextQuestion() {
   currentQuestion++;
   nextButton.disabled = true;
@@ -121,23 +129,21 @@ function nextQuestion() {
   }
 }
 
+// Update the progress bar
 function updateProgressBar() {
   const progress = ((currentQuestion / quizData.length) * 100).toFixed(2);
   progressBar.style.width = `${progress}%`;
 }
 
+// End the quiz
 function endQuiz() {
   quiz.classList.add("hidden");
   scoreboard.classList.remove("hidden");
   scoreText.textContent = `You scored ${score} out of ${quizData.length}, ${userName}!`;
 }
 
+// Submit the score to Google Sheets (if applicable)
 function saveToGoogleSheets() {
-  if (!userName) {
-    alert("User name is missing.");
-    return;
-  }
-
   const data = {
     name: userName,
     score: score,
