@@ -114,7 +114,7 @@ function endQuiz() {
   scoreText.textContent = `You scored ${score} out of ${quizData.length}!`;
 }
 
-function saveToJSON() {
+function saveToGoogleSheets() {
   const playerName = nameInput.value.trim();
   if (!playerName) return alert("Please enter your name!");
 
@@ -124,14 +124,24 @@ function saveToJSON() {
     answers: answers,
   };
 
-  fetch("data.json", {
+  const scriptURL = "https://script.google.com/macros/s/AKfycbynKXhASUjQRHkkM1FIH0sy3lYFYhfT001xdSS6xwmhM8-fpzHw7iOEBqgWy9bxkQHmKA/exec"; // Replace with your Apps Script URL
+
+  fetch(scriptURL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   })
-    .then(() => alert("Score saved!"))
-    .catch((error) => console.error("Error saving data:", error));
+    .then((response) => response.json())
+    .then((json) => {
+      if (json.status === "success") {
+        alert("Score successfully saved to Google Sheets!");
+      } else {
+        alert("Failed to save score. Please try again.");
+      }
+    })
+    .catch((error) => console.error("Error:", error));
 }
+
 
 nextButton.addEventListener("click", nextQuestion);
 submitScore.addEventListener("click", saveToJSON);
