@@ -3,26 +3,31 @@ const quizData = [
     question: "What is the birthstone for January?",
     choices: ["Garnet", "Emerald", "Amethyst", "Ruby"],
     answer: "Garnet",
+    explanation: "Garnet is known as the birthstone for January, symbolizing protection and trust.",
   },
   {
-    question: "What metal is commonly used for engagement rings?",
-    choices: ["Gold", "Titanium", "Platinum", "Silver"],
-    answer: "Platinum",
+    question: "Which gemstone is actually a type of fossilized tree resin?",
+    choices: ["Amber", "Topaz", "Turquoise", "Garnet"],
+    answer: "Amber",
+    explanation: "Amber is fossilized tree resin, often containing ancient inclusions like insects or plant material, making it unique and valuable in jewelry.",
   },
   {
     question: "What is the Mohs scale used to measure?",
     choices: ["Weight", "Hardness", "Color", "Value"],
     answer: "Hardness",
+    explanation: "The Mohs scale ranks minerals by their ability to scratch softer materials.",
   },
   {
     question: "Which gemstone is known as the 'stone of love'?",
     choices: ["Rose Quartz", "Sapphire", "Emerald", "Topaz"],
     answer: "Rose Quartz",
+    explanation: "Rose Quartz is associated with love, compassion, and emotional healing.",
   },
   {
     question: "What is the rarest gemstone in the world?",
     choices: ["Alexandrite", "Tanzanite", "Painite", "Opal"],
     answer: "Painite",
+    explanation: "Painite was once considered the rarest gemstone, with only a handful of specimens known.",
   },
 ];
 
@@ -53,15 +58,43 @@ function loadQuestion() {
 }
 
 function selectAnswer(choice) {
-  answers.push({ question: quizData[currentQuestion].question, selected: choice });
-  if (choice === quizData[currentQuestion].answer) {
+  const currentData = quizData[currentQuestion];
+  const correctAnswer = currentData.answer;
+
+  if (choice === correctAnswer) {
     score++;
+    showFeedback("Correct!", "");
+  } else {
+    showFeedback(
+      "Incorrect!",
+      `The correct answer is "${correctAnswer}". ${currentData.explanation}`
+    );
   }
-  nextQuestion();
+
+  answers.push({
+    question: currentData.question,
+    selected: choice,
+    correct: choice === correctAnswer,
+    explanation: currentData.explanation,
+  });
+}
+
+function showFeedback(result, explanation) {
+  const feedback = document.createElement("div");
+  feedback.innerHTML = `
+    <p><strong>${result}</strong></p>
+    <p>${explanation}</p>
+  `;
+  choicesEl.innerHTML = "";
+  choicesEl.appendChild(feedback);
+
+  nextButton.disabled = false;
 }
 
 function nextQuestion() {
   currentQuestion++;
+  nextButton.disabled = true;
+
   if (currentQuestion < quizData.length) {
     updateProgressBar();
     loadQuestion();
@@ -105,3 +138,4 @@ submitScore.addEventListener("click", saveToJSON);
 
 loadQuestion();
 updateProgressBar();
+nextButton.disabled = true;
