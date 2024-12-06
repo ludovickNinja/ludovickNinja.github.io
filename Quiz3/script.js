@@ -55,6 +55,8 @@ function loadQuestion() {
     li.addEventListener("click", () => selectAnswer(choice));
     choicesEl.appendChild(li);
   });
+  nextButton.disabled = true; // Disable Next button until feedback is shown
+  console.log("Loading question:", currentQuestion, quizData[currentQuestion]); // Debug
 }
 
 function selectAnswer(choice) {
@@ -88,7 +90,7 @@ function showFeedback(result, explanation) {
   choicesEl.innerHTML = "";
   choicesEl.appendChild(feedback);
 
-  nextButton.disabled = false;
+  nextButton.disabled = false; // Enable the Next button after feedback
 }
 
 function nextQuestion() {
@@ -142,10 +144,10 @@ function saveToGoogleSheets() {
     .catch((error) => console.error("Error:", error));
 }
 
-
+// Event Listeners
 nextButton.addEventListener("click", nextQuestion);
-submitScore.addEventListener("click", saveToJSON);
+submitScore.addEventListener("click", saveToGoogleSheets);
 
+// Initialize Quiz
 loadQuestion();
 updateProgressBar();
-nextButton.disabled = true;
