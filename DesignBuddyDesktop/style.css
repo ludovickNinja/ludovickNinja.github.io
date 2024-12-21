@@ -94,7 +94,7 @@ h3 {
   margin-top: 0;
 }
 
-/* Hidden Halo Calculator Styling */
+/* Halo Calculator Styling */
 .halo-calculator {
   display: flex;
   flex-direction: column;
@@ -113,6 +113,7 @@ h3 {
   gap: 0.5rem;
 }
 
+#total-stones-halo,
 #total-stones {
   background-color: #f0f0f0;
   border: 1px solid #000;
