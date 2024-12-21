@@ -12,30 +12,83 @@
     <aside class="sidebar">
       <h2>Design Buddy</h2>
       <ul class="tabs">
-        <li data-tab="full-eternity" class="active">Stone Count: Full Eternity</li>
-        <li data-tab="halo">Stone Count: Halos</li>
-        <li data-tab="hidden-halo">Stone Count: Hidden Halos</li>
+        <li data-tab="stone-count-full-eternity" class="active">Stone Count: Full Eternity</li>
+        <li data-tab="stone-count-halo">Stone Count: Halos</li>
+        <li data-tab="stone-count-hidden-halo">Stone Count: Hidden Halos</li>
         <li data-tab="weight-conversion">Weight Conversion</li>
       </ul>
     </aside>
 
     <!-- Main Content Area -->
     <main class="content">
-      <section id="full-eternity" class="tab-content active">
+      <!-- Full Eternity Tab -->
+      <section id="stone-count-full-eternity" class="tab-content active">
         <h3>Stone Count Calculator for Full Eternity Bands</h3>
         <p>Add your calculator or functionality here...</p>
       </section>
-      <section id="halo" class="tab-content">
+
+      <!-- Halos Tab -->
+      <section id="stone-count-halo" class="tab-content">
         <h3>Stone Count Calculator for Halos</h3>
         <p>Add your calculator or functionality here...</p>
       </section>
-      <section id="hidden-halo" class="tab-content">
-        <h3>Stone Calculator for Hidden Halos</h3>
+
+      <!-- Hidden Halos Tab -->
+      <section id="stone-count-hidden-halo" class="tab-content">
+        <h3>Stone Count Calculator for Hidden Halos</h3>
         <p>Add your calculator or functionality here...</p>
       </section>
+
+      <!-- Weight Conversion Tab -->
       <section id="weight-conversion" class="tab-content">
         <h3>Weight Conversion</h3>
-        <p>Add your calculator or functionality here...</p>
+        <div class="conversion-container">
+          <!-- Left Side: Known Material -->
+          <div class="converter">
+            <label for="known-material">Material of Known Weight:</label>
+            <select id="known-material">
+              <option value="0.01932">Gold (24K)</option>
+              <option value="0.01762">Gold (22K)</option>
+              <option value="0.0173">Gold (19K Super White)</option>
+              <option value="0.016">Gold (18K Palladium White)</option>
+              <option value="0.0155">Gold (18K)</option>
+              <option value="0.0135">Gold (14K)</option>
+              <option value="0.0117">Gold (10K)</option>
+              <option value="0.01049">Fine Silver</option>
+              <option value="0.01036">Sterling Silver</option>
+              <option value="0.022">Platinum</option>
+              <option value="0.01202">Palladium 950</option>
+              <option value="0.00092">Wax</option>
+              <option value="0.008">316L Stainless Steel</option>
+            </select>
+            
+            <label for="known-weight">Enter Known Weight (grams):</label>
+            <input type="number" id="known-weight" placeholder="Enter weight">
+          </div>
+          
+          <!-- Right Side: Target Material -->
+          <div class="converter">
+            <label for="target-material">Material to Convert To:</label>
+            <select id="target-material">
+              <option value="0.01932">Gold (24K)</option>
+              <option value="0.01762">Gold (22K)</option>
+              <option value="0.0173">Gold (19K Super White)</option>
+              <option value="0.016">Gold (18K Palladium White)</option>
+              <option value="0.0155">Gold (18K)</option>
+              <option value="0.0135">Gold (14K)</option>
+              <option value="0.0117">Gold (10K)</option>
+              <option value="0.01049">Fine Silver</option>
+              <option value="0.01036">Sterling Silver</option>
+              <option value="0.022">Platinum</option>
+              <option value="0.01202">Palladium 950</option>
+              <option value="0.00092">Wax</option>
+              <option value="0.008">316L Stainless Steel</option>
+            </select>
+            
+            <label for="converted-weight">Converted Weight (grams):</label>
+            <input type="text" id="converted-weight" placeholder="Converted weight" readonly>
+          </div>
+        </div>
       </section>
     </main>
   </div>
