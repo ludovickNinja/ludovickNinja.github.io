@@ -1,7 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Dynamic Tab Creation
+  // JSON Data for Finger Sizes
+  const fingerSizes = {
+    BaseChart: [
+      { Size: 1.0, Finished: 12.47 },
+      { Size: 1.25, Finished: 12.67 },
+      // Add all sizes from your original JSON file
+    ],
+    France: [
+      { Size: 42.0, Finished: 13.57 },
+      // Add all sizes from your original JSON file
+    ],
+  };
+
   const tabsData = [
-    { id: "stone-count-full-eternity", title: "Stone Count: Full Eternity", content: "Add functionality here..." },
+    {
+      id: "stone-count-full-eternity",
+      title: "Stone Count: Full Eternity",
+      content: `
+        <div class="eternity-calculator">
+          <div class="input-section">
+            <label for="coverage-type">Select Coverage Type:</label>
+            <select id="coverage-type">
+              <option value="full">Full Eternity</option>
+              <option value="half">Half Eternity</option>
+              <option value="three-quarters">Three Quarters Eternity</option>
+            </select>
+
+            <label for="region-type">Select Finger Size Region:</label>
+            <select id="region-type">
+              <option value="BaseChart">US</option>
+              <option value="France">France</option>
+            </select>
+
+            <label for="finger-size">Enter Finger Size:</label>
+            <input type="number" id="finger-size" placeholder="e.g., 6.5" />
+
+            <label for="band-thickness">Enter Band Thickness (mm):</label>
+            <input type="number" id="band-thickness" placeholder="e.g., 1.50" />
+
+            <label for="spacing-eternity">Spacing Between Stones (mm):</label>
+            <input type="number" id="spacing-eternity" placeholder="e.g., 0.20" />
+
+            <label for="melee-diameter-eternity">Diameter of Melee Stones (mm):</label>
+            <input type="number" id="melee-diameter-eternity" placeholder="e.g., 1.50" />
+          </div>
+
+          <div class="output-section">
+            <label for="total-stones-eternity">Total Stones Needed:</label>
+            <input type="text" id="total-stones-eternity" readonly placeholder="0" />
+          </div>
+        </div>
+      `,
+    },
     {
       id: "stone-count-halo",
       title: "Stone Count: Halos",
@@ -28,30 +78,28 @@ document.addEventListener("DOMContentLoaded", () => {
             <label for="spacing-to-center">Spacing to Center Stone (mm):</label>
             <input type="number" id="spacing-to-center" value="0.2" placeholder="0.2" />
 
-            <label for="melee-diameter">Diameter of Melee Stones (mm):</label>
-            <input type="number" id="melee-diameter" placeholder="e.g., 1.50" />
+            <label for="melee-diameter-halo">Diameter of Melee Stones (mm):</label>
+            <input type="number" id="melee-diameter-halo" placeholder="e.g., 1.50" />
 
-            <label for="spacing-between-melees">Spacing Between Melees (mm):</label>
-            <input type="number" id="spacing-between-melees" placeholder="e.g., 0.20" />
+            <label for="spacing-between-melees-halo">Spacing Between Melees (mm):</label>
+            <input type="number" id="spacing-between-melees-halo" placeholder="e.g., 0.20" />
           </div>
 
           <div class="output-section">
             <label for="total-stones-halo">Total Stones Needed:</label>
             <input type="text" id="total-stones-halo" readonly placeholder="0" />
-
-            <small>Formula: Total Stones = Perimeter ÷ (Melee Diameter + Spacing Between Melees)</small>
           </div>
         </div>
-      `
+      `,
     },
     {
       id: "stone-count-hidden-halo",
       title: "Stone Count: Hidden Halos",
       content: `
-        <div class="halo-calculator">
+        <div class="hidden-halo-calculator">
           <div class="input-section">
-            <label for="center-shape">Select Center Stone Shape:</label>
-            <select id="center-shape">
+            <label for="center-shape-hidden-halo">Select Center Stone Shape:</label>
+            <select id="center-shape-hidden-halo">
               <option value="round">Round</option>
               <option value="oval">Oval</option>
               <option value="cushion">Cushion</option>
@@ -61,27 +109,19 @@ document.addEventListener("DOMContentLoaded", () => {
               <option value="marquise">Marquise</option>
             </select>
 
-            <label for="width">Width of Center Stone (mm):</label>
-            <input type="number" id="width" placeholder="e.g., 5.00" />
+            <label for="width-hidden-halo">Width of Center Stone (mm):</label>
+            <input type="number" id="width-hidden-halo" placeholder="e.g., 5.00" />
 
-            <label for="length" id="length-label" style="display: none;">Length of Center Stone (mm):</label>
-            <input type="number" id="length" placeholder="e.g., 7.00" style="display: none;" />
-
-            <label for="stone-size">Diameter of Stones (mm):</label>
-            <input type="number" id="stone-size" placeholder="e.g., 1.50" />
-
-            <label for="spacing">Spacing Between Stones (mm):</label>
-            <input type="number" id="spacing" placeholder="e.g., 0.20" />
+            <label for="spacing-between-hidden-halo">Spacing Between Stones (mm):</label>
+            <input type="number" id="spacing-between-hidden-halo" placeholder="e.g., 0.20" />
           </div>
 
           <div class="output-section">
-            <label for="total-stones">Total Stones Needed for Hidden Halo:</label>
-            <input type="text" id="total-stones" readonly placeholder="0" />
-
-            <small>Formula: Total Stones = Perimeter ÷ (Stone Diameter + Spacing)</small>
+            <label for="total-stones-hidden-halo">Total Stones Needed:</label>
+            <input type="text" id="total-stones-hidden-halo" readonly placeholder="0" />
           </div>
         </div>
-      `
+      `,
     },
     {
       id: "weight-conversion",
@@ -131,22 +171,21 @@ document.addEventListener("DOMContentLoaded", () => {
             <input type="text" id="converted-weight" readonly placeholder="Converted weight">
           </div>
         </div>
-      `
+      `,
     },
   ];
 
+  // Dynamic Tab Generation
   const tabsContainer = document.querySelector(".tabs");
   const contentContainer = document.querySelector(".content");
 
   tabsData.forEach((tab, index) => {
-    // Create Tab
     const tabElement = document.createElement("li");
     tabElement.textContent = tab.title;
     tabElement.dataset.tab = tab.id;
     if (index === 0) tabElement.classList.add("active");
     tabsContainer.appendChild(tabElement);
 
-    // Create Tab Content
     const sectionElement = document.createElement("section");
     sectionElement.id = tab.id;
     sectionElement.className = "tab-content";
@@ -155,28 +194,77 @@ document.addEventListener("DOMContentLoaded", () => {
     contentContainer.appendChild(sectionElement);
   });
 
-  // Tab Navigation
   const tabs = document.querySelectorAll(".tabs li");
   const tabContents = document.querySelectorAll(".tab-content");
 
-  tabs.forEach(tab => {
+  tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
-      tabs.forEach(item => item.classList.remove("active"));
-      tabContents.forEach(content => content.classList.remove("active"));
+      tabs.forEach((item) => item.classList.remove("active"));
+      tabContents.forEach((content) => content.classList.remove("active"));
       tab.classList.add("active");
       const target = tab.getAttribute("data-tab");
       document.getElementById(target).classList.add("active");
     });
   });
 
-  // Halo Stone Count Calculation Logic
+  // Full Eternity Stone Count Logic
+  const regionTypeSelect = document.getElementById("region-type");
+  const fingerSizeInput = document.getElementById("finger-size");
+  const bandThicknessInput = document.getElementById("band-thickness");
+  const spacingEternityInput = document.getElementById("spacing-eternity");
+  const meleeDiameterEternityInput = document.getElementById("melee-diameter-eternity");
+  const coverageTypeSelect = document.getElementById("coverage-type");
+  const totalStonesEternityOutput = document.getElementById("total-stones-eternity");
+
+  const calculateEternityStones = () => {
+    const region = regionTypeSelect.value;
+    const fingerSize = parseFloat(fingerSizeInput.value) || 0;
+    const bandThickness = parseFloat(bandThicknessInput.value) || 0;
+    const spacing = parseFloat(spacingEternityInput.value) || 0;
+    const meleeDiameter = parseFloat(meleeDiameterEternityInput.value) || 0;
+    const coverageType = coverageTypeSelect.value;
+
+    if (fingerSize <= 0 || bandThickness < 0 || spacing < 0 || meleeDiameter <= 0) {
+      totalStonesEternityOutput.value = "Invalid Inputs";
+      return;
+    }
+
+    const regionData = fingerSizes[region];
+    const sizeData = regionData.find((item) => item.Size === fingerSize);
+    if (!sizeData) {
+      totalStonesEternityOutput.value = "Size Not Found";
+      return;
+    }
+
+    const perimeter = Math.PI * sizeData.Finished;
+    const adjustedPerimeter = perimeter + Math.PI * bandThickness;
+
+    let finalPerimeter = adjustedPerimeter;
+    if (coverageType === "half") {
+      finalPerimeter /= 2;
+    } else if (coverageType === "three-quarters") {
+      finalPerimeter *= 0.75;
+    }
+
+    const totalStones = Math.floor(finalPerimeter / (meleeDiameter + spacing));
+    totalStonesEternityOutput.value = totalStones;
+  };
+
+  regionTypeSelect.addEventListener("change", calculateEternityStones);
+  fingerSizeInput.addEventListener("input", calculateEternityStones);
+  bandThicknessInput.addEventListener("input", calculateEternityStones);
+  spacingEternityInput.addEventListener("input", calculateEternityStones);
+  meleeDiameterEternityInput.addEventListener("input", calculateEternityStones);
+  coverageTypeSelect.addEventListener("change", calculateEternityStones);
+
+  // Halo Stone Count Logic
   const haloShapeSelect = document.getElementById("center-shape-halo");
   const haloWidthInput = document.getElementById("width-halo");
   const haloLengthInput = document.getElementById("length-halo");
   const haloLengthLabel = document.getElementById("length-label-halo");
   const spacingToCenterInput = document.getElementById("spacing-to-center");
-  const meleeDiameterInput = document.getElementById("melee-diameter");
-  const spacingBetweenMeleesInput = document.getElementById("spacing-between-melees");
+  const meleeDiameterHaloInput = document.getElementById("melee-diameter-halo");
+  const spacingBetweenMeleesHaloInput = document.getElementById("spacing-between-melees-halo");
   const totalStonesHaloOutput = document.getElementById("total-stones-halo");
 
   haloShapeSelect?.addEventListener("change", () => {
@@ -194,8 +282,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const width = parseFloat(haloWidthInput.value) || 0;
     const length = parseFloat(haloLengthInput.value) || 0;
     const spacingToCenter = parseFloat(spacingToCenterInput.value) || 0;
-    const meleeDiameter = parseFloat(meleeDiameterInput.value) || 0;
-    const spacingBetweenMelees = parseFloat(spacingBetweenMeleesInput.value) || 0;
+    const meleeDiameter = parseFloat(meleeDiameterHaloInput.value) || 0;
+    const spacingBetweenMelees = parseFloat(spacingBetweenMeleesHaloInput.value) || 0;
 
     if (meleeDiameter <= 0 || spacingBetweenMelees < 0 || spacingToCenter < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
       totalStonesHaloOutput.value = "Invalid Inputs";
@@ -221,57 +309,40 @@ document.addEventListener("DOMContentLoaded", () => {
   haloWidthInput?.addEventListener("input", calculateHaloStoneCount);
   haloLengthInput?.addEventListener("input", calculateHaloStoneCount);
   spacingToCenterInput?.addEventListener("input", calculateHaloStoneCount);
-  meleeDiameterInput?.addEventListener("input", calculateHaloStoneCount);
-  spacingBetweenMeleesInput?.addEventListener("input", calculateHaloStoneCount);
+  meleeDiameterHaloInput?.addEventListener("input", calculateHaloStoneCount);
+  spacingBetweenMeleesHaloInput?.addEventListener("input", calculateHaloStoneCount);
 
-  // Hidden Halo Calculation Logic
-  const hiddenHaloShapeSelect = document.getElementById("center-shape");
-  const hiddenHaloWidthInput = document.getElementById("width");
-  const hiddenHaloLengthInput = document.getElementById("length");
-  const hiddenHaloLengthLabel = document.getElementById("length-label");
-  const stoneSizeInput = document.getElementById("stone-size");
-  const spacingInput = document.getElementById("spacing");
-  const hiddenHaloTotalStonesOutput = document.getElementById("total-stones");
+  // Hidden Halo Stone Count Logic
+  const hiddenHaloShapeSelect = document.getElementById("center-shape-hidden-halo");
+  const hiddenHaloWidthInput = document.getElementById("width-hidden-halo");
+  const spacingBetweenHiddenHaloInput = document.getElementById("spacing-between-hidden-halo");
+  const totalStonesHiddenHaloOutput = document.getElementById("total-stones-hidden-halo");
 
-  hiddenHaloShapeSelect?.addEventListener("change", () => {
-    if (hiddenHaloShapeSelect.value === "round") {
-      hiddenHaloLengthInput.style.display = "none";
-      hiddenHaloLengthLabel.style.display = "none";
-    } else {
-      hiddenHaloLengthInput.style.display = "block";
-      hiddenHaloLengthLabel.style.display = "block";
-    }
-  });
-
-  const calculateHiddenHalo = () => {
+  const calculateHiddenHaloStoneCount = () => {
     const shape = hiddenHaloShapeSelect.value;
     const width = parseFloat(hiddenHaloWidthInput.value) || 0;
-    const length = parseFloat(hiddenHaloLengthInput.value) || 0;
-    const stoneSize = parseFloat(stoneSizeInput.value) || 0;
-    const spacing = parseFloat(spacingInput.value) || 0;
+    const spacingBetween = parseFloat(spacingBetweenHiddenHaloInput.value) || 0;
 
-    if (stoneSize <= 0 || spacing < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
-      hiddenHaloTotalStonesOutput.value = "Invalid Inputs";
+    if (width <= 0 || spacingBetween < 0) {
+      totalStonesHiddenHaloOutput.value = "Invalid Inputs";
       return;
     }
 
     let perimeter = 0;
+
     if (shape === "round") {
       perimeter = Math.PI * width;
-    } else if (["oval", "pear", "marquise"].includes(shape)) {
-      perimeter = Math.PI * ((width + length) / 2);
     } else {
-      perimeter = 2 * (width + length);
+      perimeter = Math.PI * (width + 2 * spacingBetween);
     }
 
-    const totalStones = Math.floor(perimeter / (stoneSize + spacing));
-    hiddenHaloTotalStonesOutput.value = totalStones;
+    const totalStones = Math.floor(perimeter / spacingBetween);
+    totalStonesHiddenHaloOutput.value = totalStones;
   };
 
-  hiddenHaloWidthInput?.addEventListener("input", calculateHiddenHalo);
-  hiddenHaloLengthInput?.addEventListener("input", calculateHiddenHalo);
-  stoneSizeInput?.addEventListener("input", calculateHiddenHalo);
-  spacingInput?.addEventListener("input", calculateHiddenHalo);
+  hiddenHaloShapeSelect.addEventListener("change", calculateHiddenHaloStoneCount);
+  hiddenHaloWidthInput.addEventListener("input", calculateHiddenHaloStoneCount);
+  spacingBetweenHiddenHaloInput.addEventListener("input", calculateHiddenHaloStoneCount);
 
   // Weight Conversion Logic
   const knownWeightInput = document.getElementById("known-weight");
@@ -292,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  knownWeightInput?.addEventListener("input", calculateWeightConversion);
-  knownMaterialSelect?.addEventListener("change", calculateWeightConversion);
-  targetMaterialSelect?.addEventListener("change", calculateWeightConversion);
+  knownWeightInput.addEventListener("input", calculateWeightConversion);
+  knownMaterialSelect.addEventListener("change", calculateWeightConversion);
+  targetMaterialSelect.addEventListener("change", calculateWeightConversion);
 });
