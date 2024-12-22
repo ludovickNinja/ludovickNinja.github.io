@@ -295,7 +295,43 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
-  // Dynamic Tab Generation
+    // Add a new tab dynamically
+    function addTab(id, title, content, url = null) {
+    const tabsContainer = document.querySelector(".tabs");
+    const contentContainer = document.querySelector(".content");
+
+    // Create the tab in the sidebar
+    const tabElement = document.createElement("li");
+    tabElement.textContent = title;
+    tabElement.dataset.tab = id;
+
+    // If a URL is provided, make the tab a link
+    if (url) {
+      tabElement.addEventListener("click", () => {
+        window.open(url, "_blank");
+      });
+    } else {
+      // Otherwise, create a regular tab
+      const sectionElement = document.createElement("section");
+      sectionElement.id = id;
+      sectionElement.className = "tab-content";
+      sectionElement.innerHTML = `<h3>${title}</h3>${content}`;
+      contentContainer.appendChild(sectionElement);
+
+      tabElement.addEventListener("click", () => {
+        const tabs = document.querySelectorAll(".tabs li");
+        const tabContents = document.querySelectorAll(".tab-content");
+        tabs.forEach((tab) => tab.classList.remove("active"));
+        tabContents.forEach((content) => content.classList.remove("active"));
+        tabElement.classList.add("active");
+        sectionElement.classList.add("active");
+      });
+    }
+
+    tabsContainer.appendChild(tabElement);
+  }
+
+  // Initialize tabs
   const tabsContainer = document.querySelector(".tabs");
   const contentContainer = document.querySelector(".content");
 
@@ -312,20 +348,25 @@ document.addEventListener("DOMContentLoaded", () => {
     if (index === 0) sectionElement.classList.add("active");
     sectionElement.innerHTML = `<h3>${tab.title}</h3>${tab.content}`;
     contentContainer.appendChild(sectionElement);
-  });
 
-  const tabs = document.querySelectorAll(".tabs li");
-  const tabContents = document.querySelectorAll(".tab-content");
-
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      tabs.forEach((item) => item.classList.remove("active"));
+    // Add event listener for switching tabs
+    tabElement.addEventListener("click", () => {
+      const tabs = document.querySelectorAll(".tabs li");
+      const tabContents = document.querySelectorAll(".tab-content");
+      tabs.forEach((tab) => tab.classList.remove("active"));
       tabContents.forEach((content) => content.classList.remove("active"));
-      tab.classList.add("active");
-      const target = tab.getAttribute("data-tab");
-      document.getElementById(target).classList.add("active");
+      tabElement.classList.add("active");
+      sectionElement.classList.add("active");
     });
   });
+
+  // Add the "Design Buddy Chat" tab dynamically
+  addTab(
+    "design-buddy-chat",
+    "Design Buddy Chat",
+    null, // No content since it links to a URL
+    "https://chatgpt.com/g/g-67672f631ab481918af63d9ae2b38271-design-buddy"
+  );
 
   // Full Eternity Stone Count Logic
   const regionTypeSelect = document.getElementById("region-type");
