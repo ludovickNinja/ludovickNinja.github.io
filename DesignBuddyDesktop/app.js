@@ -216,10 +216,10 @@ document.addEventListener("DOMContentLoaded", () => {
       id: "stone-count-hidden-halo",
       title: "Stone Count: Hidden Halos",
       content: `
-        <div class="hidden-halo-calculator">
+        <div class="halo-calculator">
           <div class="input-section">
-            <label for="center-shape-hidden-halo">Select Center Stone Shape:</label>
-            <select id="center-shape-hidden-halo">
+            <label for="center-shape">Select Center Stone Shape:</label>
+            <select id="center-shape">
               <option value="round">Round</option>
               <option value="oval">Oval</option>
               <option value="cushion">Cushion</option>
@@ -229,19 +229,27 @@ document.addEventListener("DOMContentLoaded", () => {
               <option value="marquise">Marquise</option>
             </select>
 
-            <label for="width-hidden-halo">Width of Center Stone (mm):</label>
-            <input type="number" id="width-hidden-halo" placeholder="e.g., 5.00" />
+            <label for="width">Width of Center Stone (mm):</label>
+            <input type="number" id="width" placeholder="e.g., 5.00" />
 
-            <label for="spacing-between-hidden-halo">Spacing Between Stones (mm):</label>
-            <input type="number" id="spacing-between-hidden-halo" placeholder="e.g., 0.20" />
+            <label for="length" id="length-label" style="display: none;">Length of Center Stone (mm):</label>
+            <input type="number" id="length" placeholder="e.g., 7.00" style="display: none;" />
+
+            <label for="stone-size">Diameter of Stones (mm):</label>
+            <input type="number" id="stone-size" placeholder="e.g., 1.50" />
+
+            <label for="spacing">Spacing Between Stones (mm):</label>
+            <input type="number" id="spacing" placeholder="e.g., 0.20" />
           </div>
 
           <div class="output-section">
-            <label for="total-stones-hidden-halo">Total Stones Needed:</label>
-            <input type="text" id="total-stones-hidden-halo" readonly placeholder="0" />
+            <label for="total-stones">Total Stones Needed for Hidden Halo:</label>
+            <input type="text" id="total-stones" readonly placeholder="0" />
+
+            <small>Formula: Total Stones = Perimeter ÷ (Stone Diameter + Spacing)</small>
           </div>
         </div>
-      `,
+      `
     },
     {
       id: "weight-conversion",
