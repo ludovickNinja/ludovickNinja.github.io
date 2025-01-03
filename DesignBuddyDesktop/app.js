@@ -472,7 +472,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const totalStones = Math.floor(perimeter / (meleeDiameter + spacingBetweenMelees));
-    totalStonesHaloOutput.value = totalStones;
+
+    // Round down to the nearest even number
+    const roundedDownEven = totalStones % 2 === 0 ? totalStones : totalStones - 1;
+    totalStonesHaloOutput.value = roundedDownEven;
   };
 
   haloWidthInput?.addEventListener("input", calculateHaloStoneCount);
@@ -522,7 +525,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const totalStones = Math.floor(perimeter / (stoneSize + spacing) - 4);
-    hiddenHaloTotalStonesOutput.value = totalStones;
+
+    // Round down to the nearest even number
+    const roundedDownEven = totalStones % 2 === 0 ? totalStones : totalStones - 1;
+    hiddenHaloTotalStonesOutput.value = roundedDownEven;
   };
 
   hiddenHaloWidthInput?.addEventListener("input", calculateHiddenHalo);
