@@ -452,8 +452,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let perimeter = 0;
-    const adjustedWidth = width + (2 * spacingToCenter);
-    const adjustedLength = length + (2 * spacingToCenter);
+    const adjustedWidth = width + (2 * spacingToCenter) + meleeDiameter;
+    const adjustedLength = length + (2 * spacingToCenter) + meleeDiameter;
 
     if (shape === "round") {
       perimeter = Math.PI * adjustedWidth;
@@ -497,7 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
       perimeter = Math.PI * (width + 2 * spacingBetween);
     }
 
-    const totalStones = Math.floor(perimeter / spacingBetween);
+    const totalStones = Math.floor(perimeter / spacingBetween - 4);
     totalStonesHiddenHaloOutput.value = totalStones;
   };
 
