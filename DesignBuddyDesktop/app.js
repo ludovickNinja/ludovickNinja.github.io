@@ -521,7 +521,7 @@ document.addEventListener("DOMContentLoaded", () => {
       perimeter = 2 * (width + length);
     }
 
-    const totalStones = Math.floor(perimeter / (stoneSize + spacing));
+    const totalStones = Math.floor(perimeter / (stoneSize + spacing) - 4);
     hiddenHaloTotalStonesOutput.value = totalStones;
   };
 
