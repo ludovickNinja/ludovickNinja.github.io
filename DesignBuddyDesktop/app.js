@@ -481,37 +481,54 @@ document.addEventListener("DOMContentLoaded", () => {
   meleeDiameterHaloInput?.addEventListener("input", calculateHaloStoneCount);
   spacingBetweenMeleesHaloInput?.addEventListener("input", calculateHaloStoneCount);
 
-  // Hidden Halo Stone Count Logic
-  const hiddenHaloShapeSelect = document.getElementById("center-shape-hidden-halo");
-  const hiddenHaloWidthInput = document.getElementById("width-hidden-halo");
-  const spacingBetweenHiddenHaloInput = document.getElementById("spacing-between-hidden-halo");
-  const totalStonesHiddenHaloOutput = document.getElementById("total-stones-hidden-halo");
+  // Hidden Halo Calculation Logic
+  const hiddenHaloShapeSelect = document.getElementById("center-shape");
+  const hiddenHaloWidthInput = document.getElementById("width");
+  const hiddenHaloLengthInput = document.getElementById("length");
+  const hiddenHaloLengthLabel = document.getElementById("length-label");
+  const stoneSizeInput = document.getElementById("stone-size");
+  const spacingInput = document.getElementById("spacing");
+  const hiddenHaloTotalStonesOutput = document.getElementById("total-stones");
 
-  const calculateHiddenHaloStoneCount = () => {
+  hiddenHaloShapeSelect?.addEventListener("change", () => {
+    if (hiddenHaloShapeSelect.value === "round") {
+      hiddenHaloLengthInput.style.display = "none";
+      hiddenHaloLengthLabel.style.display = "none";
+    } else {
+      hiddenHaloLengthInput.style.display = "block";
+      hiddenHaloLengthLabel.style.display = "block";
+    }
+  });
+
+  const calculateHiddenHalo = () => {
     const shape = hiddenHaloShapeSelect.value;
     const width = parseFloat(hiddenHaloWidthInput.value) || 0;
-    const spacingBetween = parseFloat(spacingBetweenHiddenHaloInput.value) || 0;
+    const length = parseFloat(hiddenHaloLengthInput.value) || 0;
+    const stoneSize = parseFloat(stoneSizeInput.value) || 0;
+    const spacing = parseFloat(spacingInput.value) || 0;
 
-    if (width <= 0 || spacingBetween < 0) {
-      totalStonesHiddenHaloOutput.value = "Invalid Inputs";
+    if (stoneSize <= 0 || spacing < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
+      hiddenHaloTotalStonesOutput.value = "Invalid Inputs";
       return;
     }
 
     let perimeter = 0;
-
     if (shape === "round") {
       perimeter = Math.PI * width;
+    } else if (["oval", "pear", "marquise"].includes(shape)) {
+      perimeter = Math.PI * ((width + length) / 2);
     } else {
-      perimeter = Math.PI * (width + 2 * spacingBetween);
+      perimeter = 2 * (width + length);
     }
 
-    const totalStones = Math.floor(perimeter / spacingBetween - 4);
-    totalStonesHiddenHaloOutput.value = totalStones;
+    const totalStones = Math.floor(perimeter / (stoneSize + spacing));
+    hiddenHaloTotalStonesOutput.value = totalStones;
   };
 
-  hiddenHaloShapeSelect.addEventListener("change", calculateHiddenHaloStoneCount);
-  hiddenHaloWidthInput.addEventListener("input", calculateHiddenHaloStoneCount);
-  spacingBetweenHiddenHaloInput.addEventListener("input", calculateHiddenHaloStoneCount);
+  hiddenHaloWidthInput?.addEventListener("input", calculateHiddenHalo);
+  hiddenHaloLengthInput?.addEventListener("input", calculateHiddenHalo);
+  stoneSizeInput?.addEventListener("input", calculateHiddenHalo);
+  spacingInput?.addEventListener("input", calculateHiddenHalo);
 
   // Weight Conversion Logic
   const knownWeightInput = document.getElementById("known-weight");
