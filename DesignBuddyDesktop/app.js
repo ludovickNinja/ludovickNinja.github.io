@@ -558,7 +558,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (knownMaterial === "carat") {
       // Convert carats to grams, then calculate volume
-      const weightInGrams = knownWeight * 0.5;
+      const weightInGrams = knownWeight;
       volume = weightInGrams / diamondDensity;
     } else {
       // Use known material density directly
