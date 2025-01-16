@@ -272,6 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <option value="0.01202">Palladium 950</option>
               <option value="0.00092">Wax</option>
               <option value="0.008">316L Stainless Steel</option>
+              <option value="carat">Diamond (Carat)</option>
             </select>
 
             <label for="known-weight">Enter Known Weight (grams):</label>
@@ -542,20 +543,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const targetMaterialSelect = document.getElementById("target-material");
   const convertedWeightInput = document.getElementById("converted-weight");
 
-  const calculateWeightConversion = () => {
+  const calculateConversion = () => {
     const knownWeight = parseFloat(knownWeightInput.value);
-    const knownDensity = parseFloat(knownMaterialSelect.value);
+    const knownMaterial = knownMaterialSelect.value;
     const targetDensity = parseFloat(targetMaterialSelect.value);
+    const diamondDensity = 3.52; // g/cm³
 
-    if (!isNaN(knownWeight) && !isNaN(knownDensity) && !isNaN(targetDensity) && knownDensity > 0) {
-      const convertedWeight = (knownWeight * targetDensity) / knownDensity;
-      convertedWeightInput.value = convertedWeight.toFixed(2);
-    } else {
+    if (isNaN(knownWeight) || knownWeight <= 0 || isNaN(targetDensity) || targetDensity <= 0) {
       convertedWeightInput.value = "Invalid Inputs";
+      return;
     }
+
+    let volume; // Volume in cm³
+
+    if (knownMaterial === "carat") {
+      // Convert carats to grams, then calculate volume
+      const weightInGrams = knownWeight * 0.3;
+      volume = weightInGrams / diamondDensity;
+    } else {
+      // Use known material density directly
+      const knownDensity = parseFloat(knownMaterial);
+      volume = knownWeight / knownDensity;
+    }
+
+    // Calculate the equivalent weight of the target material
+    const convertedWeight = volume * targetDensity;
+    convertedWeightInput.value = convertedWeight.toFixed(2);
   };
 
-  knownWeightInput.addEventListener("input", calculateWeightConversion);
-  knownMaterialSelect.addEventListener("change", calculateWeightConversion);
-  targetMaterialSelect.addEventListener("change", calculateWeightConversion);
+  knownWeightInput.addEventListener("input", calculateConversion);
+  knownMaterialSelect.addEventListener("change", calculateConversion);
+  targetMaterialSelect.addEventListener("change", calculateConversion);
 });
