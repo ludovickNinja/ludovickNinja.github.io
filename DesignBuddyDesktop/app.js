@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+.document.addEventListener("DOMContentLoaded", () => {
   // JSON Data for Finger Sizes
   const fingerSizes = {
     BaseChart: [
@@ -302,6 +302,35 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `,
     },
+    {
+      id: "useful-links",
+      title: "Useful Links",
+      content: `
+        <h3>Useful Links</h3>
+
+        <h4>CAD</h4>
+        <div class="link-section">
+          <p><strong>Yeggi</strong> - Google of CAD</p>
+          <a href="https://www.yeggi.com" target="_blank">Visit Yeggi</a>
+        </div>
+        <div class="link-section">
+          <p><strong>Shapeways</strong> - 3D Print on Demand</p>
+          <a href="https://www.shapeways.com" target="_blank">Visit Shapeways</a>
+        </div>
+
+        <h4>Findings</h4>
+        <div class="link-section">
+          <p><strong>Ormex Inc.</strong> - Import Chain and Findings</p>
+          <a href="https://ormexinc.com/en" target="_blank">Visit Ormex Inc.</a>
+        </div>
+
+        <h4>References</h4>
+        <div class="link-section">
+          <p><strong>GIA</strong> - Lab / Diamond Reference</p>
+          <a href="https://www.gia.edu" target="_blank">Visit GIA</a>
+        </div>
+      `
+    }
   ];
 
     // Add a new tab dynamically
