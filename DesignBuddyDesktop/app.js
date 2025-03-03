@@ -450,7 +450,16 @@ document.addEventListener("DOMContentLoaded", () => {
     "Design Buddy Chat",
     null, // No content since it links to a URL
     "https://chatgpt.com/g/g-67672f631ab481918af63d9ae2b38271-design-buddy"
-  );
+    );
+
+   // Add the "Design Buddy Chat" tab dynamically
+   addTab(
+       "design-buddy-chat-v2",
+       "Design Buddy Chat V2",
+       null, // No content since it links to a URL
+       "https://chatgpt.com/g/g-67bc9728e6f88191a75a4edb4afb10c2-design-buddy-v2"
+   );
+    
 
   // Full Eternity Stone Count Logic
   const regionTypeSelect = document.getElementById("region-type");
