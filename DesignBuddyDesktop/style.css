@@ -141,6 +141,29 @@ select, input {
   border-radius: 5px;
 }
 
+/* Style for Useful Links */
+.link-section {
+    margin-left: 20px; /* Adds indentation */
+    padding: 5px 0; /* Adds spacing between links */
+}
+
+.link-section p {
+    margin: 0; /* Removes default paragraph margin */
+}
+
+.link-section a {
+    display: block; /* Places the link on a new line */
+    text-decoration: none;
+    color: #007bff; /* Default link color */
+    font-weight: bold;
+    margin-top: 3px;
+
+}
+
+.link-section a:hover {
+    text-decoration: underline;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .container {
