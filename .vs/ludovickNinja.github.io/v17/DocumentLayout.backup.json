@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\lbilodeau\\source\\repos\\ludovickNinja\\ludovickNinja.github.io\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lbilodeau\\source\\repos\\ludovickNinja\\ludovickNinja.github.io\\DesignBuddyDesktop\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DesignBuddyDesktop\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lbilodeau\\source\\repos\\ludovickNinja\\ludovickNinja.github.io\\DesignBuddyDesktop\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DesignBuddyDesktop\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\lbilodeau\\source\\repos\\ludovickNinja\\ludovickNinja.github.io\\DesignBuddyDesktop\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:DesignBuddyDesktop\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,11 +18,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "style.css",
               "DocumentMoniker": "C:\\Users\\lbilodeau\\source\\repos\\ludovickNinja\\ludovickNinja.github.io\\DesignBuddyDesktop\\style.css",
               "RelativeDocumentMoniker": "DesignBuddyDesktop\\style.css",
@@ -35,13 +35,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "app.js",
               "DocumentMoniker": "C:\\Users\\lbilodeau\\source\\repos\\ludovickNinja\\ludovickNinja.github.io\\DesignBuddyDesktop\\app.js",
               "RelativeDocumentMoniker": "DesignBuddyDesktop\\app.js",
               "ToolTip": "C:\\Users\\lbilodeau\\source\\repos\\ludovickNinja\\ludovickNinja.github.io\\DesignBuddyDesktop\\app.js",
               "RelativeToolTip": "DesignBuddyDesktop\\app.js",
-              "ViewState": "AgIAACwBAAAAAAAAAAAAAAUAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAACkBAAAAAAAAAAAAAGkBAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-03-03T16:19:55.619Z",
               "EditorCaption": ""

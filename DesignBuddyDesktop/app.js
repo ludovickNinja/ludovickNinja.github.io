@@ -371,6 +371,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Diamond Database</strong> - Quick Center Stone size Reference</p>
           <a href="https://www.diamdb.com/" target="_blank">Visit Diamond Database</a>
         </div>
+        <div class="link-section">
+          <p><strong>Diamond Size Charts</strong> - Quick Fancy Stone size Reference</p>
+          <a href="https://diamondsizecharts.com/" target="_blank">Visit Diamond Size Charts</a>
+        </div>
       `
     }
   ];
