@@ -352,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <h4>References</h4>
         <div class="link-section">
-          <p><strong>GIA</strong> - Lab / Diamond Reference</p>
+          <p><strong>GIA</strong> - Research Lab / Diamond Reference</p>
           <a href="https://www.gia.edu" target="_blank">Visit GIA</a>
         </div>
         <div class="link-section">
