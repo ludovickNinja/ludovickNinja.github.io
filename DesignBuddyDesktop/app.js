@@ -306,9 +306,11 @@ document.addEventListener("DOMContentLoaded", () => {
       id: "useful-links",
       title: "Useful Links",
       content: `
-        <h3>Useful Links</h3>
-
         <h4>CAD</h4>
+        <div class="link-section">
+          <p><strong>SculptGL</strong> - A WebGL sculpting app</p>
+          <a href="https://stephaneginier.com/sculptgl/" target="_blank">Visit SculptGL</a>
+        </div>
         <div class="link-section">
           <p><strong>Yeggi</strong> - Google of CAD</p>
           <a href="https://www.yeggi.com" target="_blank">Visit Yeggi</a>
@@ -317,17 +319,57 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Shapeways</strong> - 3D Print on Demand</p>
           <a href="https://www.shapeways.com" target="_blank">Visit Shapeways</a>
         </div>
+        <div class="link-section">
+          <p><strong>Ponoko</strong> - Like Shapeways but includes laser cutting and CNC</p>
+          <a href="https://www.ponoko.com/" target="_blank">Visit Ponoko</a>
+        </div>
+        <div class="link-section">
+          <p><strong>Thingiverse</strong> - UltiMakers's Thingiverse is a thriving design community for discovering, making, and sharing 3D printable things</p>
+          <a href="https://www.thingiverse.com/" target="_blank">Visit Thingiverse</a>
+        </div>
+        <div class="link-section">
+          <p><strong>CGTrader</strong> - CGTrader is the world’s largest source for licensable stock and custom 3D models</p>
+          <a href="https://www.cgtrader.com/" target="_blank">Visit CGTrader</a>
+        </div>
+        <div class="link-section">
+          <p><strong>Sketchfab</strong> - Largest platform for immersive and interactive 3D</p>
+          <a href="https://sketchfab.com/" target="_blank">Visit Sketchfab</a>
+        </div>
+        <div class="link-section">
+          <p><strong>GrabCAD</strong> - GrabCAD is the largest online community of professional engineers, designers, manufacturers, and STEM students on the planet</p>
+          <a href="https://grabcad.com/library" target="_blank">Visit GrabCAD</a>
+        </div>
 
         <h4>Findings</h4>
         <div class="link-section">
-          <p><strong>Ormex Inc.</strong> - Import Chain and Findings</p>
+          <p><strong>Ormex Inc.</strong> - Import Chain and Findings from Italy</p>
           <a href="https://ormexinc.com/en" target="_blank">Visit Ormex Inc.</a>
+        </div>
+        <div class="link-section">
+          <p><strong>Stuller</strong> - Chain and Findings Manufacturer (USA)</p>
+          <a href="https://www.stuller.com/" target="_blank">Visit Stuller</a>
         </div>
 
         <h4>References</h4>
         <div class="link-section">
           <p><strong>GIA</strong> - Lab / Diamond Reference</p>
           <a href="https://www.gia.edu" target="_blank">Visit GIA</a>
+        </div>
+        <div class="link-section">
+          <p><strong>Brilliance</strong> - DTC Manufacturer with Nice Education Center</p>
+          <a href="https://www.brilliance.com/education" target="_blank">Visit Brilliance</a>
+        </div>
+        <div class="link-section">
+          <p><strong>Blue Nile</strong> - DTC Manufacturer with Retail Diamond Pricing</p>
+          <a href="https://www.bluenile.com/" target="_blank">Visit Blue Nile</a>
+        </div>
+        <div class="link-section">
+          <p><strong>James Allen</strong> - DTC Manufacturer with Retail Diamond Pricing</p>
+          <a href="https://www.jamesallen.com/" target="_blank">Visit James Allen</a>
+        </div>
+        <div class="link-section">
+          <p><strong>Diamond Database</strong> - Quick Center Stone size Reference</p>
+          <a href="https://www.diamdb.com/" target="_blank">Visit Diamond Database</a>
         </div>
       `
     }
