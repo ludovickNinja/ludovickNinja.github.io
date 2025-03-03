@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
       content: `
         <h4>CAD</h4>
         <div class="link-section">
-          <p><strong>SculptGL</strong> - A WebGL sculpting app</p>
+          <p><strong>SculptGL</strong> - Free Online WebGL sculpting app</p>
           <a href="https://stephaneginier.com/sculptgl/" target="_blank">Visit SculptGL</a>
         </div>
         <div class="link-section">
