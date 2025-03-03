@@ -395,7 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const sectionElement = document.createElement("section");
       sectionElement.id = id;
       sectionElement.className = "tab-content";
-      sectionElement.innerHTML = `<h3>${title}</h3>${content}`;
+      sectionElement.innerHTML = `<h2>${title}</h2>${content}`;
       contentContainer.appendChild(sectionElement);
 
       tabElement.addEventListener("click", () => {
