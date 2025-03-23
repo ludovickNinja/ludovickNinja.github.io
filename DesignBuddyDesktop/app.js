@@ -392,7 +392,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: "blog",
       title: "Blog",
-      hidden: true, // This marks it as hidden
+      //hidden: true, // This marks it as hidden
       content: `
         <div id="blog-container">
           <div class="blog-controls">
