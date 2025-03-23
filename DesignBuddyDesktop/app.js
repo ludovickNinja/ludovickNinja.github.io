@@ -452,18 +452,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const contentContainer = document.querySelector(".content");
 
   tabsData.forEach((tab, index) => {
+  if (!tab.hidden) {
     const tabElement = document.createElement("li");
     tabElement.textContent = tab.title;
     tabElement.dataset.tab = tab.id;
     if (index === 0) tabElement.classList.add("active");
     tabsContainer.appendChild(tabElement);
 
-    const sectionElement = document.createElement("section");
-    sectionElement.id = tab.id;
-    sectionElement.className = "tab-content";
-    if (index === 0) sectionElement.classList.add("active");
-    sectionElement.innerHTML = `<h3>${tab.title}</h3>${tab.content}`;
-    contentContainer.appendChild(sectionElement);
+    tabElement.addEventListener("click", () => {
+      const tabs = document.querySelectorAll(".tabs li");
+      const tabContents = document.querySelectorAll(".tab-content");
+      tabs.forEach((tab) => tab.classList.remove("active"));
+      tabContents.forEach((content) => content.classList.remove("active"));
+      tabElement.classList.add("active");
+      sectionElement.classList.add("active");
+    });
+  }
+
+  // Always render the content
+  const sectionElement = document.createElement("section");
+  sectionElement.id = tab.id;
+  sectionElement.className = "tab-content";
+  if (index === 0) sectionElement.classList.add("active");
+  sectionElement.innerHTML = tab.content;
+  contentContainer.appendChild(sectionElement);
+});
 
     // Add event listener for switching tabs
     tabElement.addEventListener("click", () => {
@@ -696,7 +709,7 @@ const blogPosts = [
   {
     "title": "Welcome to Design Buddy Desktop",
     "category": "Behind the Scenes",
-    "content": "**Design Buddy Desktop** is the companion blog to the Design Buddy web app—a toolkit built to support jewelry quoting, design, and production workflows. The app includes calculators for stone counts, weight conversions, and more.\n\nThis blog exists to expand on that foundation with training articles, practical tips, and CAD-focused insights. Whether you're looking to speed up your quoting process, improve your Rhino skills, or troubleshoot a tricky setting, you'll find helpful content here.\n\nStay tuned—Design Buddy Desktop is here to streamline your day, one post at a time.",
+    "content": "**Design Buddy Blog** is the companion blog to the Design Buddy web app—a toolkit built to support jewelry quoting, design, and production workflows. The app includes calculators for stone counts, weight conversions, and more.\n\nThis blog exists to expand on that foundation with training articles, practical tips, and CAD-focused insights. Whether you're looking to speed up your quoting process, improve your Rhino skills, or troubleshoot a tricky setting, you'll find helpful content here.\n\nStay tuned—Design Buddy Blog is here to streamline your day, one post at a time.",
     "media": "<img src='https://upload.wikimedia.org/wikipedia/commons/3/3e/Carving_wax_ring_cad_design.png' alt='CAD Ring Design Screenshot' />"
   },
   {
