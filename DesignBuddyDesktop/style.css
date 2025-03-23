@@ -164,6 +164,37 @@ select, input {
     text-decoration: underline;
 }
 
+#blog-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.blog-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.blog-controls input,
+.blog-controls select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 200px;
+}
+
+#blog-posts .blog-post {
+  border: 1px solid #000;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #f9f9f9;
+}
+
+#blog-posts .blog-post h4 {
+  margin-top: 0;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .container {
