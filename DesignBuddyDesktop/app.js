@@ -696,22 +696,14 @@ const blogPosts = [
   {
     title: "Choosing the Right CAD Software",
     category: "CAD",
-    content: "Explore the best options for jewelry CAD design like Rhino, Matrix, and ZBrush."
+    content: "Explore the best options for jewelry CAD design like Rhino, Matrix, and ZBrush.",
+    media: `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Rhino3d-icon.png/100px-Rhino3d-icon.png" alt="CAD icon" />`
   },
   {
     title: "Understanding Gold Alloys",
     category: "Materials",
-    content: "Learn how different karats and alloy compositions affect durability and color."
-  },
-  {
-    title: "Wax Carving Techniques for Beginners",
-    category: "Techniques",
-    content: "A beginner’s guide to traditional wax carving for custom jewelry making."
-  },
-  {
-    title: "Top 5 Tools for Stone Setting",
-    category: "Tools",
-    content: "Get to know the essential tools every setter should have on their bench."
+    content: "Learn how different karats and alloy compositions affect durability and color.",
+    media: `<iframe width="100%" height="200" src="https://www.youtube.com/embed/Z2h2rj_iPVk" frameborder="0" allowfullscreen></iframe>`
   }
 ];
 
@@ -737,15 +729,16 @@ function renderBlogPosts() {
   }
 
   filteredPosts.forEach(post => {
-    const postDiv = document.createElement("div");
-    postDiv.className = "blog-post";
-    postDiv.innerHTML = `
-      <h4>${post.title}</h4>
-      <p><em>Category: ${post.category}</em></p>
-      <p>${post.content}</p>
-    `;
-    postsContainer.appendChild(postDiv);
-  });
+  const postDiv = document.createElement("div");
+  postDiv.className = "blog-post";
+  postDiv.innerHTML = `
+    <h4>${post.title}</h4>
+    <p><em>Category: ${post.category}</em></p>
+    <p>${post.content}</p>
+    ${post.media ? `<div class="blog-media">${post.media}</div>` : ""}
+  `;
+  postsContainer.appendChild(postDiv);
+});
 }
 
 document.addEventListener("input", (e) => {
