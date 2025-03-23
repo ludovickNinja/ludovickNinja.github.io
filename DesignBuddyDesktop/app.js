@@ -702,8 +702,8 @@ const blogPosts = [
   {
     title: "Understanding Gold Alloys",
     category: "Materials",
-    content: "Learn how different karats and alloy compositions affect durability and color.",
-    media: `<iframe width="100%" height="200" src="https://www.youtube.com/embed/Z2h2rj_iPVk" frameborder="0" allowfullscreen></iframe>`
+    content: "Video test: gold composition",
+    media: `<iframe width="100%" height="200" src="https://youtube.com/shorts/9CP0rom923M?si=b7HuNYl7W_FNHw6K" frameborder="0" allowfullscreen></iframe>`
   }
 ];
 
