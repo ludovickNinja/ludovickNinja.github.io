@@ -453,22 +453,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const contentContainer = document.querySelector(".content");
 
   tabsData.forEach((tab, index) => {
-  if (!tab.hidden) {
     const tabElement = document.createElement("li");
     tabElement.textContent = tab.title;
     tabElement.dataset.tab = tab.id;
     if (index === 0) tabElement.classList.add("active");
     tabsContainer.appendChild(tabElement);
 
-    tabElement.addEventListener("click", () => {
-      const tabs = document.querySelectorAll(".tabs li");
-      const tabContents = document.querySelectorAll(".tab-content");
-      tabs.forEach((tab) => tab.classList.remove("active"));
-      tabContents.forEach((content) => content.classList.remove("active"));
-      tabElement.classList.add("active");
-      sectionElement.classList.add("active");
-    });
-  }
+    const sectionElement = document.createElement("section");
+    sectionElement.id = tab.id;
+    sectionElement.className = "tab-content";
+    if (index === 0) sectionElement.classList.add("active");
+    sectionElement.innerHTML = `<h3>${tab.title}</h3>${tab.content}`;
+    contentContainer.appendChild(sectionElement);
 
   // Always render the content
   const sectionElement = document.createElement("section");
