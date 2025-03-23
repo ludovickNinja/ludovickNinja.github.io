@@ -697,7 +697,7 @@ const blogPosts = [
     title: "Choosing the Right CAD Software",
     category: "CAD",
     content: "Explore the best options for jewelry CAD design like Rhino, Matrix, and ZBrush.",
-    media: `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Rhino3d-icon.png/100px-Rhino3d-icon.png" alt="CAD icon" />`
+    media: `<img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Logo_Rhino.jpg" alt="CAD icon" />`
   },
   {
     title: "Understanding Gold Alloys",
