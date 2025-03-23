@@ -388,7 +388,27 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="https://diamondsizecharts.com/" target="_blank">Visit Diamond Size Charts</a>
         </div>
       `
-    }
+    },
+    {
+      id: "blog",
+      title: "Blog",
+      content: `
+        <div id="blog-container">
+          <div class="blog-controls">
+            <input type="text" id="blog-search" placeholder="Search blog..." />
+            <select id="blog-filter">
+              <option value="all">All Categories</option>
+              <option value="CAD">CAD</option>
+              <option value="Materials">Materials</option>
+              <option value="Techniques">Techniques</option>
+              <option value="Tools">Tools</option>
+            </select>
+          </div>
+          <div id="blog-posts"></div>
+        </div>
+    `
+  }
+    
   ];
 
     // Add a new tab dynamically
@@ -670,4 +690,73 @@ document.addEventListener("DOMContentLoaded", () => {
   knownWeightInput.addEventListener("input", calculateConversion);
   knownMaterialSelect.addEventListener("change", calculateConversion);
   targetMaterialSelect.addEventListener("change", calculateConversion);
+  
+  // Sample blog posts
+const blogPosts = [
+  {
+    title: "Choosing the Right CAD Software",
+    category: "CAD",
+    content: "Explore the best options for jewelry CAD design like Rhino, Matrix, and ZBrush."
+  },
+  {
+    title: "Understanding Gold Alloys",
+    category: "Materials",
+    content: "Learn how different karats and alloy compositions affect durability and color."
+  },
+  {
+    title: "Wax Carving Techniques for Beginners",
+    category: "Techniques",
+    content: "A beginner’s guide to traditional wax carving for custom jewelry making."
+  },
+  {
+    title: "Top 5 Tools for Stone Setting",
+    category: "Tools",
+    content: "Get to know the essential tools every setter should have on their bench."
+  }
+];
+
+// Blog search and filter logic
+function renderBlogPosts() {
+  const searchTerm = document.getElementById("blog-search").value.toLowerCase();
+  const filterCategory = document.getElementById("blog-filter").value;
+  const postsContainer = document.getElementById("blog-posts");
+
+  if (!postsContainer) return;
+
+  postsContainer.innerHTML = "";
+
+  const filteredPosts = blogPosts.filter(post => {
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm) || post.content.toLowerCase().includes(searchTerm);
+    const matchesCategory = filterCategory === "all" || post.category === filterCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  if (filteredPosts.length === 0) {
+    postsContainer.innerHTML = "<p>No posts found.</p>";
+    return;
+  }
+
+  filteredPosts.forEach(post => {
+    const postDiv = document.createElement("div");
+    postDiv.className = "blog-post";
+    postDiv.innerHTML = `
+      <h4>${post.title}</h4>
+      <p><em>Category: ${post.category}</em></p>
+      <p>${post.content}</p>
+    `;
+    postsContainer.appendChild(postDiv);
+  });
+}
+
+document.addEventListener("input", (e) => {
+  if (e.target.id === "blog-search" || e.target.id === "blog-filter") {
+    renderBlogPosts();
+  }
+});
+
+document.addEventListener("click", (e) => {
+  if (e.target.dataset.tab === "blog") {
+    setTimeout(renderBlogPosts, 100); // Delay to ensure DOM is updated
+  }
+});
 });
