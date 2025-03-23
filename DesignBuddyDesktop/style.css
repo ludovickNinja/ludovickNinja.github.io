@@ -195,6 +195,18 @@ select, input {
   margin-top: 0;
 }
 
+.blog-media {
+  margin-top: 1rem;
+}
+
+.blog-media img,
+.blog-media iframe,
+.blog-media video {
+  max-width: 100%;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .container {
