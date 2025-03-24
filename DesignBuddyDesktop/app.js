@@ -475,7 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
        sectionElement.classList.add("active");
      });
    }
- 
+ /*
      tabsData.forEach((tab, index) => {
    if (!tab.hidden) {
      const tabElement = document.createElement("li");
@@ -493,6 +493,7 @@ document.addEventListener("DOMContentLoaded", () => {
        sectionElement.classList.add("active");
      });
    }
+   */
  
    // Always render the content
    const sectionElement = document.createElement("section");
