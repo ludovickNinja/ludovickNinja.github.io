@@ -340,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="https://grabcad.com/library" target="_blank">Visit GrabCAD</a>
         </div>
 
-        <h4>Shop</h4>
+        <h4>Findings</h4>
         <div class="link-section">
           <p><strong>Ormex Inc.</strong> - Import Chain and Findings from Italy</p>
           <a href="https://ormexinc.com/en" target="_blank">Visit Ormex Inc.</a>
@@ -348,18 +348,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="link-section">
           <p><strong>Stuller</strong> - Chain and Findings Manufacturer (USA)</p>
           <a href="https://www.stuller.com/" target="_blank">Visit Stuller</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Noble</strong> - Jewelry boxes, jewelry displays, jewelry tools, optical cases, optical tools, and retail packaging.</p>
-          <a href="https://noblepack.ca" target="_blank">Visit Noble</a>
-        </div>
-        <div class="link-section">
-          <p><strong>GemSelect</strong> - Curator and distributor of precious and semi-precious gems</p>
-          <a href="https://www.gemselect.com" target="_blank">Visit GemSelect</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Gem Rock Auctions</strong> - Auction website of precious and semi-precious gems</p>
-          <a href="https://www.gemrockauctions.com" target="_blank">Visit Gem Rock Auctions</a>
         </div>
 
         <h4>References</h4>
@@ -523,7 +511,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://chatgpt.com/g/g-67672f631ab481918af63d9ae2b38271-design-buddy"
     );
 
-   // Add the "Design Buddy Chat V2" tab dynamically
+   // Add the "Design Buddy Chat" tab dynamically
    addTab(
        "design-buddy-chat-v2",
        "Design Buddy Chat V2",
