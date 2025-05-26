@@ -303,6 +303,35 @@ document.addEventListener("DOMContentLoaded", () => {
       `,
         },
         {
+            id: "width-conversion",
+            title: "Width Conversion",
+            content: `
+        div class="calculator-container">
+            <h2>Ring Weight Calculator</h2>
+            <div class="input-section">
+              <label for="original-weight">Original Weight (g)</label>
+              <input type="number" id="original-weight" placeholder="e.g., 10" />
+
+              <label for="original-width">Original Width (mm)</label>
+              <input type="number" id="original-width" placeholder="e.g., 4" />
+
+              <label for="original-thickness">Original Thickness (mm)</label>
+              <input type="number" id="original-thickness" placeholder="e.g., 1.5" />
+
+              <label for="new-width">New Width (mm)</label>
+              <input type="number" id="new-width" placeholder="e.g., 6" />
+
+              <label for="new-thickness">New Thickness (mm)</label>
+              <input type="number" id="new-thickness" placeholder="e.g., 2" />
+            </div>
+
+            <div class="output-section">
+              <p id="estimated-weight">Estimated New Weight: 0 g</p>
+            </div>
+          </div>
+      `,
+        },
+        {
             id: "useful-links",
             title: "Useful Links",
             content: `
@@ -670,4 +699,28 @@ document.addEventListener("DOMContentLoaded", () => {
     knownWeightInput.addEventListener("input", calculateConversion);
     knownMaterialSelect.addEventListener("change", calculateConversion);
     targetMaterialSelect.addEventListener("change", calculateConversion);
+
+    // Width Conversion Logic
+    const inputs = document.querySelectorAll('input');
+    const result = document.getElementById('estimated-weight');
+
+    function calculateWeight() {
+        const originalWeight = parseFloat(document.getElementById('original-weight').value);
+        const originalWidth = parseFloat(document.getElementById('original-width').value);
+        const originalThickness = parseFloat(document.getElementById('original-thickness').value);
+        const newWidth = parseFloat(document.getElementById('new-width').value);
+        const newThickness = parseFloat(document.getElementById('new-thickness').value);
+
+        if (!originalWeight || !originalWidth || !originalThickness || !newWidth || !newThickness) {
+            result.textContent = 'Estimated New Weight: 0 g';
+            return;
+        }
+
+        const newWeight =
+            originalWeight * (newWidth / originalWidth) * (newThickness / originalThickness);
+
+        result.textContent = `Estimated New Weight: ${newWeight.toFixed(2)} g`;
+    }
+
+    inputs.forEach(input => input.addEventListener('input', calculateWeight));
 });
