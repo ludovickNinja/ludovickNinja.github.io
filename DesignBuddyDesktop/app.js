@@ -306,8 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "width-conversion",
             title: "Width Conversion",
             content: `
-        div class="calculator-container">
-            <h2>Ring Weight Calculator</h2>
+        <div class="calculator-container">
             <div class="input-section">
               <label for="original-weight">Original Weight (g)</label>
               <input type="number" id="original-weight" placeholder="e.g., 10" />
