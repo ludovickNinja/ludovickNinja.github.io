@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: "weight-conversion",
-            title: "Weight Conversion",
+            title: "Weight: Karat Conversion",
             content: `
         <div class="conversion-container">
           <div class="converter">
@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: "width-conversion",
-            title: "Width Conversion",
+            title: "Weight: Width Conversion",
             content: `
         <div class="calculator-container">
             <div class="input-section">
