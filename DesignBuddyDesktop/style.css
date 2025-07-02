@@ -7,6 +7,13 @@ body {
   overflow-x: hidden;
 }
 
+footer {
+  text-align: center;
+  padding: 10px;
+  font-size: 12px;
+  color: #888;
+}
+
 /* Splash Screen */
 #splash-screen {
   position: fixed;
