@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <option value="0.01202">Palladium 950</option>
               <option value="0.00092">Wax</option>
               <option value="0.008">316L Stainless Steel</option>
-              <option value="carat">Diamond (Carat)</option>
+              <option value="0.0084">C272 Stainless Steel</option>
             </select>
 
             <label for="known-weight">Enter Known Weight (grams):</label>
@@ -292,8 +292,8 @@ document.addEventListener("DOMContentLoaded", () => {
               <option value="0.01036">Sterling Silver</option>
               <option value="0.022">Platinum</option>
               <option value="0.01202">Palladium 950</option>
-              <option value="0.00092">Wax</option>
               <option value="0.008">316L Stainless Steel</option>
+              <option value="0.0084">C272 Stainless Steel</option>
             </select>
 
             <label for="converted-weight">Converted Weight (grams):</label>
