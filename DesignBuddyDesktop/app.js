@@ -350,6 +350,35 @@ document.addEventListener("DOMContentLoaded", () => {
               </tbody>
             </table>
           </div>
+        `,
+        },
+        {
+            id: "weight-diamond-sizes",
+            title: "Weight: Diamond Sizes",
+            content: `
+        <div class="calculator-container">
+            <div class="input-section">
+              <label for="current-diamond-size">Current Diamond Size (mm)</label>
+              <input type="number" id="current-diamond-size" placeholder="e.g., 1.5" />
+
+              <label for="target-diamond-size">Target Diamond Size (mm)</label>
+              <input type="number" id="target-diamond-size" placeholder="e.g., 2.0" />
+
+              <label for="ds-current-width">Current Band Width (mm)</label>
+              <input type="number" id="ds-current-width" placeholder="e.g., 4" />
+
+              <label for="ds-current-thickness">Current Band Thickness (mm)</label>
+              <input type="number" id="ds-current-thickness" placeholder="e.g., 1.5" />
+
+              <label for="ds-current-weight">Current Band Weight (g)</label>
+              <input type="number" id="ds-current-weight" placeholder="e.g., 3" />
+            </div>
+
+            <div class="output-section">
+              <p id="ds-new-thickness">Estimated New Thickness: 0 mm</p>
+              <p id="ds-new-weight">Estimated New Weight: 0 g</p>
+            </div>
+          </div>
       `,
         },
         {
@@ -722,7 +751,7 @@ document.addEventListener("DOMContentLoaded", () => {
     targetMaterialSelect.addEventListener("change", calculateConversion);
 
     // Width Conversion Logic
-    const inputs = document.querySelectorAll('input');
+    const widthInputs = document.querySelectorAll('#width-conversion input');
     const result = document.getElementById('estimated-weight');
 
     function calculateWeight() {
@@ -743,5 +772,39 @@ document.addEventListener("DOMContentLoaded", () => {
         result.textContent = `Estimated New Weight: ${newWeight.toFixed(2)} g`;
     }
 
-    inputs.forEach(input => input.addEventListener('input', calculateWeight));
+    widthInputs.forEach(input => input.addEventListener('input', calculateWeight));
+
+    // Diamond Size Weight Conversion Logic
+    const diamondInputs = document.querySelectorAll('#weight-diamond-sizes input');
+    const newWeightOutput = document.getElementById('ds-new-weight');
+    const newThicknessOutput = document.getElementById('ds-new-thickness');
+
+    function calculateDiamondSize() {
+        const currentSize = parseFloat(document.getElementById('current-diamond-size').value);
+        const targetSize = parseFloat(document.getElementById('target-diamond-size').value);
+        const bandWidth = parseFloat(document.getElementById('ds-current-width').value);
+        const bandThickness = parseFloat(document.getElementById('ds-current-thickness').value);
+        const bandWeight = parseFloat(document.getElementById('ds-current-weight').value);
+
+        if (!currentSize || !targetSize || !bandWidth || !bandThickness || !bandWeight) {
+            newWeightOutput.textContent = 'Estimated New Weight: 0 g';
+            newThicknessOutput.textContent = 'Estimated New Thickness: 0 mm';
+            return;
+        }
+
+        const newWidth = (bandWidth - currentSize) + targetSize;
+
+        let newThickness = bandThickness;
+        const thicknessDiff = bandThickness - (0.65 * currentSize);
+        if (thicknessDiff < 0.4) {
+            newThickness = 0.4 + (0.65 * targetSize);
+        }
+
+        const newBandWeight = bandWeight * (newWidth / bandWidth) * (newThickness / bandThickness);
+
+        newThicknessOutput.textContent = `Estimated New Thickness: ${newThickness.toFixed(2)} mm`;
+        newWeightOutput.textContent = `Estimated New Weight: ${newBandWeight.toFixed(2)} g`;
+    }
+
+    diamondInputs.forEach(input => input.addEventListener('input', calculateDiamondSize));
 });
