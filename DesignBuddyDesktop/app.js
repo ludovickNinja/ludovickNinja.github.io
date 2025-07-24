@@ -466,14 +466,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function renderContacts() {
             const term = searchInput.value.toLowerCase();
-            const selectedTag = tagFilter.value;
+            const selectedTags = Array.from(tagFilter.selectedOptions)
+                .map(o => o.value)
+                .filter(v => v);
             list.innerHTML = '';
 
             contacts
                 .filter(c => {
-                    const matchesTag = !selectedTag || c.tags.includes(selectedTag);
+                    const matchesTag =
+                        selectedTags.length === 0 ||
+                        selectedTags.every(tag => c.tags.includes(tag));
                     const searchable = `
-                        ${c.name} ${c.company ?? ''} ${c.description ?? ''}
+                        ${c.name ?? ''} ${c.company ?? ''} ${c.description ?? ''}
                         ${c.email ?? ''} ${c.phone ?? ''}
                         ${c.website ?? ''} ${c.address ?? ''}
                         ${c.tags.join(' ')}
@@ -481,11 +485,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     const matchesSearch = searchable.includes(term);
                     return matchesTag && matchesSearch;
                 })
+                .sort((a, b) => {
+                    const titleA = [a.company, a.name]
+                        .filter(Boolean)
+                        .join(' - ')
+                        .toLowerCase();
+                    const titleB = [b.company, b.name]
+                        .filter(Boolean)
+                        .join(' - ')
+                        .toLowerCase();
+                    return titleA.localeCompare(titleB);
+                })
                 .forEach(c => {
                     const div = document.createElement('div');
                     div.className = 'contact-card';
 
-                    const title = [c.name, c.company].filter(Boolean).join(' - ');
+                    const title = [c.company, c.name].filter(Boolean).join(' - ');
                     const info = `
                         <h4>${title}</h4>
                         ${c.description ? `<p>${c.description}</p>` : ''}
