@@ -618,6 +618,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const image = c.image ? `<img src="${c.image}" class="contact-image" alt="${c.name}">` : '';
 
                     div.innerHTML = `<div class="contact-info">${info}</div>${image}`;
+                    
                     list.appendChild(div);
                 });
         }
