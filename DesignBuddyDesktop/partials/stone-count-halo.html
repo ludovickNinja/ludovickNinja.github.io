@@ -1,0 +1,34 @@
+<div class="halo-calculator">
+  <div class="input-section">
+    <label for="center-shape-halo">Select Center Stone Shape:</label>
+    <select id="center-shape-halo">
+      <option value="round">Round</option>
+      <option value="oval">Oval</option>
+      <option value="cushion">Cushion</option>
+      <option value="princess">Princess</option>
+      <option value="emerald">Emerald</option>
+      <option value="pear">Pear</option>
+      <option value="marquise">Marquise</option>
+    </select>
+
+    <label for="width-halo">Width of Center Stone (mm):</label>
+    <input type="number" id="width-halo" placeholder="e.g., 5.00" />
+
+    <label for="length-halo" id="length-label-halo" style="display: none;">Length of Center Stone (mm):</label>
+    <input type="number" id="length-halo" placeholder="e.g., 7.00" style="display: none;" />
+
+    <label for="spacing-to-center">Spacing to Center Stone (mm):</label>
+    <input type="number" id="spacing-to-center" value="0.2" placeholder="0.2" />
+
+    <label for="melee-diameter-halo">Diameter of Melee Stones (mm):</label>
+    <input type="number" id="melee-diameter-halo" placeholder="e.g., 1.50" />
+
+    <label for="spacing-between-melees-halo">Spacing Between Melees (mm):</label>
+    <input type="number" id="spacing-between-melees-halo" placeholder="e.g., 0.20" />
+  </div>
+
+  <div class="output-section">
+    <label for="total-stones-halo">Total Stones Needed:</label>
+    <input type="text" id="total-stones-halo" readonly placeholder="0" />
+  </div>
+</div>
