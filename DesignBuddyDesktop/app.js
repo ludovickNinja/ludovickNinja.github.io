@@ -794,6 +794,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const newWidth = (bandWidth - currentSize) + targetSize;
 
+      //add-weight-diamond-sizes-tab
         let metalAllowance = bandThickness - (0.65 * currentSize);
         if (metalAllowance < 0.4) {
             metalAllowance = 0.4;
