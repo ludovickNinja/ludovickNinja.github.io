@@ -173,6 +173,12 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "useful-links",
             title: "Useful Links",
             file: "partials/useful-links.html"
+        },
+        {
+            id: "contact-repository",
+            title: "Contact Repository",
+            file: "partials/contact-repository.html",
+            setup: setupContactRepository
         }
     ];
 
@@ -528,5 +534,97 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         diamondInputs.forEach(input => input.addEventListener('input', calculateDiamondSize));
+    }
+
+    function setupContactRepository() {
+        const contacts = [
+            {
+                name: 'John Doe',
+                company: 'Example Corp',
+                email: 'john@example.com',
+                phone: '123-456-7890',
+                website: 'https://example.com',
+                address: '123 Main St, Toronto, Canada',
+                image: 'https://via.placeholder.com/100',
+                tags: ['supplier', 'diamond'],
+                description: 'Wholesale diamond supplier.'
+            },
+            {
+                name: 'Jane Smith',
+                company: 'ACME Casting',
+                email: 'jane@acme.com',
+                phone: '555-123-4567',
+                address: '456 Industrial Rd, Ottawa, Canada',
+                image: 'https://via.placeholder.com/100',
+                tags: ['casting', 'metal'],
+                description: 'Go-to casting house for platinum and gold.'
+            },
+            {
+                name: 'Bob Johnson',
+                company: 'Gem Traders',
+                email: 'bob@gemtraders.com',
+                phone: '555-987-6543',
+                website: 'https://gemtraders.com',
+                image: 'https://via.placeholder.com/100',
+                tags: ['gem', 'supplier'],
+                description: 'Loose gemstone distributor.'
+            }
+        ];
+
+        const searchInput = document.getElementById('contact-search');
+        const tagFilter = document.getElementById('contact-tag-filter');
+        const list = document.getElementById('contact-list');
+
+        const tagSet = new Set();
+        contacts.forEach(c => c.tags.forEach(t => tagSet.add(t)));
+        tagSet.forEach(tag => {
+            const opt = document.createElement('option');
+            opt.value = tag;
+            opt.textContent = tag;
+            tagFilter.appendChild(opt);
+        });
+
+        function renderContacts() {
+            const term = searchInput.value.toLowerCase();
+            const selectedTag = tagFilter.value;
+            list.innerHTML = '';
+
+            contacts
+                .filter(c => {
+                    const matchesTag = !selectedTag || c.tags.includes(selectedTag);
+                    const searchable = `
+                        ${c.name} ${c.company ?? ''} ${c.description ?? ''}
+                        ${c.email ?? ''} ${c.phone ?? ''}
+                        ${c.website ?? ''} ${c.address ?? ''}
+                        ${c.tags.join(' ')}
+                    `.toLowerCase();
+                    const matchesSearch = searchable.includes(term);
+                    return matchesTag && matchesSearch;
+                })
+                .forEach(c => {
+                    const div = document.createElement('div');
+                    div.className = 'contact-card';
+
+                    const info = `
+                        <h4>${c.name}${c.company ? ' - ' + c.company : ''}</h4>
+                        ${c.description ? `<p>${c.description}</p>` : ''}
+                        ${c.email ? `<p>Email: <a href="mailto:${c.email}">${c.email}</a></p>` : ''}
+                        ${c.phone ? `<p>Phone: ${c.phone}</p>` : ''}
+                        ${c.website ? `<p>Website: <a href="${c.website}" target="_blank">${c.website}</a></p>` : ''}
+                        ${c.address ? `<p>Address: ${c.address}</p>` : ''}
+                        <div class="contact-tags">${c.tags.map(t => '#' + t).join(' ')}</div>
+                    `;
+
+                    const image = c.image ? `<img src="${c.image}" class="contact-image" alt="${c.name}">` : '';
+
+                    div.innerHTML = `<div class="contact-info">${info}</div>${image}`;
+                    list.appendChild(div);
+                });
+        }
+
+        searchInput.addEventListener('input', renderContacts);
+        tagFilter.addEventListener('change', renderContacts);
+
+        renderContacts();
     }
 });
