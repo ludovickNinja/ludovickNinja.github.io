@@ -136,337 +136,43 @@ document.addEventListener("DOMContentLoaded", () => {
         {
             id: "stone-count-full-eternity",
             title: "Stone Count: Full Eternity",
-            content: `
-        <div class="eternity-calculator">
-          <div class="input-section">
-            <label for="coverage-type">Select Coverage Type:</label>
-            <select id="coverage-type">
-              <option value="full">Full Eternity</option>
-              <option value="half">Half Eternity</option>
-              <option value="three-quarters">Three Quarters Eternity</option>
-            </select>
-
-            <label for="region-type">Select Finger Size Region:</label>
-            <select id="region-type">
-              <option value="BaseChart">US</option>
-              <option value="France">France</option>
-            </select>
-
-            <label for="finger-size">Enter Finger Size:</label>
-            <input type="number" id="finger-size" placeholder="e.g., 6.5" />
-
-            <label for="band-thickness">Enter Band Thickness (mm):</label>
-            <input type="number" id="band-thickness" placeholder="e.g., 1.50" />
-
-            <label for="spacing-eternity">Spacing Between Stones (mm):</label>
-            <input type="number" id="spacing-eternity" placeholder="e.g., 0.20" />
-
-            <label for="melee-diameter-eternity">Diameter of Melee Stones (mm):</label>
-            <input type="number" id="melee-diameter-eternity" placeholder="e.g., 1.50" />
-          </div>
-
-          <div class="output-section">
-            <label for="total-stones-eternity">Total Stones Needed:</label>
-            <input type="text" id="total-stones-eternity" readonly placeholder="0" />
-          </div>
-        </div>
-      `,
+            file: "partials/stone-count-full-eternity.html",
+            setup: setupFullEternity
         },
         {
             id: "stone-count-halo",
             title: "Stone Count: Halos",
-            content: `
-        <div class="halo-calculator">
-          <div class="input-section">
-            <label for="center-shape-halo">Select Center Stone Shape:</label>
-            <select id="center-shape-halo">
-              <option value="round">Round</option>
-              <option value="oval">Oval</option>
-              <option value="cushion">Cushion</option>
-              <option value="princess">Princess</option>
-              <option value="emerald">Emerald</option>
-              <option value="pear">Pear</option>
-              <option value="marquise">Marquise</option>
-            </select>
-
-            <label for="width-halo">Width of Center Stone (mm):</label>
-            <input type="number" id="width-halo" placeholder="e.g., 5.00" />
-
-            <label for="length-halo" id="length-label-halo" style="display: none;">Length of Center Stone (mm):</label>
-            <input type="number" id="length-halo" placeholder="e.g., 7.00" style="display: none;" />
-
-            <label for="spacing-to-center">Spacing to Center Stone (mm):</label>
-            <input type="number" id="spacing-to-center" value="0.2" placeholder="0.2" />
-
-            <label for="melee-diameter-halo">Diameter of Melee Stones (mm):</label>
-            <input type="number" id="melee-diameter-halo" placeholder="e.g., 1.50" />
-
-            <label for="spacing-between-melees-halo">Spacing Between Melees (mm):</label>
-            <input type="number" id="spacing-between-melees-halo" placeholder="e.g., 0.20" />
-          </div>
-
-          <div class="output-section">
-            <label for="total-stones-halo">Total Stones Needed:</label>
-            <input type="text" id="total-stones-halo" readonly placeholder="0" />
-          </div>
-        </div>
-      `,
+            file: "partials/stone-count-halo.html",
+            setup: setupHalo
         },
         {
             id: "stone-count-hidden-halo",
             title: "Stone Count: Hidden Halos",
-            content: `
-        <div class="halo-calculator">
-          <div class="input-section">
-            <label for="center-shape">Select Center Stone Shape:</label>
-            <select id="center-shape">
-              <option value="round">Round</option>
-              <option value="oval">Oval</option>
-              <option value="cushion">Cushion</option>
-              <option value="princess">Princess</option>
-              <option value="emerald">Emerald</option>
-              <option value="pear">Pear</option>
-              <option value="marquise">Marquise</option>
-            </select>
-
-            <label for="width">Width of Center Stone (mm):</label>
-            <input type="number" id="width" placeholder="e.g., 5.00" />
-
-            <label for="length" id="length-label" style="display: none;">Length of Center Stone (mm):</label>
-            <input type="number" id="length" placeholder="e.g., 7.00" style="display: none;" />
-
-            <label for="stone-size">Diameter of Stones (mm):</label>
-            <input type="number" id="stone-size" placeholder="e.g., 1.50" />
-
-            <label for="spacing">Spacing Between Stones (mm):</label>
-            <input type="number" id="spacing" placeholder="e.g., 0.20" />
-          </div>
-
-          <div class="output-section">
-            <label for="total-stones">Total Stones Needed for Hidden Halo:</label>
-            <input type="text" id="total-stones" readonly placeholder="0" />
-
-            <small>Formula: Total Stones = Perimeter ÷ (Stone Diameter + Spacing)</small>
-          </div>
-        </div>
-      `
+            file: "partials/stone-count-hidden-halo.html",
+            setup: setupHiddenHalo
         },
         {
             id: "weight-conversion",
             title: "Weight: Karat Conversion",
-            content: `
-        <div class="conversion-container">
-          <div class="converter">
-            <label for="known-material">Material of Known Weight:</label>
-            <select id="known-material">
-              <option value="0.01932">Gold (24K)</option>
-              <option value="0.01762">Gold (22K)</option>
-              <option value="0.0173">Gold (19K Super White)</option>
-              <option value="0.016">Gold (18K Palladium White)</option>
-              <option value="0.0155">Gold (18K)</option>
-              <option value="0.0135">Gold (14K)</option>
-              <option value="0.0117">Gold (10K)</option>
-              <option value="0.01049">Fine Silver</option>
-              <option value="0.01036">Sterling Silver</option>
-              <option value="0.022">Platinum</option>
-              <option value="0.01202">Palladium 950</option>
-              <option value="0.00092">Wax</option>
-              <option value="0.008">316L Stainless Steel</option>
-              <option value="0.0084">C272 Stainless Steel</option>
-            </select>
-
-            <label for="known-weight">Enter Known Weight (grams):</label>
-            <input type="number" id="known-weight" placeholder="Enter weight">
-          </div>
-          <div class="converter">
-            <label for="target-material">Material to Convert To:</label>
-            <select id="target-material">
-              <option value="0.01932">Gold (24K)</option>
-              <option value="0.01762">Gold (22K)</option>
-              <option value="0.0173">Gold (19K Super White)</option>
-              <option value="0.016">Gold (18K Palladium White)</option>
-              <option value="0.0155">Gold (18K)</option>
-              <option value="0.0135">Gold (14K)</option>
-              <option value="0.0117">Gold (10K)</option>
-              <option value="0.01049">Fine Silver</option>
-              <option value="0.01036">Sterling Silver</option>
-              <option value="0.022">Platinum</option>
-              <option value="0.01202">Palladium 950</option>
-              <option value="0.008">316L Stainless Steel</option>
-              <option value="0.0084">C272 Stainless Steel</option>
-            </select>
-
-            <label for="converted-weight">Converted Weight (grams):</label>
-            <input type="text" id="converted-weight" readonly placeholder="Converted weight">
-          </div>
-        </div>
-      `,
+            file: "partials/weight-conversion.html",
+            setup: setupWeightConversion
         },
         {
             id: "width-conversion",
             title: "Weight: Width Conversion",
-            content: `
-        <div class="calculator-container">
-            <div class="input-section">
-              <label for="original-weight">Original Weight (g)</label>
-              <input type="number" id="original-weight" placeholder="e.g., 10" />
-
-              <label for="original-width">Original Width (mm)</label>
-              <input type="number" id="original-width" placeholder="e.g., 4" />
-
-              <label for="original-thickness">Original Thickness (mm)</label>
-              <input type="number" id="original-thickness" placeholder="e.g., 1.5" />
-
-              <label for="new-width">New Width (mm)</label>
-              <input type="number" id="new-width" placeholder="e.g., 6" />
-
-              <label for="new-thickness">New Thickness (mm)</label>
-              <input type="number" id="new-thickness" placeholder="e.g., 2" />
-            </div>
-
-            <div class="output-section">
-              <p id="estimated-weight">Estimated New Weight: 0 g</p>
-            </div>
-          </div>
-
-          <div class="reference-table">
-            <h3>Average Thickness by MM Width</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>MM width</th>
-                  <th>MM thickness</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>4mm</td><td>1.6</td></tr>
-                <tr><td>5mm</td><td>1.6</td></tr>
-                <tr><td>6mm</td><td>1.7</td></tr>
-                <tr><td>7mm</td><td>1.8</td></tr>
-                <tr><td>8mm</td><td>1.9</td></tr>
-                <tr><td>9mm</td><td>2.0</td></tr>
-                <tr><td>10mm</td><td>2.2</td></tr>
-                <tr><td>11mm</td><td>2.2</td></tr>
-              </tbody>
-            </table>
-          </div>
-        `,
+            file: "partials/width-conversion.html",
+            setup: setupWidthConversion
         },
         {
             id: "weight-diamond-sizes",
             title: "Weight: Diamond Sizes",
-            content: `
-        <div class="calculator-container">
-            <div class="input-section">
-              <label for="current-diamond-size">Current Diamond Size (mm)</label>
-              <input type="number" id="current-diamond-size" placeholder="e.g., 1.5" />
-
-              <label for="target-diamond-size">Target Diamond Size (mm)</label>
-              <input type="number" id="target-diamond-size" placeholder="e.g., 2.0" />
-
-              <label for="ds-current-width">Current Band Width (mm)</label>
-              <input type="number" id="ds-current-width" placeholder="e.g., 4" />
-
-              <label for="ds-current-thickness">Current Band Thickness (mm)</label>
-              <input type="number" id="ds-current-thickness" placeholder="e.g., 1.5" />
-
-              <label for="ds-current-weight">Current Band Weight (g)</label>
-              <input type="number" id="ds-current-weight" placeholder="e.g., 3" />
-            </div>
-
-            <div class="output-section">
-              <p id="ds-new-thickness">Estimated New Thickness: 0 mm</p>
-              <p id="ds-new-weight">Estimated New Weight: 0 g</p>
-            </div>
-          </div>
-      `,
+            file: "partials/weight-diamond-sizes.html",
+            setup: setupDiamondSizes
         },
         {
             id: "useful-links",
             title: "Useful Links",
-            content: `
-        <h4>CAD</h4>
-        <div class="link-section">
-          <p><strong>SculptGL</strong> - Free Online WebGL sculpting app</p>
-          <a href="https://stephaneginier.com/sculptgl/" target="_blank">Visit SculptGL</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Yeggi</strong> - Google of CAD</p>
-          <a href="https://www.yeggi.com" target="_blank">Visit Yeggi</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Shapeways</strong> - 3D Print on Demand</p>
-          <a href="https://www.shapeways.com" target="_blank">Visit Shapeways</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Ponoko</strong> - Like Shapeways but includes laser cutting and CNC</p>
-          <a href="https://www.ponoko.com/" target="_blank">Visit Ponoko</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Thingiverse</strong> - UltiMakers's Thingiverse is a thriving design community for discovering, making, and sharing 3D printable things</p>
-          <a href="https://www.thingiverse.com/" target="_blank">Visit Thingiverse</a>
-        </div>
-        <div class="link-section">
-          <p><strong>CGTrader</strong> - CGTrader is the world’s largest source for licensable stock and custom 3D models</p>
-          <a href="https://www.cgtrader.com/" target="_blank">Visit CGTrader</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Sketchfab</strong> - Largest platform for immersive and interactive 3D</p>
-          <a href="https://sketchfab.com/" target="_blank">Visit Sketchfab</a>
-        </div>
-        <div class="link-section">
-          <p><strong>GrabCAD</strong> - GrabCAD is the largest online community of professional engineers, designers, manufacturers, and STEM students on the planet</p>
-          <a href="https://grabcad.com/library" target="_blank">Visit GrabCAD</a>
-        </div>
-
-        <h4>Shop</h4>
-        <div class="link-section">
-          <p><strong>Ormex Inc.</strong> - Import Chain and Findings from Italy</p>
-          <a href="https://ormexinc.com/en" target="_blank">Visit Ormex Inc.</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Stuller</strong> - Chain and Findings Manufacturer (USA)</p>
-          <a href="https://www.stuller.com/" target="_blank">Visit Stuller</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Noble</strong> - Jewelry boxes, jewelry displays, jewelry tools, optical cases, optical tools, and retail packaging.</p>
-          <a href="https://noblepack.ca" target="_blank">Visit Noble</a>
-        </div>
-        <div class="link-section">
-          <p><strong>GemSelect</strong> - Curator and distributor of precious and semi-precious gems</p>
-          <a href="https://www.gemselect.com" target="_blank">Visit GemSelect</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Gem Rock Auctions</strong> - Auction website of precious and semi-precious gems</p>
-          <a href="https://www.gemrockauctions.com" target="_blank">Visit Gem Rock Auctions</a>
-        </div>
-
-        <h4>References</h4>
-        <div class="link-section">
-          <p><strong>GIA</strong> - Research Lab / Diamond Reference</p>
-          <a href="https://www.gia.edu" target="_blank">Visit GIA</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Brilliance</strong> - DTC Manufacturer with Nice Education Center</p>
-          <a href="https://www.brilliance.com/education" target="_blank">Visit Brilliance</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Blue Nile</strong> - DTC Manufacturer with Retail Diamond Pricing</p>
-          <a href="https://www.bluenile.com/" target="_blank">Visit Blue Nile</a>
-        </div>
-        <div class="link-section">
-          <p><strong>James Allen</strong> - DTC Manufacturer with Retail Diamond Pricing</p>
-          <a href="https://www.jamesallen.com/" target="_blank">Visit James Allen</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Diamond Database</strong> - Quick Center Stone size Reference</p>
-          <a href="https://www.diamdb.com/" target="_blank">Visit Diamond Database</a>
-        </div>
-        <div class="link-section">
-          <p><strong>Diamond Size Charts</strong> - Quick Fancy Stone size Reference</p>
-          <a href="https://diamondsizecharts.com/" target="_blank">Visit Diamond Size Charts</a>
-        </div>
-      `
+            file: "partials/useful-links.html"
         }
     ];
 
@@ -510,6 +216,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabsContainer = document.querySelector(".tabs");
     const contentContainer = document.querySelector(".content");
 
+    function loadTabContent(tab, sectionElement) {
+        fetch(tab.file)
+            .then((r) => r.text())
+            .then((html) => {
+                sectionElement.innerHTML = `<h3>${tab.title}</h3>${html}`;
+                sectionElement.dataset.loaded = "true";
+                tab.setup?.();
+            });
+    }
+
     tabsData.forEach((tab, index) => {
         const tabElement = document.createElement("li");
         tabElement.textContent = tab.title;
@@ -520,18 +236,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const sectionElement = document.createElement("section");
         sectionElement.id = tab.id;
         sectionElement.className = "tab-content";
-        if (index === 0) sectionElement.classList.add("active");
-        sectionElement.innerHTML = `<h3>${tab.title}</h3>${tab.content}`;
+        if (index === 0) {
+            sectionElement.classList.add("active");
+            loadTabContent(tab, sectionElement);
+        }
         contentContainer.appendChild(sectionElement);
 
-        // Add event listener for switching tabs
         tabElement.addEventListener("click", () => {
             const tabs = document.querySelectorAll(".tabs li");
             const tabContents = document.querySelectorAll(".tab-content");
-            tabs.forEach((tab) => tab.classList.remove("active"));
-            tabContents.forEach((content) => content.classList.remove("active"));
+            tabs.forEach((t) => t.classList.remove("active"));
+            tabContents.forEach((c) => c.classList.remove("active"));
             tabElement.classList.add("active");
             sectionElement.classList.add("active");
+
+            if (!sectionElement.dataset.loaded) {
+                loadTabContent(tab, sectionElement);
+            }
         });
     });
 
@@ -552,259 +273,260 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    // Full Eternity Stone Count Logic
-    const regionTypeSelect = document.getElementById("region-type");
-    const fingerSizeInput = document.getElementById("finger-size");
-    const bandThicknessInput = document.getElementById("band-thickness");
-    const spacingEternityInput = document.getElementById("spacing-eternity");
-    const meleeDiameterEternityInput = document.getElementById("melee-diameter-eternity");
-    const coverageTypeSelect = document.getElementById("coverage-type");
-    const totalStonesEternityOutput = document.getElementById("total-stones-eternity");
+    function setupFullEternity() {
+        const regionTypeSelect = document.getElementById("region-type");
+        const fingerSizeInput = document.getElementById("finger-size");
+        const bandThicknessInput = document.getElementById("band-thickness");
+        const spacingEternityInput = document.getElementById("spacing-eternity");
+        const meleeDiameterEternityInput = document.getElementById("melee-diameter-eternity");
+        const coverageTypeSelect = document.getElementById("coverage-type");
+        const totalStonesEternityOutput = document.getElementById("total-stones-eternity");
 
-    const calculateEternityStones = () => {
-        const region = regionTypeSelect.value;
-        const fingerSize = parseFloat(fingerSizeInput.value) || 0;
-        const bandThickness = parseFloat(bandThicknessInput.value) || 0;
-        const spacing = parseFloat(spacingEternityInput.value) || 0;
-        const meleeDiameter = parseFloat(meleeDiameterEternityInput.value) || 0;
-        const coverageType = coverageTypeSelect.value;
+        const calculateEternityStones = () => {
+            const region = regionTypeSelect.value;
+            const fingerSize = parseFloat(fingerSizeInput.value) || 0;
+            const bandThickness = parseFloat(bandThicknessInput.value) || 0;
+            const spacing = parseFloat(spacingEternityInput.value) || 0;
+            const meleeDiameter = parseFloat(meleeDiameterEternityInput.value) || 0;
+            const coverageType = coverageTypeSelect.value;
 
-        if (fingerSize <= 0 || bandThickness < 0 || spacing < 0 || meleeDiameter <= 0) {
-            totalStonesEternityOutput.value = "Invalid Inputs";
-            return;
-        }
+            if (fingerSize <= 0 || bandThickness < 0 || spacing < 0 || meleeDiameter <= 0) {
+                totalStonesEternityOutput.value = "Invalid Inputs";
+                return;
+            }
 
-        const regionData = fingerSizes[region];
-        const sizeData = regionData.find((item) => item.Size === fingerSize);
-        if (!sizeData) {
-            totalStonesEternityOutput.value = "Size Not Found";
-            return;
-        }
+            const regionData = fingerSizes[region];
+            const sizeData = regionData.find((item) => item.Size === fingerSize);
+            if (!sizeData) {
+                totalStonesEternityOutput.value = "Size Not Found";
+                return;
+            }
 
-        const perimeter = Math.PI * sizeData.Finished;
-        const adjustedPerimeter = perimeter + Math.PI * bandThickness;
+            const perimeter = Math.PI * sizeData.Finished;
+            const adjustedPerimeter = perimeter + Math.PI * bandThickness;
 
-        let finalPerimeter = adjustedPerimeter;
-        if (coverageType === "half") {
-            finalPerimeter /= 2;
-        } else if (coverageType === "three-quarters") {
-            finalPerimeter *= 0.75;
-        }
+            let finalPerimeter = adjustedPerimeter;
+            if (coverageType === "half") {
+                finalPerimeter /= 2;
+            } else if (coverageType === "three-quarters") {
+                finalPerimeter *= 0.75;
+            }
 
-        const totalStones = Math.floor(finalPerimeter / (meleeDiameter + spacing));
-        totalStonesEternityOutput.value = totalStones;
-    };
+            const totalStones = Math.floor(finalPerimeter / (meleeDiameter + spacing));
+            totalStonesEternityOutput.value = totalStones;
+        };
 
-    regionTypeSelect.addEventListener("change", calculateEternityStones);
-    fingerSizeInput.addEventListener("input", calculateEternityStones);
-    bandThicknessInput.addEventListener("input", calculateEternityStones);
-    spacingEternityInput.addEventListener("input", calculateEternityStones);
-    meleeDiameterEternityInput.addEventListener("input", calculateEternityStones);
-    coverageTypeSelect.addEventListener("change", calculateEternityStones);
-
-    // Halo Stone Count Logic
-    const haloShapeSelect = document.getElementById("center-shape-halo");
-    const haloWidthInput = document.getElementById("width-halo");
-    const haloLengthInput = document.getElementById("length-halo");
-    const haloLengthLabel = document.getElementById("length-label-halo");
-    const spacingToCenterInput = document.getElementById("spacing-to-center");
-    const meleeDiameterHaloInput = document.getElementById("melee-diameter-halo");
-    const spacingBetweenMeleesHaloInput = document.getElementById("spacing-between-melees-halo");
-    const totalStonesHaloOutput = document.getElementById("total-stones-halo");
-
-    haloShapeSelect?.addEventListener("change", () => {
-        if (haloShapeSelect.value === "round") {
-            haloLengthInput.style.display = "none";
-            haloLengthLabel.style.display = "none";
-        } else {
-            haloLengthInput.style.display = "block";
-            haloLengthLabel.style.display = "block";
-        }
-    });
-
-    const calculateHaloStoneCount = () => {
-        const shape = haloShapeSelect.value;
-        const width = parseFloat(haloWidthInput.value) || 0;
-        const length = parseFloat(haloLengthInput.value) || 0;
-        const spacingToCenter = parseFloat(spacingToCenterInput.value) || 0;
-        const meleeDiameter = parseFloat(meleeDiameterHaloInput.value) || 0;
-        const spacingBetweenMelees = parseFloat(spacingBetweenMeleesHaloInput.value) || 0;
-
-        if (meleeDiameter <= 0 || spacingBetweenMelees < 0 || spacingToCenter < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
-            totalStonesHaloOutput.value = "Invalid Inputs";
-            return;
-        }
-
-        let perimeter = 0;
-        const adjustedWidth = width + (2 * spacingToCenter) + meleeDiameter;
-        const adjustedLength = length + (2 * spacingToCenter) + meleeDiameter;
-
-        if (shape === "round") {
-            perimeter = Math.PI * adjustedWidth;
-        } else if (["oval", "pear", "marquise"].includes(shape)) {
-            perimeter = Math.PI * ((adjustedWidth + adjustedLength) / 2);
-        } else {
-            perimeter = 2 * (adjustedWidth + adjustedLength);
-        }
-
-        const totalStones = Math.floor(perimeter / (meleeDiameter + spacingBetweenMelees));
-
-        // Round down to the nearest even number
-        const roundedDownEven = totalStones % 2 === 0 ? totalStones : totalStones - 1;
-        totalStonesHaloOutput.value = roundedDownEven;
-    };
-
-    haloWidthInput?.addEventListener("input", calculateHaloStoneCount);
-    haloLengthInput?.addEventListener("input", calculateHaloStoneCount);
-    spacingToCenterInput?.addEventListener("input", calculateHaloStoneCount);
-    meleeDiameterHaloInput?.addEventListener("input", calculateHaloStoneCount);
-    spacingBetweenMeleesHaloInput?.addEventListener("input", calculateHaloStoneCount);
-
-    // Hidden Halo Calculation Logic
-    const hiddenHaloShapeSelect = document.getElementById("center-shape");
-    const hiddenHaloWidthInput = document.getElementById("width");
-    const hiddenHaloLengthInput = document.getElementById("length");
-    const hiddenHaloLengthLabel = document.getElementById("length-label");
-    const stoneSizeInput = document.getElementById("stone-size");
-    const spacingInput = document.getElementById("spacing");
-    const hiddenHaloTotalStonesOutput = document.getElementById("total-stones");
-
-    hiddenHaloShapeSelect?.addEventListener("change", () => {
-        if (hiddenHaloShapeSelect.value === "round") {
-            hiddenHaloLengthInput.style.display = "none";
-            hiddenHaloLengthLabel.style.display = "none";
-        } else {
-            hiddenHaloLengthInput.style.display = "block";
-            hiddenHaloLengthLabel.style.display = "block";
-        }
-    });
-
-    const calculateHiddenHalo = () => {
-        const shape = hiddenHaloShapeSelect.value;
-        const width = parseFloat(hiddenHaloWidthInput.value) || 0;
-        const length = parseFloat(hiddenHaloLengthInput.value) || 0;
-        const stoneSize = parseFloat(stoneSizeInput.value) || 0;
-        const spacing = parseFloat(spacingInput.value) || 0;
-
-        if (stoneSize <= 0 || spacing < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
-            hiddenHaloTotalStonesOutput.value = "Invalid Inputs";
-            return;
-        }
-
-        let perimeter = 0;
-        if (shape === "round") {
-            perimeter = Math.PI * width;
-        } else if (["oval", "pear", "marquise"].includes(shape)) {
-            perimeter = Math.PI * ((width + length) / 2);
-        } else {
-            perimeter = 2 * (width + length);
-        }
-
-        const totalStones = Math.floor(perimeter / (stoneSize + spacing) - 4);
-
-        // Round down to the nearest even number
-        const roundedDownEven = totalStones % 2 === 0 ? totalStones : totalStones - 1;
-        hiddenHaloTotalStonesOutput.value = roundedDownEven;
-    };
-
-    hiddenHaloWidthInput?.addEventListener("input", calculateHiddenHalo);
-    hiddenHaloLengthInput?.addEventListener("input", calculateHiddenHalo);
-    stoneSizeInput?.addEventListener("input", calculateHiddenHalo);
-    spacingInput?.addEventListener("input", calculateHiddenHalo);
-
-    // Weight Conversion Logic
-    const knownWeightInput = document.getElementById("known-weight");
-    const knownMaterialSelect = document.getElementById("known-material");
-    const targetMaterialSelect = document.getElementById("target-material");
-    const convertedWeightInput = document.getElementById("converted-weight");
-
-    const calculateConversion = () => {
-        const knownWeight = parseFloat(knownWeightInput.value);
-        const knownMaterial = knownMaterialSelect.value;
-        const targetDensity = parseFloat(targetMaterialSelect.value);
-        const diamondDensity = 3.52; // g/cm³
-
-        if (isNaN(knownWeight) || knownWeight <= 0 || isNaN(targetDensity) || targetDensity <= 0) {
-            convertedWeightInput.value = "Invalid Inputs";
-            return;
-        }
-
-        let volume; // Volume in cm³
-
-        if (knownMaterial === "carat") {
-            // Convert carats to grams, then calculate volume
-            const weightInGrams = knownWeight * 0.5;
-            volume = weightInGrams / diamondDensity;
-        } else {
-            // Use known material density directly
-            const knownDensity = parseFloat(knownMaterial);
-            volume = knownWeight / knownDensity;
-        }
-
-        // Calculate the equivalent weight of the target material
-        const convertedWeight = volume * targetDensity;
-        convertedWeightInput.value = convertedWeight.toFixed(3);
-    };
-
-    knownWeightInput.addEventListener("input", calculateConversion);
-    knownMaterialSelect.addEventListener("change", calculateConversion);
-    targetMaterialSelect.addEventListener("change", calculateConversion);
-
-    // Width Conversion Logic
-    const widthInputs = document.querySelectorAll('#width-conversion input');
-    const result = document.getElementById('estimated-weight');
-
-    function calculateWeight() {
-        const originalWeight = parseFloat(document.getElementById('original-weight').value);
-        const originalWidth = parseFloat(document.getElementById('original-width').value);
-        const originalThickness = parseFloat(document.getElementById('original-thickness').value);
-        const newWidth = parseFloat(document.getElementById('new-width').value);
-        const newThickness = parseFloat(document.getElementById('new-thickness').value);
-
-        if (!originalWeight || !originalWidth || !originalThickness || !newWidth || !newThickness) {
-            result.textContent = 'Estimated New Weight: 0 g';
-            return;
-        }
-
-        const newWeight =
-            originalWeight * (newWidth / originalWidth) * (newThickness / originalThickness);
-
-        result.textContent = `Estimated New Weight: ${newWeight.toFixed(2)} g`;
+        regionTypeSelect.addEventListener("change", calculateEternityStones);
+        fingerSizeInput.addEventListener("input", calculateEternityStones);
+        bandThicknessInput.addEventListener("input", calculateEternityStones);
+        spacingEternityInput.addEventListener("input", calculateEternityStones);
+        meleeDiameterEternityInput.addEventListener("input", calculateEternityStones);
+        coverageTypeSelect.addEventListener("change", calculateEternityStones);
     }
 
-    widthInputs.forEach(input => input.addEventListener('input', calculateWeight));
+    function setupHalo() {
+        const haloShapeSelect = document.getElementById("center-shape-halo");
+        const haloWidthInput = document.getElementById("width-halo");
+        const haloLengthInput = document.getElementById("length-halo");
+        const haloLengthLabel = document.getElementById("length-label-halo");
+        const spacingToCenterInput = document.getElementById("spacing-to-center");
+        const meleeDiameterHaloInput = document.getElementById("melee-diameter-halo");
+        const spacingBetweenMeleesHaloInput = document.getElementById("spacing-between-melees-halo");
+        const totalStonesHaloOutput = document.getElementById("total-stones-halo");
 
-    // Diamond Size Weight Conversion Logic
-    const diamondInputs = document.querySelectorAll('#weight-diamond-sizes input');
-    const newWeightOutput = document.getElementById('ds-new-weight');
-    const newThicknessOutput = document.getElementById('ds-new-thickness');
+        haloShapeSelect?.addEventListener("change", () => {
+            if (haloShapeSelect.value === "round") {
+                haloLengthInput.style.display = "none";
+                haloLengthLabel.style.display = "none";
+            } else {
+                haloLengthInput.style.display = "block";
+                haloLengthLabel.style.display = "block";
+            }
+        });
 
-    function calculateDiamondSize() {
-        const currentSize = parseFloat(document.getElementById('current-diamond-size').value);
-        const targetSize = parseFloat(document.getElementById('target-diamond-size').value);
-        const bandWidth = parseFloat(document.getElementById('ds-current-width').value);
-        const bandThickness = parseFloat(document.getElementById('ds-current-thickness').value);
-        const bandWeight = parseFloat(document.getElementById('ds-current-weight').value);
+        const calculateHaloStoneCount = () => {
+            const shape = haloShapeSelect.value;
+            const width = parseFloat(haloWidthInput.value) || 0;
+            const length = parseFloat(haloLengthInput.value) || 0;
+            const spacingToCenter = parseFloat(spacingToCenterInput.value) || 0;
+            const meleeDiameter = parseFloat(meleeDiameterHaloInput.value) || 0;
+            const spacingBetweenMelees = parseFloat(spacingBetweenMeleesHaloInput.value) || 0;
 
-        if (!currentSize || !targetSize || !bandWidth || !bandThickness || !bandWeight) {
-            newWeightOutput.textContent = 'Estimated New Weight: 0 g';
-            newThicknessOutput.textContent = 'Estimated New Thickness: 0 mm';
-            return;
-        }
+            if (meleeDiameter <= 0 || spacingBetweenMelees < 0 || spacingToCenter < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
+                totalStonesHaloOutput.value = "Invalid Inputs";
+                return;
+            }
 
-        const newWidth = (bandWidth - currentSize) + targetSize;
+            let perimeter = 0;
+            const adjustedWidth = width + (2 * spacingToCenter) + meleeDiameter;
+            const adjustedLength = length + (2 * spacingToCenter) + meleeDiameter;
 
-        if (bandThickness - (0.65 * targetSize) > 0.4) {
-           newThickness = bandThickness;
-        } else {
-            newThickness = Math.ceil(((0.65 * targetSize) + 0.4) / 0.05) * 0.05;
-        }
-        
-        const newBandWeight = bandWeight * (newWidth / bandWidth) * (newThickness / bandThickness);
+            if (shape === "round") {
+                perimeter = Math.PI * adjustedWidth;
+            } else if (["oval", "pear", "marquise"].includes(shape)) {
+                perimeter = Math.PI * ((adjustedWidth + adjustedLength) / 2);
+            } else {
+                perimeter = 2 * (adjustedWidth + adjustedLength);
+            }
 
-        newThicknessOutput.textContent = `Estimated New Thickness: ${newThickness.toFixed(2)} mm`;
-        newWeightOutput.textContent = `Estimated New Weight: ${newBandWeight.toFixed(2)} g`;
+            const totalStones = Math.floor(perimeter / (meleeDiameter + spacingBetweenMelees));
+
+            const roundedDownEven = totalStones % 2 === 0 ? totalStones : totalStones - 1;
+            totalStonesHaloOutput.value = roundedDownEven;
+        };
+
+        haloWidthInput?.addEventListener("input", calculateHaloStoneCount);
+        haloLengthInput?.addEventListener("input", calculateHaloStoneCount);
+        spacingToCenterInput?.addEventListener("input", calculateHaloStoneCount);
+        meleeDiameterHaloInput?.addEventListener("input", calculateHaloStoneCount);
+        spacingBetweenMeleesHaloInput?.addEventListener("input", calculateHaloStoneCount);
     }
 
-    diamondInputs.forEach(input => input.addEventListener('input', calculateDiamondSize));
+    function setupHiddenHalo() {
+        const hiddenHaloShapeSelect = document.getElementById("center-shape");
+        const hiddenHaloWidthInput = document.getElementById("width");
+        const hiddenHaloLengthInput = document.getElementById("length");
+        const hiddenHaloLengthLabel = document.getElementById("length-label");
+        const stoneSizeInput = document.getElementById("stone-size");
+        const spacingInput = document.getElementById("spacing");
+        const hiddenHaloTotalStonesOutput = document.getElementById("total-stones");
+
+        hiddenHaloShapeSelect?.addEventListener("change", () => {
+            if (hiddenHaloShapeSelect.value === "round") {
+                hiddenHaloLengthInput.style.display = "none";
+                hiddenHaloLengthLabel.style.display = "none";
+            } else {
+                hiddenHaloLengthInput.style.display = "block";
+                hiddenHaloLengthLabel.style.display = "block";
+            }
+        });
+
+        const calculateHiddenHalo = () => {
+            const shape = hiddenHaloShapeSelect.value;
+            const width = parseFloat(hiddenHaloWidthInput.value) || 0;
+            const length = parseFloat(hiddenHaloLengthInput.value) || 0;
+            const stoneSize = parseFloat(stoneSizeInput.value) || 0;
+            const spacing = parseFloat(spacingInput.value) || 0;
+
+            if (stoneSize <= 0 || spacing < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
+                hiddenHaloTotalStonesOutput.value = "Invalid Inputs";
+                return;
+            }
+
+            let perimeter = 0;
+            if (shape === "round") {
+                perimeter = Math.PI * width;
+            } else if (["oval", "pear", "marquise"].includes(shape)) {
+                perimeter = Math.PI * ((width + length) / 2);
+            } else {
+                perimeter = 2 * (width + length);
+            }
+
+            const totalStones = Math.floor(perimeter / (stoneSize + spacing) - 4);
+
+            const roundedDownEven = totalStones % 2 === 0 ? totalStones : totalStones - 1;
+            hiddenHaloTotalStonesOutput.value = roundedDownEven;
+        };
+
+        hiddenHaloWidthInput?.addEventListener("input", calculateHiddenHalo);
+        hiddenHaloLengthInput?.addEventListener("input", calculateHiddenHalo);
+        stoneSizeInput?.addEventListener("input", calculateHiddenHalo);
+        spacingInput?.addEventListener("input", calculateHiddenHalo);
+    }
+
+    function setupWeightConversion() {
+        const knownWeightInput = document.getElementById("known-weight");
+        const knownMaterialSelect = document.getElementById("known-material");
+        const targetMaterialSelect = document.getElementById("target-material");
+        const convertedWeightInput = document.getElementById("converted-weight");
+
+        const calculateConversion = () => {
+            const knownWeight = parseFloat(knownWeightInput.value);
+            const knownMaterial = knownMaterialSelect.value;
+            const targetDensity = parseFloat(targetMaterialSelect.value);
+            const diamondDensity = 3.52; // g/cm³
+
+            if (isNaN(knownWeight) || knownWeight <= 0 || isNaN(targetDensity) || targetDensity <= 0) {
+                convertedWeightInput.value = "Invalid Inputs";
+                return;
+            }
+
+            let volume;
+
+            if (knownMaterial === "carat") {
+                const weightInGrams = knownWeight * 0.5;
+                volume = weightInGrams / diamondDensity;
+            } else {
+                const knownDensity = parseFloat(knownMaterial);
+                volume = knownWeight / knownDensity;
+            }
+
+            const convertedWeight = volume * targetDensity;
+            convertedWeightInput.value = convertedWeight.toFixed(3);
+        };
+
+        knownWeightInput.addEventListener("input", calculateConversion);
+        knownMaterialSelect.addEventListener("change", calculateConversion);
+        targetMaterialSelect.addEventListener("change", calculateConversion);
+    }
+
+    function setupWidthConversion() {
+        const widthInputs = document.querySelectorAll('#width-conversion input');
+        const result = document.getElementById('estimated-weight');
+
+        function calculateWeight() {
+            const originalWeight = parseFloat(document.getElementById('original-weight').value);
+            const originalWidth = parseFloat(document.getElementById('original-width').value);
+            const originalThickness = parseFloat(document.getElementById('original-thickness').value);
+            const newWidth = parseFloat(document.getElementById('new-width').value);
+            const newThickness = parseFloat(document.getElementById('new-thickness').value);
+
+            if (!originalWeight || !originalWidth || !originalThickness || !newWidth || !newThickness) {
+                result.textContent = 'Estimated New Weight: 0 g';
+                return;
+            }
+
+            const newWeight =
+                originalWeight * (newWidth / originalWidth) * (newThickness / originalThickness);
+
+            result.textContent = `Estimated New Weight: ${newWeight.toFixed(2)} g`;
+        }
+
+        widthInputs.forEach(input => input.addEventListener('input', calculateWeight));
+    }
+
+    function setupDiamondSizes() {
+        const diamondInputs = document.querySelectorAll('#weight-diamond-sizes input');
+        const newWeightOutput = document.getElementById('ds-new-weight');
+        const newThicknessOutput = document.getElementById('ds-new-thickness');
+
+        function calculateDiamondSize() {
+            const currentSize = parseFloat(document.getElementById('current-diamond-size').value);
+            const targetSize = parseFloat(document.getElementById('target-diamond-size').value);
+            const bandWidth = parseFloat(document.getElementById('ds-current-width').value);
+            const bandThickness = parseFloat(document.getElementById('ds-current-thickness').value);
+            const bandWeight = parseFloat(document.getElementById('ds-current-weight').value);
+
+            if (!currentSize || !targetSize || !bandWidth || !bandThickness || !bandWeight) {
+                newWeightOutput.textContent = 'Estimated New Weight: 0 g';
+                newThicknessOutput.textContent = 'Estimated New Thickness: 0 mm';
+                return;
+            }
+
+            const newWidth = (bandWidth - currentSize) + targetSize;
+
+            if (bandThickness - (0.65 * targetSize) > 0.4) {
+               newThickness = bandThickness;
+            } else {
+                newThickness = Math.ceil(((0.65 * targetSize) + 0.4) / 0.05) * 0.05;
+            }
+
+            const newBandWeight = bandWeight * (newWidth / bandWidth) * (newThickness / bandThickness);
+
+            newThicknessOutput.textContent = `Estimated New Thickness: ${newThickness.toFixed(2)} mm`;
+            newWeightOutput.textContent = `Estimated New Weight: ${newBandWeight.toFixed(2)} g`;
+        }
+
+        diamondInputs.forEach(input => input.addEventListener('input', calculateDiamondSize));
+    }
 });
