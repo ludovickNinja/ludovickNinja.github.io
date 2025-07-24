@@ -173,6 +173,12 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "useful-links",
             title: "Useful Links",
             file: "partials/useful-links.html"
+        },
+        {
+            id: "contact-repository",
+            title: "Contact Repository",
+            file: "partials/contact-repository.html",
+            setup: setupContactRepository
         }
     ];
 
@@ -528,5 +534,78 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         diamondInputs.forEach(input => input.addEventListener('input', calculateDiamondSize));
+    }
+
+    function setupContactRepository() {
+        const contacts = [
+            {
+                name: 'John Doe',
+                company: 'Example Corp',
+                email: 'john@example.com',
+                phone: '123-456-7890',
+                tags: ['supplier', 'diamond'],
+                description: 'Wholesale diamond supplier.'
+            },
+            {
+                name: 'Jane Smith',
+                company: 'ACME Casting',
+                email: 'jane@acme.com',
+                phone: '555-123-4567',
+                tags: ['casting', 'metal'],
+                description: 'Go-to casting house for platinum and gold.'
+            },
+            {
+                name: 'Bob Johnson',
+                company: 'Gem Traders',
+                email: 'bob@gemtraders.com',
+                phone: '555-987-6543',
+                tags: ['gem', 'supplier'],
+                description: 'Loose gemstone distributor.'
+            }
+        ];
+
+        const searchInput = document.getElementById('contact-search');
+        const tagFilter = document.getElementById('contact-tag-filter');
+        const list = document.getElementById('contact-list');
+
+        const tagSet = new Set();
+        contacts.forEach(c => c.tags.forEach(t => tagSet.add(t)));
+        tagSet.forEach(tag => {
+            const opt = document.createElement('option');
+            opt.value = tag;
+            opt.textContent = tag;
+            tagFilter.appendChild(opt);
+        });
+
+        function renderContacts() {
+            const term = searchInput.value.toLowerCase();
+            const selectedTag = tagFilter.value;
+            list.innerHTML = '';
+
+            contacts
+                .filter(c => {
+                    const matchesTag = !selectedTag || c.tags.includes(selectedTag);
+                    const text = `${c.name} ${c.description} ${c.tags.join(' ')}`.toLowerCase();
+                    const matchesSearch = text.includes(term);
+                    return matchesTag && matchesSearch;
+                })
+                .forEach(c => {
+                    const div = document.createElement('div');
+                    div.className = 'contact-card';
+                    div.innerHTML = `
+                        <h4>${c.name} - ${c.company}</h4>
+                        <p>${c.description}</p>
+                        <p>Email: <a href="mailto:${c.email}">${c.email}</a></p>
+                        <p>Phone: ${c.phone}</p>
+                        <div class="contact-tags">${c.tags.map(t => '#' + t).join(' ')}</div>
+                    `;
+                    list.appendChild(div);
+                });
+        }
+
+        searchInput.addEventListener('input', renderContacts);
+        tagFilter.addEventListener('change', renderContacts);
+
+        renderContacts();
     }
 });

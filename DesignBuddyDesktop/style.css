@@ -214,6 +214,40 @@ select, input {
   border-radius: 4px;
 }
 
+/* Contact Repository */
+#contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.contact-controls input,
+.contact-controls select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 200px;
+}
+
+.contact-card {
+  border: 1px solid #000;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: #f9f9f9;
+}
+
+.contact-tags {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .container {
