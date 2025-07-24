@@ -543,6 +543,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 company: 'Example Corp',
                 email: 'john@example.com',
                 phone: '123-456-7890',
+                website: 'https://example.com',
+                address: '123 Main St, Toronto, Canada',
+                image: 'https://via.placeholder.com/100',
                 tags: ['supplier', 'diamond'],
                 description: 'Wholesale diamond supplier.'
             },
@@ -551,6 +554,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 company: 'ACME Casting',
                 email: 'jane@acme.com',
                 phone: '555-123-4567',
+                address: '456 Industrial Rd, Ottawa, Canada',
+                image: 'https://via.placeholder.com/100',
                 tags: ['casting', 'metal'],
                 description: 'Go-to casting house for platinum and gold.'
             },
@@ -559,6 +564,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 company: 'Gem Traders',
                 email: 'bob@gemtraders.com',
                 phone: '555-987-6543',
+                website: 'https://gemtraders.com',
+                image: 'https://via.placeholder.com/100',
                 tags: ['gem', 'supplier'],
                 description: 'Loose gemstone distributor.'
             }
@@ -585,20 +592,33 @@ document.addEventListener("DOMContentLoaded", () => {
             contacts
                 .filter(c => {
                     const matchesTag = !selectedTag || c.tags.includes(selectedTag);
-                    const text = `${c.name} ${c.description} ${c.tags.join(' ')}`.toLowerCase();
-                    const matchesSearch = text.includes(term);
+                    const searchable = `
+                        ${c.name} ${c.company ?? ''} ${c.description ?? ''}
+                        ${c.email ?? ''} ${c.phone ?? ''}
+                        ${c.website ?? ''} ${c.address ?? ''}
+                        ${c.tags.join(' ')}
+                    `.toLowerCase();
+                    const matchesSearch = searchable.includes(term);
                     return matchesTag && matchesSearch;
                 })
                 .forEach(c => {
                     const div = document.createElement('div');
                     div.className = 'contact-card';
-                    div.innerHTML = `
-                        <h4>${c.name} - ${c.company}</h4>
-                        <p>${c.description}</p>
-                        <p>Email: <a href="mailto:${c.email}">${c.email}</a></p>
-                        <p>Phone: ${c.phone}</p>
+
+                    const info = `
+                        <h4>${c.name}${c.company ? ' - ' + c.company : ''}</h4>
+                        ${c.description ? `<p>${c.description}</p>` : ''}
+                        ${c.email ? `<p>Email: <a href="mailto:${c.email}">${c.email}</a></p>` : ''}
+                        ${c.phone ? `<p>Phone: ${c.phone}</p>` : ''}
+                        ${c.website ? `<p>Website: <a href="${c.website}" target="_blank">${c.website}</a></p>` : ''}
+                        ${c.address ? `<p>Address: ${c.address}</p>` : ''}
                         <div class="contact-tags">${c.tags.map(t => '#' + t).join(' ')}</div>
                     `;
+
+                    const image = c.image ? `<img src="${c.image}" class="contact-image" alt="${c.name}">` : '';
+
+                    div.innerHTML = `<div class="contact-info">${info}</div>${image}`;
+                    
                     list.appendChild(div);
                 });
         }

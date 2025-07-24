@@ -240,6 +240,21 @@ select, input {
   padding: 1rem;
   margin-bottom: 1rem;
   background: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-image {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+
 }
 
 .contact-tags {
