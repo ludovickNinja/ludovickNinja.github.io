@@ -485,8 +485,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const div = document.createElement('div');
                     div.className = 'contact-card';
 
+                    const title = [c.name, c.company].filter(Boolean).join(' - ');
                     const info = `
-                        <h4>${c.name}${c.company ? ' - ' + c.company : ''}</h4>
+                        <h4>${title}</h4>
                         ${c.description ? `<p>${c.description}</p>` : ''}
                         ${c.email ? `<p>Email: <a href="mailto:${c.email}">${c.email}</a></p>` : ''}
                         ${c.phone ? `<p>Phone: ${c.phone}</p>` : ''}
