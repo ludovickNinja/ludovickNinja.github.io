@@ -438,6 +438,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 image: 'https://via.placeholder.com/100',
                 tags: ['gem', 'supplier'],
                 description: 'Loose gemstone distributor.'
+            },
+            {
+                company: 'Rippana inc.',
+                email: 'rippanainfo@gmail.com',
+                phone: '514-663-4948',
+                website: 'https://rippanagems.com',
+                address: '620 Rue Cathcart #252, Montréal, QC H3B 1M1',
+                image: 'https://rippanagems.com/wp-content/uploads/2021/03/cropped-logotype_rouge-238x86-238x86-1.png',
+                tags: ['supplier', 'gem', 'local'],
+                description: 'Rippana Inc. is a coloured gemstone wholesaler company based in Montreal.'
             }
         ];
 
