@@ -409,25 +409,24 @@ document.addEventListener("DOMContentLoaded", () => {
     function setupContactRepository() {
         const contacts = [
             {
-                name: 'John Doe',
-                company: 'Example Corp',
-                email: 'john@example.com',
-                phone: '123-456-7890',
-                website: 'https://example.com',
-                address: '123 Main St, Toronto, Canada',
-                image: 'https://via.placeholder.com/100',
-                tags: ['supplier', 'diamond'],
-                description: 'Wholesale diamond supplier.'
+                company: 'Fonte LB Casting',
+                email: 'fontelbcasting@gmail.com',
+                phone: '514-360-6358',
+                website: 'https://www.fontelbcasting.com/',
+                address: '620 rue Cathcart, suite 250, Montréal (Québec), H3B 1M1',
+                image: 'https://static.wixstatic.com/media/47c3ad_6f09291a2b6c4bffa92901a822918b4a~mv2.jpg/v1/fill/w_610,h_154,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/47c3ad_6f09291a2b6c4bffa92901a822918b4a~mv2.jpg',
+                tags: ['casting', 'metal', 'local'],
+                description: 'New Casting House in Montreal'
             },
             {
-                name: 'Jane Smith',
-                company: 'ACME Casting',
-                email: 'jane@acme.com',
-                phone: '555-123-4567',
-                address: '456 Industrial Rd, Ottawa, Canada',
-                image: 'https://via.placeholder.com/100',
-                tags: ['casting', 'metal'],
-                description: 'Go-to casting house for platinum and gold.'
+                company: 'Alloyco Casting',
+                email: 'alloyco@alloyco.com',
+                phone: '514-845-5384',
+                website: 'https://alloyco.com/',
+                address: '55 Mont-Royal Avenue West, Suite 600 Montreal (Quebec) H2T 2S6',
+                image: 'https://alloyco.com/wp-content/uploads/2023/06/alloyco.png',
+                tags: ['casting', 'metal', 'local'],
+                description: 'For print and cast, send email to print@alloyco.com'
             },
             {
                 name: 'Melissa Bellefleur',
@@ -437,7 +436,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 address: '620 rue Cathcart, Suite 406 Montréal, Québec H3B 1M1',
                 website: 'https://gemmessence.com/',
                 image: 'https://gemmessence.com/wp-content/uploads/2019/03/cropped-logo-2-32x32.png',
-                tags: ['gem', 'lapidary', 'jeweller'],
+                tags: ['gem', 'lapidary', 'jeweller', 'local'],
                 description: 'Our services include facetting, cabbing and stone inlay, (Went to school with her - Ludo)'
             },
             {
