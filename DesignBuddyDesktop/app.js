@@ -430,14 +430,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 description: 'Go-to casting house for platinum and gold.'
             },
             {
-                name: 'Bob Johnson',
-                company: 'Gem Traders',
-                email: 'bob@gemtraders.com',
-                phone: '555-987-6543',
-                website: 'https://gemtraders.com',
-                image: 'https://via.placeholder.com/100',
-                tags: ['gem', 'supplier'],
-                description: 'Loose gemstone distributor.'
+                name: 'Melissa Bellefleur',
+                company: 'Gemmessense',
+                email: 'gemmessense@gmail.com',
+                phone: '514-993-9279',
+                address: '620 rue Cathcart, Suite 406 Montréal, Québec H3B 1M1',
+                website: 'https://gemmessence.com/',
+                image: 'https://gemmessence.com/wp-content/uploads/2019/03/cropped-logo-2-32x32.png',
+                tags: ['gem', 'lapidary', 'jeweller'],
+                description: 'Our services include facetting, cabbing and stone inlay, (Went to school with her - Ludo)'
             },
             {
                 company: 'Rippana inc.',
@@ -446,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 website: 'https://rippanagems.com',
                 address: '620 Rue Cathcart #252, Montréal, QC H3B 1M1',
                 image: 'https://rippanagems.com/wp-content/uploads/2021/03/cropped-logotype_rouge-238x86-238x86-1.png',
-                tags: ['supplier', 'gem', 'local'],
+                tags: ['supplier', 'gem', 'local', 'lapidary'],
                 description: 'Rippana Inc. is a coloured gemstone wholesaler company based in Montreal.'
             }
         ];
