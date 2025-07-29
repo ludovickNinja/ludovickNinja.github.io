@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="." />
+    <link rel="icon" type="image/svg+xml" href="../assets/svg/logo.svg" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
+    <title>CAD Preview</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="style.css" />
+
+    <div class="header" id="myHeader">
+      <h2>CAD Preview</h2>
+      <a onclick="history.back()">Back</a>
+    </div>
+
+    <div id="preview" class="square"></div>
+    <input id="fileInput" type="file" accept=".3dm" />
+
+    <script type="module">
+      import { RhinoPreview } from 'https://cdn.jsdelivr.net/gh/DerLando/RhinoPreview/dist/RhinoPreview.esm.js';
+
+      const container = document.getElementById('preview');
+      const rp = new RhinoPreview(container);
+      document.getElementById('fileInput').addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+          rp.load(e.target.files[0]);
+        }
+      });
+    </script>
+  </body>
+</html>
+
