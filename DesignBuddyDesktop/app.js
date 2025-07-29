@@ -40,6 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
             setup: setupDiamondSizes
         },
         {
+            id: "stl-viewer",
+            title: "3D Model Viewer",
+            file: "partials/stl-viewer.html",
+            setup: setupStlViewer
+        },
+        {
+            id: "news-feed",
+            title: "Industry News",
+            file: "partials/news-feed.html",
+            setup: setupNewsFeed
+        },
+        {
             id: "useful-links",
             title: "Useful Links",
             file: "partials/useful-links.html"
@@ -482,5 +494,106 @@ document.addEventListener("DOMContentLoaded", () => {
         tagFilter.addEventListener('change', renderContacts);
 
         renderContacts();
+    }
+
+    function setupStlViewer() {
+        const input = document.getElementById('stl-file-input');
+        const container = document.getElementById('stl-canvas-container');
+        const canvas = document.getElementById('stl-canvas');
+        if (!input || !canvas || !container) return;
+
+        const renderer = new THREE.WebGLRenderer({ canvas });
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xeeeeee);
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+        camera.position.set(0, 0, 50);
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        dirLight.position.set(5, 10, 7.5);
+        scene.add(dirLight);
+        let mesh;
+
+        function resize() {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        input.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const geometry = new THREE.STLLoader().parse(ev.target.result);
+                if (mesh) scene.remove(mesh);
+                geometry.computeBoundingBox();
+                geometry.center();
+                mesh = new THREE.Mesh(geometry, new THREE.MeshNormalMaterial());
+                scene.add(mesh);
+
+                const size = geometry.boundingBox.getSize(new THREE.Vector3()).length();
+                const dist = size * 2;
+                camera.near = size / 100;
+                camera.far = dist * 10;
+                camera.position.set(dist, dist, dist);
+                controls.update();
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
+    function setupNewsFeed() {
+        const list = document.getElementById('news-list');
+        if (!list) return;
+
+        list.textContent = 'Loading...';
+
+        const feeds = [
+            { title: 'JCK Online', url: 'https://www.jckonline.com/feed/' },
+            { title: 'National Jeweler', url: 'https://www.nationaljeweler.com/rss' },
+            { title: 'Instore Magazine', url: 'https://instoremag.com/feed/' }
+        ];
+
+        function fetchFeed(feed) {
+            const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
+            return fetch(api)
+                .then(r => r.json())
+                .then(d => ({ title: feed.title, items: d.items.slice(0, 5) }))
+                .catch(() => null);
+        }
+
+        Promise.all(feeds.map(fetchFeed)).then(results => {
+            list.innerHTML = '';
+            results.filter(Boolean).forEach(feed => {
+                const section = document.createElement('div');
+                section.className = 'news-feed-section';
+
+                const h4 = document.createElement('h4');
+                h4.textContent = feed.title;
+                section.appendChild(h4);
+
+                const ul = document.createElement('ul');
+                feed.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a>`;
+                    ul.appendChild(li);
+                });
+                section.appendChild(ul);
+                list.appendChild(section);
+            });
+        });
     }
 });
