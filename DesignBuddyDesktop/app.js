@@ -40,12 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
             setup: setupDiamondSizes
         },
         {
-            id: "stl-viewer",
-            title: "3D Model Viewer",
-            file: "partials/stl-viewer.html",
-            setup: setupStlViewer
-        },
-        {
             id: "news-feed",
             title: "Industry News",
             file: "partials/news-feed.html",
