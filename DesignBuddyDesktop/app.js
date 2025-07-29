@@ -408,7 +408,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function setupContactRepository() {
         const contacts = window.contacts || [];
-        ];
 
         const searchInput = document.getElementById('contact-search');
         const tagFilter = document.getElementById('contact-tag-filter');
