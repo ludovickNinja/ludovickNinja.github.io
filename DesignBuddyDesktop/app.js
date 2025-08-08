@@ -49,6 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
             title: "Contact Repository",
             file: "partials/contact-repository.html",
             setup: setupContactRepository
+        },
+        {
+            id: "rush-requests",
+            title: "RUSH REQUESTS - WIP",
+            file: "partials/rush-requests.html"
         }
     ];
 
