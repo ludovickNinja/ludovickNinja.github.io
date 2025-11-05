@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
             id: "rush-requests",
-            title: "RUSH REQUESTS - WIP",
+            title: "RUSH REQUESTS",
             file: "partials/rush-requests.html"
         }
     ];
