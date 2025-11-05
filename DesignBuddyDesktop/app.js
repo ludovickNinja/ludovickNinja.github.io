@@ -54,6 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "rush-requests",
             title: "RUSH REQUESTS",
             file: "partials/rush-requests.html"
+        },
+        {
+            id: "stone-order-form",
+            title: "Stone Order Form",
+            file: "partials/stone-order-form.html"
         }
     ];
 
