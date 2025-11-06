@@ -359,23 +359,44 @@ document.addEventListener("DOMContentLoaded", () => {
     function setupWidthConversion() {
         const widthInputs = document.querySelectorAll('#width-conversion input');
         const result = document.getElementById('estimated-weight');
+        const diamondResult = document.getElementById('recommended-diamond-size');
 
         function calculateWeight() {
             const originalWeight = parseFloat(document.getElementById('original-weight').value);
             const originalWidth = parseFloat(document.getElementById('original-width').value);
             const originalThickness = parseFloat(document.getElementById('original-thickness').value);
+            const currentDiamondSize = parseFloat(document.getElementById('current-diamond-size').value);
             const newWidth = parseFloat(document.getElementById('new-width').value);
             const newThickness = parseFloat(document.getElementById('new-thickness').value);
 
-            if (!originalWeight || !originalWidth || !originalThickness || !newWidth || !newThickness) {
+            const requiredValues = [
+                originalWeight,
+                originalWidth,
+                originalThickness,
+                newWidth,
+                newThickness
+            ];
+
+            if (requiredValues.some(value => Number.isNaN(value) || value <= 0)) {
                 result.textContent = 'Estimated New Weight: 0 g';
-                return;
+            } else {
+                const newWeight =
+                    originalWeight * (newWidth / originalWidth) * (newThickness / originalThickness);
+
+                result.textContent = `Estimated New Weight: ${newWeight.toFixed(2)} g`;
             }
 
-            const newWeight =
-                originalWeight * (newWidth / originalWidth) * (newThickness / originalThickness);
-
-            result.textContent = `Estimated New Weight: ${newWeight.toFixed(2)} g`;
+            if (
+                !Number.isNaN(currentDiamondSize) && currentDiamondSize > 0 &&
+                !Number.isNaN(originalWidth) && originalWidth > 0 &&
+                !Number.isNaN(newWidth) && newWidth > 0
+            ) {
+                const recommendedSize = newWidth - originalWidth + currentDiamondSize;
+                const formattedSize = recommendedSize > 0 ? recommendedSize.toFixed(2) : '0.00';
+                diamondResult.textContent = `Recommended Diamond Size: ${formattedSize} mm`;
+            } else {
+                diamondResult.textContent = 'Recommended Diamond Size: -- mm';
+            }
         }
 
         widthInputs.forEach(input => input.addEventListener('input', calculateWeight));
