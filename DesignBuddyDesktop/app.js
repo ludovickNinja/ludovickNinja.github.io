@@ -59,6 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "stone-order-form",
             title: "Stone Order Form",
             file: "partials/stone-order-form.html"
+        },
+        {
+            id: "wip-fedex",
+            title: "WIP FedEx",
+            file: "partials/wip-fedex.html",
+            setup: setupFedExTracking
         }
     ];
 
@@ -512,6 +518,288 @@ document.addEventListener("DOMContentLoaded", () => {
         tagFilter.addEventListener('change', renderContacts);
 
         renderContacts();
+    }
+
+
+    function setupFedExTracking() {
+        const form = document.getElementById("fedex-tracking-form");
+        if (!form) return;
+
+        const environmentSelect = document.getElementById("fedex-environment");
+        const clientIdInput = document.getElementById("fedex-client-id");
+        const clientSecretInput = document.getElementById("fedex-client-secret");
+        const trackingNumberInput = document.getElementById("fedex-tracking-number");
+        const rememberCheckbox = document.getElementById("fedex-remember-credentials");
+        const statusElement = document.getElementById("fedex-tracking-status");
+        const resultsContainer = document.getElementById("fedex-tracking-results");
+        const submitButton = form.querySelector("button[type='submit']");
+
+        if (!statusElement || !resultsContainer) {
+            console.warn("FedEx tracking elements are missing from the DOM.");
+            return;
+        }
+
+        const setSubmitDisabled = (value) => {
+            if (submitButton) {
+                submitButton.disabled = value;
+            }
+        };
+        const STORAGE_KEY = "designBuddyFedExCredentials";
+
+        const safeText = (value) => (value ?? "");
+
+        const loadStoredCredentials = () => {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (!stored) return;
+                const parsed = JSON.parse(stored);
+                if (parsed.environment) environmentSelect.value = parsed.environment;
+                if (parsed.clientId) clientIdInput.value = parsed.clientId;
+                if (parsed.clientSecret) clientSecretInput.value = parsed.clientSecret;
+                if (rememberCheckbox) rememberCheckbox.checked = true;
+            } catch (error) {
+                console.error("Unable to restore stored FedEx credentials", error);
+            }
+        };
+
+        const persistCredentials = () => {
+            if (!(rememberCheckbox?.checked)) {
+                try {
+                    localStorage.removeItem(STORAGE_KEY);
+                } catch (error) {
+                    console.warn("Unable to clear stored FedEx credentials", error);
+                }
+                return;
+            }
+
+            const payload = {
+                environment: environmentSelect.value,
+                clientId: clientIdInput.value.trim(),
+                clientSecret: clientSecretInput.value.trim()
+            };
+
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+            } catch (error) {
+                console.warn("Unable to store FedEx credentials", error);
+            }
+        };
+
+        loadStoredCredentials();
+
+        const renderError = (message) => {
+            statusElement.textContent = message;
+            statusElement.classList.add("fedex-error");
+        };
+
+        const resetStatus = (message = "") => {
+            statusElement.textContent = message;
+            statusElement.classList.remove("fedex-error");
+        };
+
+        const getBaseUrl = () =>
+            environmentSelect.value === "production"
+                ? "https://apis.fedex.com"
+                : "https://apis-sandbox.fedex.com";
+
+        const buildSummaryList = (details) => {
+            const dl = document.createElement("dl");
+            Object.entries(details)
+                .filter(([, value]) => value)
+                .forEach(([key, value]) => {
+                    const dt = document.createElement("dt");
+                    dt.textContent = key;
+                    const dd = document.createElement("dd");
+                    dd.textContent = value;
+                    dl.appendChild(dt);
+                    dl.appendChild(dd);
+                });
+            return dl;
+        };
+
+        const formatDate = (value) => {
+            if (!value) return "";
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return value;
+            return date.toLocaleString();
+        };
+
+        rememberCheckbox?.addEventListener("change", () => {
+            if (!(rememberCheckbox?.checked)) {
+                clientSecretInput.value = "";
+                persistCredentials();
+            }
+        });
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const trackingNumber = trackingNumberInput.value.trim();
+            const clientId = clientIdInput.value.trim();
+            const clientSecret = clientSecretInput.value.trim();
+
+            if (!trackingNumber) {
+                renderError("Enter a tracking number to continue.");
+                return;
+            }
+            if (!clientId || !clientSecret) {
+                renderError("Client ID and secret are required to call the FedEx API.");
+                return;
+            }
+
+            resultsContainer.innerHTML = "";
+            resetStatus("Requesting FedEx access token...");
+            setSubmitDisabled(true);
+
+            const baseUrl = getBaseUrl();
+
+            try {
+                const tokenResponse = await fetch(`${baseUrl}/oauth/token`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: new URLSearchParams({
+                        grant_type: "client_credentials",
+                        client_id: clientId,
+                        client_secret: clientSecret
+                    })
+                });
+
+                if (!tokenResponse.ok) {
+                    const errorText = await tokenResponse.text();
+                    throw new Error(`Unable to obtain access token (${tokenResponse.status}): ${errorText}`);
+                }
+
+                const tokenPayload = await tokenResponse.json();
+                const accessToken = tokenPayload.access_token;
+
+                if (!accessToken) {
+                    throw new Error("FedEx token response did not include an access token.");
+                }
+
+                persistCredentials();
+
+                resetStatus("Fetching tracking information...");
+
+                const trackingResponse = await fetch(`${baseUrl}/track/v1/trackingnumbers`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${accessToken}`
+                    },
+                    body: JSON.stringify({
+                        trackingInfo: [
+                            {
+                                trackingNumberInfo: {
+                                    trackingNumber,
+                                    trackingNumberUniqueIdentifier: ""
+                                }
+                            }
+                        ],
+                        includeDetailedScans: true
+                    })
+                });
+
+                const responseText = await trackingResponse.text();
+                if (!trackingResponse.ok) {
+                    throw new Error(`Tracking request failed (${trackingResponse.status}): ${responseText}`);
+                }
+
+                const trackingPayload = responseText ? JSON.parse(responseText) : {};
+
+                if (Array.isArray(trackingPayload.errors) && trackingPayload.errors.length > 0) {
+                    const errorMessage = trackingPayload.errors
+                        .map((err) => err.message || err.code || "Unknown error")
+                        .join("; ");
+                    throw new Error(`FedEx returned an error: ${errorMessage}`);
+                }
+                const completeResults = trackingPayload?.output?.completeTrackResults;
+
+                if (!Array.isArray(completeResults) || completeResults.length === 0) {
+                    resetStatus("No tracking details were returned for this number.");
+                    return;
+                }
+
+                const trackResult = completeResults[0]?.trackResults?.[0];
+
+                if (!trackResult) {
+                    resetStatus("FedEx returned an unexpected response format.");
+                    return;
+                }
+
+                const latestStatus = trackResult.latestStatusDetail ?? {};
+                const shipmentDetails = trackResult.shipmentDetails?.[0] ?? {};
+                const serviceDetail = shipmentDetails.serviceDetail ?? {};
+
+                const details = {
+                    "Tracking Number": safeText(trackResult.trackingNumber || trackingNumber),
+                    "Status": safeText(latestStatus.statusByLocale || latestStatus.description),
+                    "Status Code": safeText(latestStatus.code || latestStatus.derivedCode),
+                    "Last Update": formatDate(latestStatus.datetime),
+                    "Estimated Delivery": formatDate(
+                        trackResult.estimatedDeliveryTime ||
+                            trackResult.estimatedDeliveryDate ||
+                            trackResult.shipmentLocationTimestamp
+                    ),
+                    "Service": safeText(serviceDetail.description || serviceDetail.type),
+                    "Ship Date": formatDate(shipmentDetails.shipTimestamp)
+                };
+
+                resetStatus("Tracking details retrieved successfully.");
+
+                const summary = buildSummaryList(details);
+                resultsContainer.appendChild(summary);
+
+                const events = Array.isArray(trackResult.scanEvents) ? trackResult.scanEvents : [];
+                const filteredEvents = events.filter((event) => event);
+
+                if (filteredEvents.length > 0) {
+                    const eventsWrapper = document.createElement("div");
+                    eventsWrapper.className = "fedex-events";
+                    const heading = document.createElement("h4");
+                    heading.textContent = "Detailed Scan History";
+                    eventsWrapper.appendChild(heading);
+
+                    const table = document.createElement("table");
+                    const thead = document.createElement("thead");
+                    thead.innerHTML = "<tr><th>Date & Time</th><th>Status</th><th>Location</th></tr>";
+                    table.appendChild(thead);
+
+                    const tbody = document.createElement("tbody");
+                    filteredEvents.forEach((event) => {
+                        const row = document.createElement("tr");
+                        const location = [
+                            event.scanLocation?.city,
+                            event.scanLocation?.stateOrProvinceCode,
+                            event.scanLocation?.countryCode
+                        ]
+                            .filter(Boolean)
+                            .join(", ");
+
+                        row.innerHTML = `
+                            <td>${formatDate(event.date || event.dateTime)}</td>
+                            <td>${safeText(event.eventDescription || event.eventType)}</td>
+                            <td>${safeText(location)}</td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+
+                    table.appendChild(tbody);
+                    eventsWrapper.appendChild(table);
+                    resultsContainer.appendChild(eventsWrapper);
+                }
+
+                if (!resultsContainer.hasChildNodes()) {
+                    resultsContainer.textContent = "No additional shipment details were provided.";
+                }
+            } catch (error) {
+                console.error("FedEx tracking error", error);
+                renderError(error.message || "Unable to fetch tracking information.");
+            } finally {
+                setSubmitDisabled(false);
+            }
+        });
     }
 
     
