@@ -1,0 +1,46 @@
+<p class="fedex-intro">
+  Monitor your in-progress (WIP) shipments by requesting live data from the FedEx Tracking API. Provide your own
+  FedEx API credentials and a tracking number to retrieve the latest shipment milestones. Credentials are stored only
+  in your browser when you opt in below.
+</p>
+
+<form id="fedex-tracking-form" class="fedex-form">
+  <div class="fedex-form-row">
+    <label for="fedex-environment">Environment</label>
+    <select id="fedex-environment" name="environment">
+      <option value="sandbox">Sandbox (apis-sandbox.fedex.com)</option>
+      <option value="production">Production (apis.fedex.com)</option>
+    </select>
+  </div>
+
+  <div class="fedex-form-row">
+    <label for="fedex-client-id">Client ID</label>
+    <input type="text" id="fedex-client-id" name="clientId" autocomplete="off" placeholder="Enter your FedEx client ID"
+      required>
+  </div>
+
+  <div class="fedex-form-row">
+    <label for="fedex-client-secret">Client Secret</label>
+    <input type="password" id="fedex-client-secret" name="clientSecret" autocomplete="current-password"
+      placeholder="Enter your FedEx client secret" required>
+  </div>
+
+  <div class="fedex-form-row">
+    <label for="fedex-tracking-number">Tracking Number</label>
+    <input type="text" id="fedex-tracking-number" name="trackingNumber" autocomplete="off"
+      placeholder="Example: 123456789012" required>
+  </div>
+
+  <div class="fedex-form-row fedex-save-row">
+    <label>
+      <input type="checkbox" id="fedex-remember-credentials">
+      Remember credentials on this device
+    </label>
+    <small>Stored securely in local storage. Uncheck to clear saved credentials.</small>
+  </div>
+
+  <button type="submit" class="fedex-submit">Track Shipment</button>
+</form>
+
+<div id="fedex-tracking-status" class="fedex-status" role="status" aria-live="polite"></div>
+<div id="fedex-tracking-results" class="fedex-results" aria-live="polite"></div>
