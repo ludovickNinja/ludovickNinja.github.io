@@ -201,6 +201,46 @@ select, input {
     text-decoration: underline;
 }
 
+/* Table styling */
+.table-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f7f8 100%);
+  border: 1px solid #d2d2d7;
+  border-radius: 14px;
+  padding: 0.25rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.table-card table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table-card thead th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  background: #f2f2f7;
+  color: #1c1c1e;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e5ea;
+  letter-spacing: 0.01em;
+}
+
+.table-card tbody td {
+  padding: 0.85rem 1rem;
+  color: #3a3a3c;
+  border-bottom: 1px solid #e5e5ea;
+}
+
+.table-card tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-card tbody tr:hover td {
+  background: #f8f9fb;
+}
+
 #blog-container {
   display: flex;
   flex-direction: column;
