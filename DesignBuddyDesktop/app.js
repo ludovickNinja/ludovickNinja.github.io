@@ -1,3 +1,53 @@
+function calcEternityStoneCount(
+    innerDiameterMm,
+    stoneSizeMm,
+    thicknessMm,
+    extraGapMm = 0.2,
+    coverageRatio = 1
+) {
+    const MM = stoneSizeMm;
+    const thickness = thicknessMm;
+
+    // Inner radius from finger size
+    const baseRadius = innerDiameterMm / 2;
+
+    // Radial offset used in your Grasshopper logic
+    const radialOffset = baseRadius + thickness - (MM * 0.173);
+
+    // Radius of the guide circle where stone centers sit
+    const guideRadius = Math.sqrt(
+        radialOffset * radialOffset + Math.pow(MM * 0.5, 2)
+    );
+
+    // Angle (in radians) from ring center to edge of stone
+    const rad = Math.atan2(MM * 0.5, radialOffset);
+
+    // Effective arc length along guide circle that one stone “occupies”
+    const segmentLength = 2 * rad * guideRadius; // one stone "footprint" on the circle
+
+    // Total arc length based on coverage ratio
+    const coverageArc = coverageRatio * 2 * Math.PI * guideRadius;
+
+    // Raw count before rounding
+    let count = coverageArc / (segmentLength + extraGapMm);
+
+    // Round to nearest whole number
+    count = Math.max(1, Math.round(count));
+
+    // Angle in degrees between stones within the covered arc
+    const coverageAngleDeg = 360 * coverageRatio;
+    const angleDeg = coverageAngleDeg / count;
+
+    return {
+        count,
+        angleDeg,
+        guideRadius,
+        segmentLength,
+        coverageArc,
+        coverageAngleDeg,
+    };
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     // Finger size data loaded from fingerSizes.js
     const fingerSizes = window.fingerSizes;
@@ -188,18 +238,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const perimeter = Math.PI * sizeData.Finished;
-            const adjustedPerimeter = perimeter + Math.PI * bandThickness;
+            const coverageMap = {
+                full: 1,
+                half: 0.5,
+                semi: 0.5,
+                "three-quarters": 0.75,
+            };
 
-            let finalPerimeter = adjustedPerimeter;
-            if (coverageType === "half") {
-                finalPerimeter /= 2;
-            } else if (coverageType === "three-quarters") {
-                finalPerimeter *= 0.75;
-            }
+            const coverageRatio = coverageMap[coverageType] ?? 1;
+            const { count, angleDeg } = calcEternityStoneCount(
+                sizeData.Finished,
+                meleeDiameter,
+                bandThickness,
+                spacing,
+                coverageRatio
+            );
 
-            const totalStones = Math.floor(finalPerimeter / (meleeDiameter + spacing));
-            totalStonesEternityOutput.value = totalStones;
+            totalStonesEternityOutput.value = `${count} stones (${angleDeg.toFixed(2)}° step)`;
         };
 
         regionTypeSelect.addEventListener("change", calculateEternityStones);

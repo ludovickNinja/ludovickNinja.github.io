@@ -3,7 +3,7 @@
     <label for="coverage-type">Select Coverage Type:</label>
     <select id="coverage-type">
       <option value="full">Full Eternity</option>
-      <option value="half">Half Eternity</option>
+      <option value="semi">Semi Eternity (Half)</option>
       <option value="three-quarters">Three Quarters Eternity</option>
     </select>
 
@@ -20,7 +20,13 @@
     <input type="number" id="band-thickness" placeholder="e.g., 1.50" />
 
     <label for="spacing-eternity">Spacing Between Stones (mm):</label>
-    <input type="number" id="spacing-eternity" placeholder="e.g., 0.20" />
+    <input
+      type="number"
+      id="spacing-eternity"
+      placeholder="e.g., 0.20"
+      value="0.2"
+      step="0.01"
+    />
 
     <label for="melee-diameter-eternity">Diameter of Melee Stones (mm):</label>
     <input type="number" id="melee-diameter-eternity" placeholder="e.g., 1.50" />
@@ -29,5 +35,40 @@
   <div class="output-section">
     <label for="total-stones-eternity">Total Stones Needed:</label>
     <input type="text" id="total-stones-eternity" readonly placeholder="0" />
+  </div>
+
+  <div class="reference-equation">
+    <strong>Reference:</strong>
+    Stone Count ≈ <em>(coverage × 2πR)</em> ÷ <em>(2R·atan((d⁄2)/offset) + gap)</em>
+  </div>
+
+  <div class="spacing-reference">
+    <h4>Typical Spacing by Setting Style</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Setting Style</th>
+          <th>Suggested Spacing (mm)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Channel Setting</td>
+          <td>0.10</td>
+        </tr>
+        <tr>
+          <td>Pavé</td>
+          <td>0.20</td>
+        </tr>
+        <tr>
+          <td>Shared Prong</td>
+          <td>0.15</td>
+        </tr>
+        <tr>
+          <td>U-Prong</td>
+          <td>0.15</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
