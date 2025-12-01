@@ -95,6 +95,12 @@ document.addEventListener("DOMContentLoaded", () => {
             file: "partials/useful-links.html"
         },
         {
+            id: "news-feed",
+            title: "Jewelry News Feed",
+            file: "partials/news-feed.html",
+            setup: setupNewsFeed
+        },
+        {
             id: "contact-repository",
             title: "Contact Repository",
             file: "partials/contact-repository.html",
@@ -530,6 +536,88 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         diamondInputs.forEach(input => input.addEventListener('input', calculateDiamondSize));
+    }
+
+    function setupNewsFeed() {
+        const newsList = document.getElementById('news-list');
+        const sourceSelect = document.getElementById('feed-source');
+        const refreshButton = document.getElementById('refresh-feed');
+
+        if (!newsList || !sourceSelect || !refreshButton) return;
+
+        const rssFeeds = [
+            { name: 'National Jeweler', url: 'https://nationaljeweler.com/feed' },
+            { name: 'JCK Online', url: 'https://www.jckonline.com/feed/' },
+            { name: 'Instore Magazine', url: 'https://instoremag.com/feed/' }
+        ];
+
+        rssFeeds.forEach((feed, index) => {
+            const option = document.createElement('option');
+            option.value = feed.url;
+            option.textContent = feed.name;
+            if (index === 0) option.selected = true;
+            sourceSelect.appendChild(option);
+        });
+
+        async function loadFeed(rssUrl) {
+            newsList.innerHTML = '<p>Loading the latest stories…</p>';
+
+            try {
+                const response = await fetch(
+                    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`
+                );
+
+                if (!response.ok) {
+                    throw new Error('Unable to reach the RSS service.');
+                }
+
+                const data = await response.json();
+                const items = data.items ?? [];
+
+                if (!items.length) {
+                    newsList.innerHTML = '<p>No articles available right now.</p>';
+                    return;
+                }
+
+                const list = document.createElement('ul');
+                list.className = 'news-items';
+
+                items.slice(0, 12).forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'news-item';
+
+                    const publishedDate = item.pubDate
+                        ? new Date(item.pubDate).toLocaleDateString()
+                        : 'Date unavailable';
+
+                    li.innerHTML = `
+                        <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+                        <div class="news-meta">${item.author ? `${item.author} · ` : ''}${publishedDate}</div>
+                        ${item.description ? `<p>${item.description.slice(0, 200)}...</p>` : ''}
+                    `;
+
+                    list.appendChild(li);
+                });
+
+                newsList.innerHTML = '';
+                newsList.appendChild(list);
+            } catch (error) {
+                newsList.innerHTML = `
+                    <p class="error-message">Unable to load news right now.</p>
+                    <p class="muted">${error.message}</p>
+                `;
+            }
+        }
+
+        sourceSelect.addEventListener('change', () => {
+            loadFeed(sourceSelect.value);
+        });
+
+        refreshButton.addEventListener('click', () => {
+            loadFeed(sourceSelect.value);
+        });
+
+        loadFeed(sourceSelect.value);
     }
 
     function setupContactRepository() {
