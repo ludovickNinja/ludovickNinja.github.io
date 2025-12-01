@@ -215,7 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const bandThicknessInput = document.getElementById("band-thickness");
         const spacingEternityInput = document.getElementById("spacing-eternity");
         const meleeDiameterEternityInput = document.getElementById("melee-diameter-eternity");
-        const coverageTypeSelect = document.getElementById("coverage-type");
+        const coverageButtons = document.querySelectorAll(".coverage-button");
+        let selectedCoverageType = "full";
         const totalStonesEternityOutput = document.getElementById("total-stones-eternity");
         const requiredThicknessOutput = document.getElementById(
             "required-band-thickness-text"
@@ -227,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const bandThickness = parseFloat(bandThicknessInput.value) || 0;
             const spacing = parseFloat(spacingEternityInput.value) || 0;
             const meleeDiameter = parseFloat(meleeDiameterEternityInput.value) || 0;
-            const coverageType = coverageTypeSelect.value;
+            const coverageType = selectedCoverageType;
 
             if (fingerSize <= 0 || bandThickness < 0 || spacing < 0 || meleeDiameter <= 0) {
                 totalStonesEternityOutput.value = "Invalid Inputs";
@@ -278,12 +279,30 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
+        const handleCoverageSelection = (event) => {
+            const { coverage } = event.target.dataset;
+            if (!coverage) return;
+
+            selectedCoverageType = coverage;
+            coverageButtons.forEach((button) => {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.coverage === coverage
+                );
+            });
+            calculateEternityStones();
+        };
+
         regionTypeSelect.addEventListener("change", calculateEternityStones);
         fingerSizeInput.addEventListener("input", calculateEternityStones);
         bandThicknessInput.addEventListener("input", calculateEternityStones);
         spacingEternityInput.addEventListener("input", calculateEternityStones);
         meleeDiameterEternityInput.addEventListener("input", calculateEternityStones);
-        coverageTypeSelect.addEventListener("change", calculateEternityStones);
+        coverageButtons.forEach((button) =>
+            button.addEventListener("click", handleCoverageSelection)
+        );
+
+        calculateEternityStones();
     }
 
     function setupHalo() {

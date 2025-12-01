@@ -1,11 +1,21 @@
 <div class="eternity-calculator">
   <div class="input-section">
-    <label for="coverage-type">Select Coverage Type:</label>
-    <select id="coverage-type">
-      <option value="full">Full Eternity</option>
-      <option value="semi">Semi Eternity (Half)</option>
-      <option value="three-quarters">Three Quarters Eternity</option>
-    </select>
+    <label>Select Coverage Type:</label>
+    <div class="coverage-toggle" role="group" aria-label="Coverage type selector">
+      <button type="button" class="coverage-button active" data-coverage="full">
+        Full
+      </button>
+      <button type="button" class="coverage-button" data-coverage="semi">
+        Semi
+      </button>
+      <button
+        type="button"
+        class="coverage-button"
+        data-coverage="three-quarters"
+      >
+        Three Quarter
+      </button>
+    </div>
 
     <label for="region-type">Select Finger Size Region:</label>
     <select id="region-type">
