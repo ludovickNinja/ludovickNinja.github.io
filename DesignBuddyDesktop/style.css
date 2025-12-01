@@ -333,6 +333,69 @@ select, input {
   color: #555;
 }
 
+/* News Feed */
+.news-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.news-controls select,
+.news-controls button {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #000;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.news-controls button:hover {
+  background: #f0f0f0;
+}
+
+.news-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.news-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem;
+  background: #fafafa;
+}
+
+.news-item a {
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+
+.news-item a:hover {
+  text-decoration: underline;
+}
+
+.news-meta {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0.25rem 0;
+}
+
+.muted {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  color: #b00020;
+  font-weight: bold;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
   .container {
