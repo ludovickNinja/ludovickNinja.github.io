@@ -148,6 +148,36 @@ select, input {
   border-radius: 5px;
 }
 
+.coverage-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.coverage-button {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: #f5f5f5;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.coverage-button:hover,
+.coverage-button:focus {
+  background: #e0e0e0;
+  outline: none;
+}
+
+.coverage-button.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
 /* Style for Useful Links */
 .link-section {
     margin-left: 20px; /* Adds indentation */
