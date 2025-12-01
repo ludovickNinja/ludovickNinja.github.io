@@ -115,6 +115,18 @@ document.addEventListener("DOMContentLoaded", () => {
             id: "stone-order-form",
             title: "Stone Order Form",
             file: "partials/stone-order-form.html"
+        },
+        {
+            id: "design-buddy-chat",
+            title: "Design Buddy Chat",
+            file: null, // No content since it links to a URL
+            setup: "https://chatgpt.com/g/g-67672f631ab481918af63d9ae2b38271-design-buddy"
+        },
+        {
+            id: "design-buddy-chat-v2",
+            title: "Design Buddy Chat V2",
+            file: null, // No content since it links to a URL
+            setup: "https://chatgpt.com/g/g-67bc9728e6f88191a75a4edb4afb10c2-design-buddy-v2"
         }
     ];
 
