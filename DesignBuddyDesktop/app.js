@@ -217,6 +217,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const meleeDiameterEternityInput = document.getElementById("melee-diameter-eternity");
         const coverageTypeSelect = document.getElementById("coverage-type");
         const totalStonesEternityOutput = document.getElementById("total-stones-eternity");
+        const requiredThicknessOutput = document.getElementById(
+            "required-band-thickness-text"
+        );
 
         const calculateEternityStones = () => {
             const region = regionTypeSelect.value;
@@ -228,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (fingerSize <= 0 || bandThickness < 0 || spacing < 0 || meleeDiameter <= 0) {
                 totalStonesEternityOutput.value = "Invalid Inputs";
+                if (requiredThicknessOutput) requiredThicknessOutput.textContent = "";
                 return;
             }
 
@@ -235,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const sizeData = regionData.find((item) => item.Size === fingerSize);
             if (!sizeData) {
                 totalStonesEternityOutput.value = "Size Not Found";
+                if (requiredThicknessOutput) requiredThicknessOutput.textContent = "";
                 return;
             }
 
@@ -246,15 +251,31 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
             const coverageRatio = coverageMap[coverageType] ?? 1;
+            const minimumRequiredThickness = meleeDiameter * 0.65 + 0.4;
+            const effectiveThickness = Math.max(
+                bandThickness,
+                minimumRequiredThickness
+            );
+
             const { count, angleDeg } = calcEternityStoneCount(
                 sizeData.Finished,
                 meleeDiameter,
-                bandThickness,
+                effectiveThickness,
                 spacing,
                 coverageRatio
             );
 
             totalStonesEternityOutput.value = `${count} stones (${angleDeg.toFixed(2)}° step)`;
+
+            if (requiredThicknessOutput) {
+                const adjusted = effectiveThickness > bandThickness;
+                const baseText = `Required band thickness: ${effectiveThickness.toFixed(
+                    2
+                )} mm`;
+                requiredThicknessOutput.textContent = adjusted
+                    ? `${baseText} (adjusted for stone depth)`
+                    : baseText;
+            }
         };
 
         regionTypeSelect.addEventListener("change", calculateEternityStones);
