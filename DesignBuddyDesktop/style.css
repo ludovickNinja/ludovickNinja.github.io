@@ -503,3 +503,106 @@ select, input {
 .news-feed-section a:hover {
   text-decoration: underline;
 }
+
+/* FedEx Tracking Tab */
+.fedex-intro {
+  max-width: 720px;
+  background: #f4f6fb;
+  border-left: 4px solid #4d148c;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+}
+
+.fedex-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 520px;
+}
+
+.fedex-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.fedex-save-row {
+  align-items: flex-start;
+}
+
+.fedex-save-row label {
+  font-weight: normal;
+}
+
+.fedex-save-row small {
+  color: #555;
+}
+
+.fedex-submit {
+  background-color: #4d148c;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.fedex-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fedex-status {
+  margin-top: 1.5rem;
+  font-weight: bold;
+}
+
+.fedex-results {
+  margin-top: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  background: #fff;
+  max-width: 720px;
+  overflow-x: auto;
+}
+
+.fedex-results dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem 1rem;
+}
+
+.fedex-results dt {
+  font-weight: bold;
+}
+
+.fedex-results dd {
+  margin: 0;
+}
+
+.fedex-events {
+  margin-top: 1.5rem;
+}
+
+.fedex-events table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fedex-events th,
+.fedex-events td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.fedex-events th {
+  background: #f4f4f4;
+}
+
+.fedex-error {
+  color: #b00020;
+}
