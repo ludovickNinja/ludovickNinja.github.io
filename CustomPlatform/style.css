@@ -19,24 +19,89 @@ body {
   background: var(--bg);
 }
 
-.page {
-  max-width: 1050px;
-  margin: 40px auto;
-  padding: 0 16px 48px;
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #111827;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
 }
 
-.form-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.form-header h1 {
-  margin: 0 0 8px;
-}
-
-.form-header p {
+.top-bar h1 {
+  font-size: 1rem;
   margin: 0;
-  color: var(--muted);
+}
+
+.mode-switch {
+  display: flex;
+  gap: 8px;
+}
+
+.mode-btn {
+  border: 1px solid #4b5563;
+  background: #1f2937;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.mode-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.layout {
+  max-width: 1180px;
+  margin: 24px auto;
+  padding: 0 16px 40px;
+}
+
+.mode-panel.hidden,
+.customer-page {
+  display: none;
+}
+
+.customer-page.active {
+  display: block;
+}
+
+#customer-view {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.side-nav {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.side-nav-btn {
+  text-align: left;
+  border: 1px solid transparent;
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.side-nav-btn.active {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1e3a8a;
 }
 
 .card {
@@ -47,6 +112,23 @@ body {
   margin-bottom: 16px;
 }
 
+.inner-card {
+  background: #fff;
+}
+
+.form-header {
+  margin-bottom: 24px;
+}
+
+.form-header h2 {
+  margin: 0 0 8px;
+}
+
+.form-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .card-title-row {
   display: flex;
   justify-content: space-between;
@@ -54,8 +136,8 @@ body {
   margin-bottom: 16px;
 }
 
-h2,
-h3 {
+h3,
+h4 {
   margin: 0;
 }
 
@@ -171,13 +253,37 @@ small {
   margin-top: 10px;
 }
 
+.project-list {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+.project-list li {
+  margin-bottom: 8px;
+}
+
 @media (max-width: 900px) {
+  #customer-view {
+    grid-template-columns: 1fr;
+  }
+
+  .side-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
   .grid-3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
   .grid-2,
   .grid-3 {
     grid-template-columns: 1fr;
