@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Platform | Quote Request Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="form-header">
+        <h1>Priority Quote Request Form</h1>
+        <p>Please fill out the form below to expedite the quoting process.</p>
+      </header>
+
+      <form id="quote-form" class="quote-form">
+        <section class="card">
+          <div class="grid-2">
+            <label>
+              Account
+              <input type="text" name="account" placeholder="CROWN CANADA (Head Office)" required />
+            </label>
+
+            <label>
+              PO# / Reference / Client Name <span class="required">*</span>
+              <input type="text" name="reference" required />
+            </label>
+
+            <label>
+              Salesperson Name <span class="required">*</span>
+              <input type="text" name="salespersonName" required />
+            </label>
+
+            <label>
+              Salesperson Email <span class="required">*</span>
+              <input type="email" name="salespersonEmail" required />
+            </label>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-title-row">
+            <h2>Reference Details</h2>
+            <button type="button" id="add-version" class="secondary-btn">Add Version</button>
+          </div>
+
+          <div id="versions-container" class="versions-container"></div>
+        </section>
+
+        <div class="submit-row">
+          <button type="submit" class="primary-btn">Submit Quote Request</button>
+        </div>
+      </form>
+    </main>
+
+    <template id="version-template">
+      <article class="version-card">
+        <div class="version-header">
+          <h3 class="version-title"></h3>
+          <button type="button" class="remove-btn">Remove</button>
+        </div>
+
+        <div class="grid-3">
+          <label>
+            Style / SKU (if applicable)
+            <input type="text" data-field="styleSku" />
+          </label>
+
+          <label>
+            Metal <span class="required">*</span>
+            <input type="text" data-field="metal" required />
+          </label>
+
+          <label>
+            Size
+            <input type="text" data-field="size" />
+          </label>
+
+          <label>
+            Stone Dimension &amp; Description
+            <textarea data-field="stoneDescription" rows="4"></textarea>
+          </label>
+
+          <label>
+            Instructions <span class="required">*</span>
+            <textarea data-field="instructions" rows="4" required></textarea>
+          </label>
+
+          <label>
+            Upload Images / Sketches
+            <input type="file" data-field="uploads" multiple />
+            <small>You can select multiple images.</small>
+          </label>
+        </div>
+
+        <fieldset class="need-to-provide">
+          <legend>Need to Provide:</legend>
+          <label><input type="checkbox" data-field="renderings" /> Renderings</label>
+          <label><input type="checkbox" data-field="viewer3d" /> 3D Viewer</label>
+        </fieldset>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
