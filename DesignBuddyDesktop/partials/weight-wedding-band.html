@@ -1,0 +1,68 @@
+<div class="wedding-band-calculator">
+  <div class="calculator-description">
+    <p>
+      Estimate the volume and finished metal weight for classic wedding bands.
+      Choose between a pipe-cut (tubular) profile or a round band profile, select
+      your finger size, and enter the band width and thickness to see the
+      calculated volume and weight.
+    </p>
+  </div>
+
+  <div class="band-type-grid" role="group" aria-label="Wedding band profile">
+    <button class="band-type-card active" type="button" data-band="pipe">
+      <div class="band-type-image" aria-hidden="true">
+        <svg viewBox="0 0 120 80" role="img" focusable="false">
+          <rect x="18" y="12" width="84" height="56" rx="10" fill="#f5f5f5" stroke="#000" stroke-width="2" />
+          <rect x="38" y="24" width="44" height="32" rx="6" fill="#fff" stroke="#000" stroke-width="2" />
+        </svg>
+      </div>
+      <span>Pipe Cut</span>
+    </button>
+    <button class="band-type-card" type="button" data-band="round">
+      <div class="band-type-image" aria-hidden="true">
+        <svg viewBox="0 0 120 80" role="img" focusable="false">
+          <circle cx="60" cy="40" r="28" fill="#f5f5f5" stroke="#000" stroke-width="2" />
+          <circle cx="60" cy="40" r="16" fill="#fff" stroke="#000" stroke-width="2" />
+        </svg>
+      </div>
+      <span>Round Band</span>
+    </button>
+  </div>
+
+  <div class="input-section">
+    <label for="wedding-region-type">Select Finger Size Region:</label>
+    <select id="wedding-region-type">
+      <option value="BaseChart">US</option>
+      <option value="France">France</option>
+    </select>
+
+    <label for="wedding-finger-size">Enter Finger Size:</label>
+    <input type="number" id="wedding-finger-size" placeholder="e.g., 6.5" />
+
+    <label for="wedding-band-width">Enter Band Width (mm):</label>
+    <input type="number" id="wedding-band-width" placeholder="e.g., 4.00" />
+
+    <label for="wedding-band-thickness">Enter Band Thickness (mm):</label>
+    <input type="number" id="wedding-band-thickness" placeholder="e.g., 1.60" />
+
+    <label for="wedding-karat">Select Gold Karat:</label>
+    <select id="wedding-karat"></select>
+  </div>
+
+  <div class="output-section">
+    <label for="wedding-volume">Calculated Volume (mm³):</label>
+    <input type="text" id="wedding-volume" readonly placeholder="0" />
+
+    <label for="wedding-weight">Estimated Weight (grams):</label>
+    <input type="text" id="wedding-weight" readonly placeholder="0" />
+  </div>
+
+  <div class="reference-equation">
+    <strong>Pipe Cut Formula:</strong>
+    Volume = π × (R<sub>outer</sub><sup>2</sup> − R<sub>inner</sub><sup>2</sup>) × Width
+  </div>
+  <div class="reference-equation">
+    <strong>Round Band Formula:</strong>
+    Volume = (2π × R<sub>center</sub>) × (π × (Width⁄2) × (Thickness⁄2))
+  </div>
+</div>

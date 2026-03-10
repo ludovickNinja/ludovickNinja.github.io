@@ -178,6 +178,67 @@ select, input {
   border-color: #000;
 }
 
+.calculator-description {
+  background: #f9f9f9;
+  border: 1px solid #000;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.band-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.band-type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.band-type-card span {
+  font-weight: bold;
+}
+
+.band-type-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.band-type-card.active {
+  background: #000;
+  color: #fff;
+}
+
+.band-type-card.active svg rect,
+.band-type-card.active svg circle {
+  stroke: #fff;
+}
+
+.band-type-card.active svg rect:first-child,
+.band-type-card.active svg circle:first-child {
+  fill: #333;
+}
+
+.band-type-image {
+  width: 100%;
+  max-width: 140px;
+}
+
+.band-type-image svg {
+  width: 100%;
+  height: auto;
+}
+
 /* Style for Useful Links */
 .link-section {
     margin-left: 20px; /* Adds indentation */
