@@ -78,6 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
             setup: setupWeightConversion
         },
         {
+            id: "weight-wedding-band",
+            title: "Weight: Wedding Band",
+            file: "partials/weight-wedding-band.html",
+            setup: setupWeddingBandWeight
+        },
+        {
             id: "width-conversion",
             title: "Weight: Width Conversion",
             file: "partials/width-conversion.html",
@@ -426,27 +432,45 @@ document.addEventListener("DOMContentLoaded", () => {
         const knownMaterialSelect = document.getElementById("known-material");
         const targetMaterialSelect = document.getElementById("target-material");
         const convertedWeightInput = document.getElementById("converted-weight");
+        const materials = window.materialDensities || [];
+
+        function populateMaterialOptions() {
+            if (!knownMaterialSelect || !targetMaterialSelect) return;
+            knownMaterialSelect.innerHTML = "";
+            targetMaterialSelect.innerHTML = "";
+
+            materials.forEach((material) => {
+                const knownOption = document.createElement("option");
+                knownOption.value = material.value;
+                knownOption.textContent = material.label;
+                knownMaterialSelect.appendChild(knownOption);
+
+                if (material.targetEligible !== false) {
+                    const targetOption = document.createElement("option");
+                    targetOption.value = material.value;
+                    targetOption.textContent = material.label;
+                    targetMaterialSelect.appendChild(targetOption);
+                }
+            });
+        }
 
         const calculateConversion = () => {
             const knownWeight = parseFloat(knownWeightInput.value);
-            const knownMaterial = knownMaterialSelect.value;
+            const knownMaterial = parseFloat(knownMaterialSelect.value);
             const targetDensity = parseFloat(targetMaterialSelect.value);
-            const diamondDensity = 3.52; // g/cm³
 
-            if (isNaN(knownWeight) || knownWeight <= 0 || isNaN(targetDensity) || targetDensity <= 0) {
+            if (
+                isNaN(knownWeight) ||
+                knownWeight <= 0 ||
+                isNaN(knownMaterial) ||
+                knownMaterial <= 0 ||
+                isNaN(targetDensity) ||
+                targetDensity <= 0
+            ) {
                 convertedWeightInput.value = "Invalid Inputs";
                 return;
             }
-
-            let volume;
-
-            if (knownMaterial === "carat") {
-                const weightInGrams = knownWeight * 0.5;
-                volume = weightInGrams / diamondDensity;
-            } else {
-                const knownDensity = parseFloat(knownMaterial);
-                volume = knownWeight / knownDensity;
-            }
+            const volume = knownWeight / knownMaterial;
 
             const convertedWeight = volume * targetDensity;
             convertedWeightInput.value = convertedWeight.toFixed(3);
@@ -455,6 +479,109 @@ document.addEventListener("DOMContentLoaded", () => {
         knownWeightInput.addEventListener("input", calculateConversion);
         knownMaterialSelect.addEventListener("change", calculateConversion);
         targetMaterialSelect.addEventListener("change", calculateConversion);
+        populateMaterialOptions();
+    }
+
+    function setupWeddingBandWeight() {
+        const bandButtons = document.querySelectorAll(".band-type-card");
+        const regionSelect = document.getElementById("wedding-region-type");
+        const fingerSizeInput = document.getElementById("wedding-finger-size");
+        const widthInput = document.getElementById("wedding-band-width");
+        const thicknessInput = document.getElementById("wedding-band-thickness");
+        const karatSelect = document.getElementById("wedding-karat");
+        const volumeOutput = document.getElementById("wedding-volume");
+        const weightOutput = document.getElementById("wedding-weight");
+        const materials = window.materialDensities || [];
+
+        let selectedBand = "pipe";
+
+        function populateKaratOptions() {
+            if (!karatSelect) return;
+            karatSelect.innerHTML = "";
+            materials
+                .filter((material) => material.label.includes("Gold"))
+                .forEach((material) => {
+                    const option = document.createElement("option");
+                    option.value = material.value;
+                    option.textContent = material.label;
+                    karatSelect.appendChild(option);
+                });
+        }
+
+        function calculateWeddingBandWeight() {
+            const region = regionSelect.value;
+            const fingerSize = parseFloat(fingerSizeInput.value);
+            const width = parseFloat(widthInput.value);
+            const thickness = parseFloat(thicknessInput.value);
+            const density = parseFloat(karatSelect.value);
+
+            if (
+                Number.isNaN(fingerSize) ||
+                Number.isNaN(width) ||
+                Number.isNaN(thickness) ||
+                Number.isNaN(density) ||
+                fingerSize <= 0 ||
+                width <= 0 ||
+                thickness <= 0
+            ) {
+                volumeOutput.value = "Invalid Inputs";
+                weightOutput.value = "Invalid Inputs";
+                return;
+            }
+
+            const regionData = fingerSizes[region];
+            const sizeData = regionData?.find((item) => item.Size === fingerSize);
+            if (!sizeData) {
+                volumeOutput.value = "Size Not Found";
+                weightOutput.value = "Size Not Found";
+                return;
+            }
+
+            const innerDiameter = sizeData.Finished;
+            const innerRadius = innerDiameter / 2;
+            let volumeMm3 = 0;
+
+            if (selectedBand === "pipe") {
+                const outerDiameter = innerDiameter + 2 * thickness;
+                const outerRadius = outerDiameter / 2;
+                volumeMm3 =
+                    Math.PI * (outerRadius ** 2 - innerRadius ** 2) * width;
+            } else {
+                const centerRadius = innerRadius + thickness / 2;
+                const crossSectionArea =
+                    Math.PI * (width / 2) * (thickness / 2);
+                volumeMm3 = 2 * Math.PI * centerRadius * crossSectionArea;
+            }
+
+            const weight = volumeMm3 * density;
+            volumeOutput.value = volumeMm3.toFixed(2);
+            weightOutput.value = weight.toFixed(3);
+        }
+
+        function handleBandSelection(event) {
+            const { band } = event.currentTarget.dataset;
+            if (!band) return;
+            selectedBand = band;
+            bandButtons.forEach((button) => {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.band === band
+                );
+            });
+            calculateWeddingBandWeight();
+        }
+
+        bandButtons.forEach((button) =>
+            button.addEventListener("click", handleBandSelection)
+        );
+        regionSelect.addEventListener("change", calculateWeddingBandWeight);
+        fingerSizeInput.addEventListener("input", calculateWeddingBandWeight);
+        widthInput.addEventListener("input", calculateWeddingBandWeight);
+        thicknessInput.addEventListener("input", calculateWeddingBandWeight);
+        karatSelect.addEventListener("change", calculateWeddingBandWeight);
+
+        populateKaratOptions();
+        calculateWeddingBandWeight();
     }
 
     function setupWidthConversion() {
