@@ -4,8 +4,44 @@ const addVersionButton = document.getElementById('add-version');
 const quoteForm = document.getElementById('quote-form');
 const modeButtons = [...document.querySelectorAll('.mode-btn')];
 const pageButtons = [...document.querySelectorAll('.side-nav-btn')];
+const projectsTableBody = document.getElementById('projects-table-body');
 
 let versionCount = 0;
+let nextQuoteNumber = 80004;
+let nextReferenceNumber = 50008;
+
+const ongoingProjects = [
+  {
+    quoteNumber: 'Q80001',
+    requestSummary: 'CROWN CANADA / Solitaire engagement update',
+    updatedAt: '2026-03-12',
+    references: [
+      { referenceNumber: 'R50001', versionLabel: 'Version 1', status: 'CAD review pending' },
+      { referenceNumber: 'R50002', versionLabel: 'Version 2', status: 'Awaiting center stone details' },
+    ],
+  },
+  {
+    quoteNumber: 'Q80002',
+    requestSummary: 'Halo redesign / Client requested slimmer profile',
+    updatedAt: '2026-03-13',
+    references: [
+      { referenceNumber: 'R50003', versionLabel: 'Version 1', status: 'Rendering in progress' },
+      { referenceNumber: 'R50004', versionLabel: 'Version 2', status: 'Pricing validation in progress' },
+      { referenceNumber: 'R50005', versionLabel: 'Version 3', status: 'Sent for internal approval' },
+    ],
+  },
+  {
+    quoteNumber: 'Q80003',
+    requestSummary: 'Signature pendant adaptation',
+    updatedAt: '2026-03-14',
+    references: [
+      { referenceNumber: 'R50006', versionLabel: 'Version 1', status: 'Metal confirmation required' },
+      { referenceNumber: 'R50007', versionLabel: 'Version 2', status: 'Ready for quote release' },
+    ],
+  },
+];
+
+const expandedQuotes = new Set([ongoingProjects[0].quoteNumber]);
 
 function updateVersionTitles() {
   const cards = [...versionsContainer.querySelectorAll('.version-card')];
@@ -87,11 +123,130 @@ function setPage(page) {
   });
 }
 
+function formatDate(value) {
+  const date = new Date(`${value}T12:00:00`);
+  return date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+function getLatestReferenceStatus(project) {
+  return project.references[project.references.length - 1].status;
+}
+
+function renderOngoingProjects() {
+  if (!projectsTableBody) {
+    return;
+  }
+
+  if (ongoingProjects.length === 0) {
+    projectsTableBody.innerHTML =
+      '<tr><td class="empty-row" colspan="5">No quote requests have been submitted yet.</td></tr>';
+    return;
+  }
+
+  projectsTableBody.innerHTML = ongoingProjects
+    .map((project) => {
+      const isExpanded = expandedQuotes.has(project.quoteNumber);
+      const referencesMarkup = project.references
+        .map(
+          (reference) => `
+            <li>
+              <span class="reference-id">${reference.referenceNumber}</span>
+              <span>${reference.versionLabel}</span>
+              <span class="reference-status">${reference.status}</span>
+            </li>
+          `
+        )
+        .join('');
+
+      return `
+        <tr class="quote-row" data-quote-number="${project.quoteNumber}">
+          <td>
+            <button
+              type="button"
+              class="expand-btn"
+              data-quote-number="${project.quoteNumber}"
+              aria-expanded="${isExpanded}"
+              aria-label="${isExpanded ? 'Collapse' : 'Expand'} ${project.quoteNumber}"
+            >${isExpanded ? '▾' : '▸'}</button>
+          </td>
+          <td><strong>${project.quoteNumber}</strong></td>
+          <td>${project.requestSummary}</td>
+          <td>${project.references.length}</td>
+          <td><span class="status-chip">${getLatestReferenceStatus(project)}</span></td>
+        </tr>
+        <tr class="reference-row ${isExpanded ? '' : 'hidden'}" data-reference-group="${project.quoteNumber}">
+          <td></td>
+          <td colspan="4">
+            <div class="reference-group">
+              <p><strong>Latest update:</strong> ${formatDate(project.updatedAt)}</p>
+              <ul class="reference-list">
+                ${referencesMarkup}
+              </ul>
+            </div>
+          </td>
+        </tr>
+      `;
+    })
+    .join('');
+}
+
+function getNextQuoteNumber() {
+  const quoteNumber = `Q${nextQuoteNumber}`;
+  nextQuoteNumber += 1;
+  return quoteNumber;
+}
+
+function getNextReferenceNumber() {
+  const referenceNumber = `R${nextReferenceNumber}`;
+  nextReferenceNumber += 1;
+  return referenceNumber;
+}
+
+function createProjectFromForm() {
+  const formData = new FormData(quoteForm);
+  const requestText = (formData.get('reference') || '').toString().trim();
+  const accountText = (formData.get('account') || '').toString().trim() || 'Account not specified';
+
+  const versionCards = [...versionsContainer.querySelectorAll('.version-card')];
+  const references = versionCards.map((card, index) => {
+    const instructions = card.querySelector('[data-field="instructions"]').value.trim();
+    const fallbackStatus = 'Quote details captured';
+
+    return {
+      referenceNumber: getNextReferenceNumber(),
+      versionLabel: `Version ${index + 1}`,
+      status: instructions || fallbackStatus,
+    };
+  });
+
+  const newProject = {
+    quoteNumber: getNextQuoteNumber(),
+    requestSummary: `${accountText} / ${requestText || 'General quote request'}`,
+    updatedAt: new Date().toISOString().slice(0, 10),
+    references,
+  };
+
+  ongoingProjects.unshift(newProject);
+  expandedQuotes.add(newProject.quoteNumber);
+  renderOngoingProjects();
+
+  quoteForm.reset();
+  versionsContainer.innerHTML = '';
+  createVersionCard();
+
+  setPage('projects');
+  alert(`Quote ${newProject.quoteNumber} generated with ${references.length} reference(s).`);
+}
+
 addVersionButton.addEventListener('click', createVersionCard);
 quoteForm.addEventListener('keydown', focusNextInputOnEnter);
 quoteForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  alert('Quote request captured. Backend integration can be wired next.');
+  createProjectFromForm();
 });
 
 modeButtons.forEach((button) => {
@@ -106,6 +261,27 @@ pageButtons.forEach((button) => {
   });
 });
 
+projectsTableBody?.addEventListener('click', (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLButtonElement) || !target.classList.contains('expand-btn')) {
+    return;
+  }
+
+  const { quoteNumber } = target.dataset;
+  if (!quoteNumber) {
+    return;
+  }
+
+  if (expandedQuotes.has(quoteNumber)) {
+    expandedQuotes.delete(quoteNumber);
+  } else {
+    expandedQuotes.add(quoteNumber);
+  }
+
+  renderOngoingProjects();
+});
+
 createVersionCard();
 setMode('customer');
 setPage('home');
+renderOngoingProjects();

@@ -90,11 +90,25 @@
           <section id="page-projects" class="customer-page">
             <article class="card">
               <h2>Ongoing Projects</h2>
-              <ul class="project-list">
-                <li><strong>PRJ-1021</strong> - Custom solitaire ring (CAD review pending)</li>
-                <li><strong>PRJ-1034</strong> - Halo redesign (awaiting client feedback)</li>
-                <li><strong>PRJ-1042</strong> - Signature pendant (rendering in progress)</li>
-              </ul>
+              <p class="project-intro">
+                Projects are grouped by Quote Number. Expand each quote to view all requested
+                version references.
+              </p>
+
+              <div class="projects-table-wrapper">
+                <table class="projects-table" aria-label="Grouped ongoing projects">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="expand-col"></th>
+                      <th scope="col">Quote #</th>
+                      <th scope="col">Customer Request</th>
+                      <th scope="col">Versions</th>
+                      <th scope="col">Latest Update</th>
+                    </tr>
+                  </thead>
+                  <tbody id="projects-table-body"></tbody>
+                </table>
+              </div>
             </article>
           </section>
         </div>
