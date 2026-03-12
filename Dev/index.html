@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Portal | Design Buddy Desktop Style</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="splash-screen">
+    <h1>Dev Portal</h1>
+  </div>
+
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Dev Portal</h2>
+      <p class="subtitle">Project navigator</p>
+      <ul class="tabs">
+        <li class="tab active" data-tab="design-tools">Design Tools</li>
+        <li class="tab" data-tab="viewers-ar">Viewers & AR</li>
+        <li class="tab" data-tab="platforms">Platforms</li>
+        <li class="tab" data-tab="learning">Learning & Experiments</li>
+      </ul>
+    </aside>
+
+    <main class="content">
+      <section class="tab-content active" id="design-tools">
+        <h3>Design & Jewelry Tools</h3>
+        <p>Production and workshop-focused utilities for estimation, conversion, and client-ready previews.</p>
+        <div class="project-grid">
+          <a class="project-card" href="../DesignBuddyDesktop/">
+            <h4>DesignBuddyDesktop</h4>
+            <p>Main multi-tool desktop-style workspace for jewelry calculations, links, and daily references.</p>
+          </a>
+          <a class="project-card" href="../CAD_Preview/">
+            <h4>CAD_Preview</h4>
+            <p>Web page for previewing CAD outputs and sharing visual references quickly.</p>
+          </a>
+          <a class="project-card" href="../MTL_Signature_Viewer/">
+            <h4>MTL_Signature_Viewer</h4>
+            <p>Showcases MTL signature models in a simple interactive viewer.</p>
+          </a>
+          <a class="project-card" href="../Links/">
+            <h4>Links</h4>
+            <p>Public-facing landing page with featured links, social channels, and key access points.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="tab-content" id="viewers-ar">
+        <h3>3D, AR & Visualization</h3>
+        <p>Model exploration projects focused on rendering, browser viewing, and augmented reality experiments.</p>
+        <div class="project-grid">
+          <a class="project-card" href="../Model_Viewer/">
+            <h4>Model_Viewer</h4>
+            <p>Generic model viewer setup for inspecting 3D assets in-browser.</p>
+          </a>
+          <a class="project-card" href="../AR/">
+            <h4>AR</h4>
+            <p>Original AR concept and prototype environment for interactive model placement.</p>
+          </a>
+          <a class="project-card" href="../AR1/">
+            <h4>AR1</h4>
+            <p>AR iteration focused on alternate scene setup and presentation tests.</p>
+          </a>
+          <a class="project-card" href="../AR2/">
+            <h4>AR2</h4>
+            <p>Additional AR experiment branch with revised interactions and structure.</p>
+          </a>
+          <a class="project-card" href="../UnrealViewer/">
+            <h4>UnrealViewer</h4>
+            <p>Viewer target oriented around Unreal-exported content and compatibility checks.</p>
+          </a>
+          <a class="project-card" href="../MTL/MTL.html">
+            <h4>MTL</h4>
+            <p>Standalone page dedicated to MTL asset loading and material-focused previewing.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="tab-content" id="platforms">
+        <h3>Platform & Product Concepts</h3>
+        <p>Larger product ideas and custom platform explorations connected to workflow tooling.</p>
+        <div class="project-grid">
+          <a class="project-card" href="../CustomPlatform/">
+            <h4>CustomPlatform</h4>
+            <p>Concept page for a custom platform direction and interaction architecture.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="tab-content" id="learning">
+        <h3>Learning, Quizzes & Sandbox Projects</h3>
+        <p>Practice projects, coding drills, and mini experiments used to validate ideas quickly.</p>
+        <div class="project-grid">
+          <a class="project-card" href="../quiz/">
+            <h4>quiz</h4>
+            <p>Quiz prototype used for testing baseline interaction and styling patterns.</p>
+          </a>
+          <a class="project-card" href="../quiz1/">
+            <h4>quiz1</h4>
+            <p>Follow-up quiz iteration with adjusted structure and content flow.</p>
+          </a>
+          <a class="project-card" href="../quiz2/">
+            <h4>quiz2</h4>
+            <p>Additional quiz variant with separate styling and usability tweaks.</p>
+          </a>
+          <a class="project-card" href="../Quiz3/">
+            <h4>Quiz3</h4>
+            <p>Latest quiz branch with refined behavior and visual updates.</p>
+          </a>
+          <a class="project-card" href="../thirdThree/">
+            <h4>thirdThree</h4>
+            <p>Small experimental page used for layout and interaction trials.</p>
+          </a>
+          <a class="project-card" href="../myLibTest/">
+            <h4>myLibTest</h4>
+            <p>Library integration sandbox for testing external scripts and local dependencies.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    Dev portal in the visual style of Design Buddy Desktop.
+  </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.tab;
+
+        tabs.forEach((item) => item.classList.remove('active'));
+        tab.classList.add('active');
+
+        tabContents.forEach((content) => {
+          content.classList.toggle('active', content.id === targetId);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
