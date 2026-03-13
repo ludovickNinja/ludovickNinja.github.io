@@ -83,6 +83,24 @@ footer {
   background-color: #333;
 }
 
+.sidebar li.tab-category {
+  padding: 0;
+  margin-top: 0.75rem;
+  margin-bottom: 0.35rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+  border: none;
+  cursor: default;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.sidebar li.tab-category:hover {
+  background-color: transparent;
+}
+
 /* Content Styling */
 .content {
   flex-grow: 1;

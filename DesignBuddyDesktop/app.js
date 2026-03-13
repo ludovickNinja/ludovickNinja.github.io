@@ -55,79 +55,109 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabsData = [
         {
             id: "stone-count-full-eternity",
+            category: "Stone Counts",
             title: "Stone Count: Full Eternity",
             file: "partials/stone-count-full-eternity.html",
             setup: setupFullEternity
         },
         {
             id: "stone-count-halo",
+            category: "Stone Counts",
             title: "Stone Count: Halos",
             file: "partials/stone-count-halo.html",
             setup: setupHalo
         },
         {
             id: "stone-count-hidden-halo",
+            category: "Stone Counts",
             title: "Stone Count: Hidden Halos",
             file: "partials/stone-count-hidden-halo.html",
             setup: setupHiddenHalo
         },
         {
             id: "weight-conversion",
+            category: "Weights",
             title: "Weight: Karat Conversion",
             file: "partials/weight-conversion.html",
             setup: setupWeightConversion
         },
         {
             id: "weight-wedding-band",
+            category: "Weights",
             title: "Weight: Wedding Band",
             file: "partials/weight-wedding-band.html",
             setup: setupWeddingBandWeight
         },
         {
             id: "width-conversion",
+            category: "Weights",
             title: "Weight: Width Conversion",
             file: "partials/width-conversion.html",
             setup: setupWidthConversion
         },
         {
             id: "weight-diamond-sizes",
+            category: "Weights",
             title: "Weight: Diamond Sizes",
             file: "partials/weight-diamond-sizes.html",
             setup: setupDiamondSizes
         },
         {
             id: "useful-links",
+            category: "Informations",
             title: "Useful Links",
             file: "partials/useful-links.html"
         },
         {
             id: "news-feed",
+            category: "Informations",
             title: "Jewelry News Feed",
             file: "partials/news-feed.html",
             setup: setupNewsFeed
         },
         {
             id: "contact-repository",
+            category: "Informations",
             title: "Contact Repository",
             file: "partials/contact-repository.html",
             setup: setupContactRepository
         },
         {
             id: "rush-requests",
+            category: "Forms",
             title: "RUSH REQUESTS",
             file: "partials/rush-requests.html"
         },
         {
             id: "stone-order-form",
+            category: "Forms",
             title: "Stone Order Form",
             file: "partials/stone-order-form.html"
         }
     ];
 
+    function addCategoryHeader(title) {
+        const tabsContainer = document.querySelector(".tabs");
+        const headerElement = document.createElement("li");
+        headerElement.className = "tab-category";
+        headerElement.textContent = title;
+        tabsContainer.appendChild(headerElement);
+    }
+
     // Add a new tab dynamically
-    function addTab(id, title, content, url = null) {
+    function addTab(id, title, content, url = null, category = null) {
         const tabsContainer = document.querySelector(".tabs");
         const contentContainer = document.querySelector(".content");
+
+        if (category) {
+            const existingHeader = Array.from(
+                tabsContainer.querySelectorAll(".tab-category")
+            ).find((header) => header.textContent === category);
+
+            if (!existingHeader) {
+                addCategoryHeader(category);
+            }
+        }
 
         // Create the tab in the sidebar
         const tabElement = document.createElement("li");
@@ -174,7 +204,14 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
+    let currentCategory = "";
+
     tabsData.forEach((tab, index) => {
+        if (tab.category && tab.category !== currentCategory) {
+            addCategoryHeader(tab.category);
+            currentCategory = tab.category;
+        }
+
         const tabElement = document.createElement("li");
         tabElement.textContent = tab.title;
         tabElement.dataset.tab = tab.id;
@@ -209,7 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "design-buddy-chat",
         "Design Buddy Chat",
         null, // No content since it links to a URL
-        "https://chatgpt.com/g/g-67672f631ab481918af63d9ae2b38271-design-buddy"
+        "https://chatgpt.com/g/g-67672f631ab481918af63d9ae2b38271-design-buddy",
+        "GPTs"
     );
 
     // Add the "Design Buddy Chat V2" tab dynamically
@@ -217,7 +255,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "design-buddy-chat-v2",
         "Design Buddy Chat V2",
         null, // No content since it links to a URL
-        "https://chatgpt.com/g/g-67bc9728e6f88191a75a4edb4afb10c2-design-buddy-v2"
+        "https://chatgpt.com/g/g-67bc9728e6f88191a75a4edb4afb10c2-design-buddy-v2",
+        "GPTs"
     );
 
 
