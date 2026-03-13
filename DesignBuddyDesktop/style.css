@@ -531,6 +531,11 @@ select, input {
 }
 
 @media (max-width: 768px) {
+  .sidebar li.tab-category {
+    font-size: 1rem;
+    line-height: 1.1;
+  }
+
   .conversion-container {
     flex-direction: column; /* Stack converters vertically */
     gap: 1rem;
