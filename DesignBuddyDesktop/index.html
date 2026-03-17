@@ -9,16 +9,23 @@
 <body>
   <!-- Splash Screen -->
   <div id="splash-screen">
-    <h1>Design Buddy Desktop</h1>
+    <h1 id="splash-title">Design Buddy Desktop</h1>
   </div>
 
   <div class="container">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <h2>Design Buddy Desktop</h2>
+      <h2 id="sidebar-title">Design Buddy Desktop</h2>
       <ul class="tabs">
         <!-- Tabs will be dynamically generated -->
       </ul>
+      <div class="language-switcher">
+        <label id="language-label" for="language-select">Language</label>
+        <select id="language-select" aria-label="Language selector">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
     </aside>
 
     <!-- Main Content Area -->
@@ -33,7 +40,7 @@
     <script src="app.js"></script>
 </body>
 
-<footer>
+<footer id="footer-text">
   Presented by Ludo B.
 </footer>
 
