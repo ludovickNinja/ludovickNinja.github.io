@@ -82,22 +82,22 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         },
         fr: {
-            appTitle: "Assistant Design Desktop",
+            appTitle: "Assistant Design Bureau",
             footer: "Présenté par Ludo B.",
             languageLabel: "Langue",
             categories: {
-                stoneCounts: "Comptage de pierres",
+                stoneCounts: "Comptes de pierres",
                 weights: "Poids",
                 informations: "Informations",
                 forms: "Formulaires",
                 gpts: "GPTs"
             },
             tabs: {
-                stoneCountFullEternity: "Comptage de pierres : Tour complet",
-                stoneCountHalo: "Comptage de pierres : Halos",
-                stoneCountHiddenHalo: "Comptage de pierres : Halos cachés",
-                weightConversion: "Poids : Conversion des carats",
-                weightWeddingBand: "Poids : Alliance",
+                stoneCountFullEternity: "Compte de pierres : Tour complet",
+                stoneCountHalo: "Compte de pierres : Halos",
+                stoneCountHiddenHalo: "Compte de pierres : Halos cachés",
+                weightConversion: "Poids : Conversion de Karats",
+                weightWeddingBand: "Poids : Alliance/Jonc",
                 widthConversion: "Poids : Conversion de largeur",
                 weightDiamondSizes: "Poids : Tailles des diamants",
                 usefulLinks: "Liens utiles",
