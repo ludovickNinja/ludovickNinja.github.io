@@ -52,86 +52,151 @@ document.addEventListener("DOMContentLoaded", () => {
     // Finger size data loaded from fingerSizes.js
     const fingerSizes = window.fingerSizes;
 
+    const translations = {
+        en: {
+            appTitle: "Design Buddy Desktop",
+            footer: "Presented by Ludo B.",
+            languageLabel: "Language",
+            categories: {
+                stoneCounts: "Stone Counts",
+                weights: "Weights",
+                informations: "Informations",
+                forms: "Forms",
+                gpts: "GPTs"
+            },
+            tabs: {
+                stoneCountFullEternity: "Stone Count: Full Eternity",
+                stoneCountHalo: "Stone Count: Halos",
+                stoneCountHiddenHalo: "Stone Count: Hidden Halos",
+                weightConversion: "Weight: Karat Conversion",
+                weightWeddingBand: "Weight: Wedding Band",
+                widthConversion: "Weight: Width Conversion",
+                weightDiamondSizes: "Weight: Diamond Sizes",
+                usefulLinks: "Useful Links",
+                newsFeed: "Jewelry News Feed",
+                contactRepository: "Contact Repository",
+                rushRequests: "RUSH REQUESTS",
+                stoneOrderForm: "Stone Order Form",
+                designBuddyChat: "Design Buddy Chat",
+                designBuddyChatV2: "Design Buddy Chat V2"
+            }
+        },
+        fr: {
+            appTitle: "Assistant Design Desktop",
+            footer: "Présenté par Ludo B.",
+            languageLabel: "Langue",
+            categories: {
+                stoneCounts: "Comptage de pierres",
+                weights: "Poids",
+                informations: "Informations",
+                forms: "Formulaires",
+                gpts: "GPTs"
+            },
+            tabs: {
+                stoneCountFullEternity: "Comptage de pierres : Tour complet",
+                stoneCountHalo: "Comptage de pierres : Halos",
+                stoneCountHiddenHalo: "Comptage de pierres : Halos cachés",
+                weightConversion: "Poids : Conversion des carats",
+                weightWeddingBand: "Poids : Alliance",
+                widthConversion: "Poids : Conversion de largeur",
+                weightDiamondSizes: "Poids : Tailles des diamants",
+                usefulLinks: "Liens utiles",
+                newsFeed: "Actualités joaillerie",
+                contactRepository: "Répertoire de contacts",
+                rushRequests: "DEMANDES URGENTES",
+                stoneOrderForm: "Formulaire de commande de pierres",
+                designBuddyChat: "Discussion Design Buddy",
+                designBuddyChatV2: "Discussion Design Buddy V2"
+            }
+        }
+    };
+
+    let currentLanguage = "en";
+
+    function t(path) {
+        return path.split(".").reduce((acc, key) => acc?.[key], translations[currentLanguage]) ?? path;
+    }
+
     const tabsData = [
         {
             id: "stone-count-full-eternity",
-            category: "Stone Counts",
-            title: "Stone Count: Full Eternity",
+            categoryKey: "stoneCounts",
+            titleKey: "stoneCountFullEternity",
             file: "partials/stone-count-full-eternity.html",
             setup: setupFullEternity
         },
         {
             id: "stone-count-halo",
-            category: "Stone Counts",
-            title: "Stone Count: Halos",
+            categoryKey: "stoneCounts",
+            titleKey: "stoneCountHalo",
             file: "partials/stone-count-halo.html",
             setup: setupHalo
         },
         {
             id: "stone-count-hidden-halo",
-            category: "Stone Counts",
-            title: "Stone Count: Hidden Halos",
+            categoryKey: "stoneCounts",
+            titleKey: "stoneCountHiddenHalo",
             file: "partials/stone-count-hidden-halo.html",
             setup: setupHiddenHalo
         },
         {
             id: "weight-conversion",
-            category: "Weights",
-            title: "Weight: Karat Conversion",
+            categoryKey: "weights",
+            titleKey: "weightConversion",
             file: "partials/weight-conversion.html",
             setup: setupWeightConversion
         },
         {
             id: "weight-wedding-band",
-            category: "Weights",
-            title: "Weight: Wedding Band",
+            categoryKey: "weights",
+            titleKey: "weightWeddingBand",
             file: "partials/weight-wedding-band.html",
             setup: setupWeddingBandWeight
         },
         {
             id: "width-conversion",
-            category: "Weights",
-            title: "Weight: Width Conversion",
+            categoryKey: "weights",
+            titleKey: "widthConversion",
             file: "partials/width-conversion.html",
             setup: setupWidthConversion
         },
         {
             id: "weight-diamond-sizes",
-            category: "Weights",
-            title: "Weight: Diamond Sizes",
+            categoryKey: "weights",
+            titleKey: "weightDiamondSizes",
             file: "partials/weight-diamond-sizes.html",
             setup: setupDiamondSizes
         },
         {
             id: "useful-links",
-            category: "Informations",
-            title: "Useful Links",
+            categoryKey: "informations",
+            titleKey: "usefulLinks",
             file: "partials/useful-links.html"
         },
         {
             id: "news-feed",
-            category: "Informations",
-            title: "Jewelry News Feed",
+            categoryKey: "informations",
+            titleKey: "newsFeed",
             file: "partials/news-feed.html",
             setup: setupNewsFeed
         },
         {
             id: "contact-repository",
-            category: "Informations",
-            title: "Contact Repository",
+            categoryKey: "informations",
+            titleKey: "contactRepository",
             file: "partials/contact-repository.html",
             setup: setupContactRepository
         },
         {
             id: "rush-requests",
-            category: "Forms",
-            title: "RUSH REQUESTS",
+            categoryKey: "forms",
+            titleKey: "rushRequests",
             file: "partials/rush-requests.html"
         },
         {
             id: "stone-order-form",
-            category: "Forms",
-            title: "Stone Order Form",
+            categoryKey: "forms",
+            titleKey: "stoneOrderForm",
             file: "partials/stone-order-form.html"
         }
     ];
@@ -198,67 +263,91 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(tab.file)
             .then((r) => r.text())
             .then((html) => {
-                sectionElement.innerHTML = `<h3>${tab.title}</h3>${html}`;
+                sectionElement.innerHTML = `<h3>${t(`tabs.${tab.titleKey}`)}</h3>${html}`;
                 sectionElement.dataset.loaded = "true";
                 tab.setup?.();
             });
     }
 
-    let currentCategory = "";
+    function renderStaticLanguage() {
+        document.documentElement.lang = currentLanguage;
+        document.getElementById("splash-title").textContent = t("appTitle");
+        document.getElementById("sidebar-title").textContent = t("appTitle");
+        document.getElementById("footer-text").textContent = t("footer");
+        document.getElementById("language-label").textContent = t("languageLabel");
+    }
 
-    tabsData.forEach((tab, index) => {
-        if (tab.category && tab.category !== currentCategory) {
-            addCategoryHeader(tab.category);
-            currentCategory = tab.category;
-        }
+    function renderTabs() {
+        tabsContainer.innerHTML = "";
+        contentContainer.innerHTML = "";
 
-        const tabElement = document.createElement("li");
-        tabElement.textContent = tab.title;
-        tabElement.dataset.tab = tab.id;
-        if (index === 0) tabElement.classList.add("active");
-        tabsContainer.appendChild(tabElement);
+        let currentCategory = "";
 
-        const sectionElement = document.createElement("section");
-        sectionElement.id = tab.id;
-        sectionElement.className = "tab-content";
-        if (index === 0) {
-            sectionElement.classList.add("active");
-            loadTabContent(tab, sectionElement);
-        }
-        contentContainer.appendChild(sectionElement);
+        tabsData.forEach((tab, index) => {
+            const categoryLabel = t(`categories.${tab.categoryKey}`);
+            if (categoryLabel !== currentCategory) {
+                addCategoryHeader(categoryLabel);
+                currentCategory = categoryLabel;
+            }
 
-        tabElement.addEventListener("click", () => {
-            const tabs = document.querySelectorAll(".tabs li");
-            const tabContents = document.querySelectorAll(".tab-content");
-            tabs.forEach((t) => t.classList.remove("active"));
-            tabContents.forEach((c) => c.classList.remove("active"));
-            tabElement.classList.add("active");
-            sectionElement.classList.add("active");
+            const tabElement = document.createElement("li");
+            tabElement.textContent = t(`tabs.${tab.titleKey}`);
+            tabElement.dataset.tab = tab.id;
+            if (index === 0) tabElement.classList.add("active");
+            tabsContainer.appendChild(tabElement);
 
-            if (!sectionElement.dataset.loaded) {
+            const sectionElement = document.createElement("section");
+            sectionElement.id = tab.id;
+            sectionElement.className = "tab-content";
+            if (index === 0) {
+                sectionElement.classList.add("active");
                 loadTabContent(tab, sectionElement);
             }
+            contentContainer.appendChild(sectionElement);
+
+            tabElement.addEventListener("click", () => {
+                const tabs = document.querySelectorAll(".tabs li");
+                const tabContents = document.querySelectorAll(".tab-content");
+                tabs.forEach((t) => t.classList.remove("active"));
+                tabContents.forEach((c) => c.classList.remove("active"));
+                tabElement.classList.add("active");
+                sectionElement.classList.add("active");
+
+                if (!sectionElement.dataset.loaded) {
+                    loadTabContent(tab, sectionElement);
+                }
+            });
         });
+
+        // Add the "Design Buddy Chat" tab dynamically
+        addTab(
+            "design-buddy-chat",
+            t("tabs.designBuddyChat"),
+            null,
+            "https://chatgpt.com/g/g-67672f631ab481918af63d9ae2b38271-design-buddy",
+            t("categories.gpts")
+        );
+
+        // Add the "Design Buddy Chat V2" tab dynamically
+        addTab(
+            "design-buddy-chat-v2",
+            t("tabs.designBuddyChatV2"),
+            null,
+            "https://chatgpt.com/g/g-67bc9728e6f88191a75a4edb4afb10c2-design-buddy-v2",
+            t("categories.gpts")
+        );
+    }
+
+    const languageSelect = document.getElementById("language-select");
+    languageSelect.value = currentLanguage;
+    languageSelect.addEventListener("change", (event) => {
+        currentLanguage = event.target.value;
+        renderStaticLanguage();
+        renderTabs();
     });
 
-    // Add the "Design Buddy Chat" tab dynamically
-    addTab(
-        "design-buddy-chat",
-        "Design Buddy Chat",
-        null, // No content since it links to a URL
-        "https://chatgpt.com/g/g-67672f631ab481918af63d9ae2b38271-design-buddy",
-        "GPTs"
-    );
-
-    // Add the "Design Buddy Chat V2" tab dynamically
-    addTab(
-        "design-buddy-chat-v2",
-        "Design Buddy Chat V2",
-        null, // No content since it links to a URL
-        "https://chatgpt.com/g/g-67bc9728e6f88191a75a4edb4afb10c2-design-buddy-v2",
-        "GPTs"
-    );
-
+    renderStaticLanguage();
+    renderTabs();
 
     function setupFullEternity() {
         const regionTypeSelect = document.getElementById("region-type");
