@@ -78,7 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 rushRequests: "RUSH REQUESTS",
                 stoneOrderForm: "Stone Order Form",
                 designBuddyChat: "Design Buddy Chat",
-                designBuddyChatV2: "Design Buddy Chat V2"
+                designBuddyChatV2: "Design Buddy Chat V2",
+                styleMatch: ""
             }
         },
         fr: {
@@ -106,7 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 rushRequests: "DEMANDES URGENTES",
                 stoneOrderForm: "Formulaire de commande de pierres",
                 designBuddyChat: "Discussion Design Buddy",
-                designBuddyChatV2: "Discussion Design Buddy V2"
+                designBuddyChatV2: "Discussion Design Buddy V2",
+                styleMatch: ""
             }
         }
     };
@@ -239,7 +241,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const sectionElement = document.createElement("section");
             sectionElement.id = id;
             sectionElement.className = "tab-content";
-            sectionElement.innerHTML = `<h2>${title}</h2>${content}`;
+            const headingMarkup = title ? `<h2>${title}</h2>` : "";
+            sectionElement.innerHTML = `${headingMarkup}${content}`;
             contentContainer.appendChild(sectionElement);
 
             tabElement.addEventListener("click", () => {
@@ -336,6 +339,23 @@ document.addEventListener("DOMContentLoaded", () => {
             "https://chatgpt.com/g/g-67bc9728e6f88191a75a4edb4afb10c2-design-buddy-v2",
             t("categories.gpts")
         );
+
+        addTab(
+            "style-match",
+            t("tabs.styleMatch"),
+            `
+                <div class="style-match-tool">
+                    <p class="style-match-description">Upload an image to find the best matching SKU.</p>
+                    <label class="file-input-label" for="imageInput">Choose an image</label>
+                    <input type="file" id="imageInput" accept="image/*" />
+                    <button id="style-match-button" type="button">Find Style</button>
+                    <pre id="style-match-result" aria-live="polite"></pre>
+                </div>
+            `,
+            null,
+            t("categories.gpts")
+        );
+        setupStyleMatch();
     }
 
     const languageSelect = document.getElementById("language-select");
@@ -348,6 +368,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderStaticLanguage();
     renderTabs();
+
+
+    function setupStyleMatch() {
+        const fileInput = document.getElementById("imageInput");
+        const button = document.getElementById("style-match-button");
+        const resultBox = document.getElementById("style-match-result");
+
+        if (!fileInput || !button || !resultBox) return;
+
+        const webhookUrl = window.DESIGN_BUDDY_STYLE_MATCH_URL || "https://YOUR-N8N-URL/webhook/style-match";
+
+        const sendImage = async () => {
+            if (!fileInput.files.length) {
+                window.alert("Please select an image");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+
+            resultBox.textContent = "Processing...";
+            button.disabled = true;
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Request failed with status ${response.status}`);
+                }
+
+                const data = await response.json();
+                resultBox.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultBox.textContent = `Error: ${error.message}`;
+            } finally {
+                button.disabled = false;
+            }
+        };
+
+        button.addEventListener("click", sendImage);
+    }
+
 
     function setupFullEternity() {
         const regionTypeSelect = document.getElementById("region-type");
