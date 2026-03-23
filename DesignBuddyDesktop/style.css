@@ -612,12 +612,22 @@ select, input {
 
 .tabs li[data-tab="style-match"] {
   min-height: 2.25rem;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
 }
 
 .tabs li[data-tab="style-match"]::after {
   content: "📷";
   display: block;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.25;
   text-align: center;
+}
+
+.tabs li[data-tab="style-match"].active::after {
+  color: #000;
 }
 
 .style-match-tool {
