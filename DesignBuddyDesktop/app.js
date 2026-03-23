@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 stoneOrderForm: "Stone Order Form",
                 designBuddyChat: "Design Buddy Chat",
                 designBuddyChatV2: "Design Buddy Chat V2",
-                styleMatch: ""
+                styleMatch: "StyleMatch"
             }
         },
         fr: {
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 stoneOrderForm: "Formulaire de commande de pierres",
                 designBuddyChat: "Discussion Design Buddy",
                 designBuddyChatV2: "Discussion Design Buddy V2",
-                styleMatch: ""
+                styleMatch: "StyleMatch"
             }
         }
     };
