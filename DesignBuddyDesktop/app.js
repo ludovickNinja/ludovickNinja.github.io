@@ -377,7 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!fileInput || !button || !resultBox) return;
 
-        const webhookUrl = window.DESIGN_BUDDY_STYLE_MATCH_URL || "https://YOUR-N8N-URL/webhook/style-match";
+        const webhookUrl = window.DESIGN_BUDDY_STYLE_MATCH_URL || "https://crownring.app.n8n.cloud/webhook-test/43ac772c-997f-4224-acfb-12b2ea22d027";
 
         const sendImage = async () => {
             if (!fileInput.files.length) {
