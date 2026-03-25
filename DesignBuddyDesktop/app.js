@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contactRepository: "Contact Repository",
                 rushRequests: "RUSH REQUESTS",
                 stoneOrderForm: "Stone Order Form",
+                employeeSuggestions: "Employee Suggestions",
                 designBuddyChat: "Design Buddy Chat",
                 designBuddyChatV2: "Design Buddy Chat V2",
                 styleMatch: "StyleMatch"
@@ -106,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contactRepository: "Répertoire de contacts",
                 rushRequests: "DEMANDES URGENTES",
                 stoneOrderForm: "Formulaire de commande de pierres",
+                employeeSuggestions: "Suggestions des employés",
                 designBuddyChat: "Discussion Design Buddy",
                 designBuddyChatV2: "Discussion Design Buddy V2",
                 styleMatch: "StyleMatch"
@@ -200,6 +202,12 @@ document.addEventListener("DOMContentLoaded", () => {
             categoryKey: "forms",
             titleKey: "stoneOrderForm",
             file: "partials/stone-order-form.html"
+        },
+        {
+            id: "employee-suggestions",
+            categoryKey: "forms",
+            titleKey: "employeeSuggestions",
+            file: "partials/employee-suggestions.html"
         }
     ];
 
