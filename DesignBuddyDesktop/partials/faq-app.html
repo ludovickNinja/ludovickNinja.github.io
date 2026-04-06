@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee FAQ</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg,#f0f4ff 0%,#fafafa 60%);
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const N8N_SEARCH = "https://YOUR-N8N-INSTANCE/webhook/faq-search";
+    const N8N_SUBMIT = "https://YOUR-N8N-INSTANCE/webhook/faq-submit";
+
+    const { useState, useEffect } = React;
+    const CATEGORIES = ["HR","IT","Finance","Operations","Legal","General"];
+    const CAT_COLORS = { HR:"#3b82f6", IT:"#8b5cf6", Finance:"#22c55e", Operations:"#f97316", Legal:"#ef4444", General:"#6b7280" };
+
+    async function loadFAQ() {
+      const r = await fetch(N8N_SEARCH.replace("faq-search","faq-load"), {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ action:"load" })
+      });
+      const d = await r.json();
+      return d.entries || [];
+    }
+
+    async function searchFAQ(query, faqEntries) {
+      const r = await fetch(N8N_SEARCH, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ query, faqEntries })
+      });
+      return r.json();
+    }
+
+    async function submitQuestion(payload) {
+      const r = await fetch(N8N_SUBMIT, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      });
+      return r.json();
+    }
+
+    function App() {
+      const [query, setQuery] = useState("");
+      const [phase, setPhase] = useState("idle");
+      const [results, setResults] = useState([]);
+      const [expanded, setExp] = useState(null);
+      const [faqCache, setCache] = useState(null);
+      const [form, setForm] = useState({ name:"", question:"", details:"", category:"General" });
+      const [aiAnswer, setAns] = useState("");
+      const [aiCat, setAiCat] = useState("");
+      const [step, setStep] = useState("form");
+
+      useEffect(() => {
+        loadFAQ().then(setCache).catch(() => setCache([]));
+      }, []);
+
+      const search = async () => {
+        if (!query.trim()) return;
+        setPhase("searching");
+        setResults([]);
+        setExp(null);
+        try {
+          const data = await searchFAQ(query, faqCache || []);
+          const ranked = (data.results || [])
+            .map(r => ({ ...(faqCache||[]).find(e => e.url===r.url), score:r.score }))
+            .filter(r => r.Question);
+          ranked.length ? (setResults(ranked), setPhase("results")) : setPhase("no-results");
+        } catch {
+          setPhase("no-results");
+        }
+      };
+
+      const startSubmit = () => {
+        setForm(f=>({...f,question:query}));
+        setStep("form");
+        setPhase("submitting");
+        setAns("");
+        setAiCat("");
+      };
+
+      const submit = async () => {
+        setStep("saving");
+        try {
+          const data = await submitQuestion({ question:form.question, name:form.name, details:form.details, category:form.category });
+          if (data.answer) {
+            setAns(data.answer);
+            setAiCat(data.category||form.category);
+          }
+        } catch {}
+        setPhase("submitted");
+      };
+
+      const reset = () => {
+        setQuery("");
+        setPhase("idle");
+        setResults([]);
+        setExp(null);
+        setForm({name:"",question:"",details:"",category:"General"});
+        setAns("");
+        setAiCat("");
+        setStep("form");
+      };
+
+      const s = {
+        card:  { background:"#fff", borderRadius:16, padding:28, boxShadow:"0 1px 4px rgba(0,0,0,.07),0 6px 20px rgba(0,0,0,.05)", marginBottom:16 },
+        input: { width:"100%", border:"1.5px solid #e2e8f0", borderRadius:10, padding:"11px 14px", fontSize:15, outline:"none", fontFamily:"inherit", color:"#0f172a" },
+        btn:   (bg,col="#fff",dis=false) => ({ background:dis?"#e2e8f0":bg, color:dis?"#94a3b8":col, border:"none", borderRadius:10, padding:"11px 20px", fontSize:14, fontWeight:600, cursor:dis?"not-allowed":"pointer" }),
+        tag:   cat => ({ background:CAT_COLORS[cat]+"18", color:CAT_COLORS[cat], fontSize:12, fontWeight:600, padding:"3px 10px", borderRadius:99, display:"inline-block" }),
+        lbl:   { display:"block", fontWeight:600, fontSize:13, color:"#374151", marginBottom:6 },
+      };
+
+      return (
+        <div style={{padding:"28px 16px"}}><div style={{maxWidth:680,margin:"0 auto"}}>
+          <div style={{textAlign:"center",marginBottom:28}}>
+            <div style={{fontSize:38,marginBottom:6}}>🙋</div>
+            <h1 style={{fontSize:24,fontWeight:800,color:"#0f172a",margin:"0 0 6px"}}>Employee FAQ</h1>
+            <p style={{color:"#64748b",margin:0,fontSize:14}}>
+              {faqCache===null ? "Loading FAQ…" : `Search ${faqCache.length} answered questions. Can't find it? Submit a new one.`}
+            </p>
+          </div>
+
+          {phase!=="submitted" && (
+            <div style={s.card}>
+              <label style={s.lbl}>Search the FAQ</label>
+              <div style={{display:"flex",gap:10}}>
+                <input value={query} onChange={e=>{setQuery(e.target.value);if(phase!=="idle")setPhase("idle");}}
+                  placeholder="e.g. How do I reset my password?"
+                  style={{...s.input,flex:1}} onKeyDown={e=>e.key==="Enter"&&search()} disabled={phase==="submitting"} />
+                <button onClick={search} disabled={!query.trim()||phase==="searching"||!faqCache}
+                  style={s.btn("#6366f1","#fff",!query.trim()||phase==="searching"||!faqCache)}>
+                  {phase==="searching"?"Searching…":"Search"}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {phase==="results" && (
+            <div style={s.card}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
+                <span style={{fontWeight:700,color:"#0f172a"}}>🔍 {results.length} result{results.length!==1?"s":""} found</span>
+                <button onClick={startSubmit} style={{background:"none",border:"none",color:"#6366f1",fontWeight:600,fontSize:13,cursor:"pointer"}}>Not what I need →</button>
+              </div>
+              {results.map((r,i) => (
+                <div key={i} style={{borderTop:"1px solid #f1f5f9",paddingTop:14,marginTop:14}}>
+                  <div style={{display:"flex",justifyContent:"space-between",cursor:"pointer"}} onClick={()=>setExp(expanded===i?null:i)}>
+                    <div style={{flex:1}}>
+                      <div style={{fontWeight:700,color:"#0f172a",fontSize:14,marginBottom:4}}>{r.Question}</div>
+                      {r.Category && <span style={s.tag(r.Category)}>{r.Category}</span>}
+                    </div>
+                    <span style={{color:"#94a3b8",fontSize:20,marginLeft:12}}>{expanded===i?"▲":"▼"}</span>
+                  </div>
+                  {expanded===i && <div style={{background:"#f8fafc",borderRadius:10,padding:"14px 16px",marginTop:10,color:"#1e293b",fontSize:14,lineHeight:1.7}}>{r.Answer}</div>}
+                </div>
+              ))}
+              <div style={{borderTop:"1px solid #f1f5f9",marginTop:16,paddingTop:14,textAlign:"center"}}>
+                <span style={{fontSize:13,color:"#64748b"}}>Still not answered? </span>
+                <button onClick={startSubmit} style={{background:"none",border:"none",color:"#6366f1",fontWeight:600,fontSize:13,cursor:"pointer"}}>Submit your question</button>
+              </div>
+            </div>
+          )}
+
+          {phase==="no-results" && (
+            <div style={{...s.card,textAlign:"center"}}>
+              <div style={{fontSize:36,marginBottom:10}}>🤔</div>
+              <div style={{fontWeight:700,fontSize:16,color:"#0f172a",marginBottom:6}}>No matching answers found</div>
+              <div style={{color:"#64748b",fontSize:14,marginBottom:20}}>Let us get that question answered for you.</div>
+              <button onClick={startSubmit} style={s.btn("#6366f1")}>Submit Your Question</button>
+            </div>
+          )}
+
+          {phase==="submitting" && step==="form" && (
+            <div style={s.card}>
+              <div style={{display:"flex",justifyContent:"space-between",marginBottom:20}}>
+                <h2 style={{margin:0,fontSize:17,fontWeight:700,color:"#0f172a"}}>📝 Submit a Question</h2>
+                <button onClick={reset} style={{background:"none",border:"none",color:"#94a3b8",cursor:"pointer",fontSize:13}}>← Back</button>
+              </div>
+              <label style={s.lbl}>Your Name (optional)</label>
+              <input value={form.name} onChange={e=>setForm(f=>({...f,name:e.target.value}))} placeholder="e.g. Alex Johnson" style={{...s.input,marginBottom:14}} />
+              <label style={s.lbl}>Your Question *</label>
+              <textarea value={form.question} onChange={e=>setForm(f=>({...f,question:e.target.value}))} rows={3} style={{...s.input,resize:"vertical",marginBottom:14}} />
+              <label style={s.lbl}>Additional Details (optional)</label>
+              <textarea value={form.details} onChange={e=>setForm(f=>({...f,details:e.target.value}))} rows={2} style={{...s.input,resize:"vertical",marginBottom:14}} />
+              <label style={s.lbl}>Category</label>
+              <div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:20}}>
+                {CATEGORIES.map(c=>(
+                  <button key={c} onClick={()=>setForm(f=>({...f,category:c}))}
+                    style={{padding:"6px 14px",borderRadius:99,fontSize:13,fontWeight:500,cursor:"pointer",border:form.category===c?`2px solid ${CAT_COLORS[c]}`:"2px solid #e2e8f0",background:form.category===c?CAT_COLORS[c]+"18":"#fff",color:form.category===c?CAT_COLORS[c]:"#64748b"}}>
+                    {c}
+                  </button>
+                ))}
+              </div>
+              <button onClick={submit} disabled={!form.question.trim()} style={s.btn("#0f172a","#fff",!form.question.trim())}>
+                Submit & Get AI Answer →
+              </button>
+            </div>
+          )}
+
+          {phase==="submitting" && step==="saving" && (
+            <div style={{...s.card,textAlign:"center",padding:"40px 28px"}}>
+              <div style={{fontSize:32,marginBottom:12}}>⏳</div>
+              <div style={{fontWeight:600,color:"#0f172a"}}>Saving to Notion & creating task…</div>
+            </div>
+          )}
+
+          {phase==="submitted" && (
+            <div style={{...s.card,textAlign:"center",padding:"40px 28px"}}>
+              <div style={{fontSize:44,marginBottom:12}}>✅</div>
+              <h2 style={{margin:"0 0 8px",fontSize:20,fontWeight:800,color:"#0f172a"}}>Question Submitted!</h2>
+              {aiAnswer && (
+                <div style={{background:"#f0fdf4",border:"1px solid #bbf7d0",borderRadius:10,padding:16,margin:"16px 0",textAlign:"left"}}>
+                  <div style={{fontSize:12,fontWeight:700,color:"#16a34a",marginBottom:6,textTransform:"uppercase"}}>AI Draft Answer</div>
+                  <div style={{color:"#1e293b",fontSize:14,lineHeight:1.7}}>{aiAnswer}</div>
+                  {aiCat && <span style={{...s.tag(aiCat),marginTop:8}}>{aiCat}</span>}
+                </div>
+              )}
+              <p style={{color:"#64748b",fontSize:14,margin:"0 0 24px"}}>Saved to Notion and a task has been created for your team to review and verify the answer.</p>
+              <button onClick={reset} style={s.btn("#6366f1")}>Ask Another Question</button>
+            </div>
+          )}
+        </div></div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

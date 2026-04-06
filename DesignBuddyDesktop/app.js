@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 widthConversion: "Weight: Width Conversion",
                 weightDiamondSizes: "Weight: Diamond Sizes",
                 usefulLinks: "Useful Links",
+                faq: "FAQ",
                 newsFeed: "Jewelry News Feed",
                 contactRepository: "Contact Repository",
                 rushRequests: "RUSH REQUESTS",
@@ -103,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 widthConversion: "Poids : Conversion de largeur",
                 weightDiamondSizes: "Poids : Tailles des diamants",
                 usefulLinks: "Liens utiles",
+                faq: "FAQ",
                 newsFeed: "Actualités joaillerie",
                 contactRepository: "Répertoire de contacts",
                 rushRequests: "DEMANDES URGENTES",
@@ -176,6 +178,12 @@ document.addEventListener("DOMContentLoaded", () => {
             categoryKey: "informations",
             titleKey: "usefulLinks",
             file: "partials/useful-links.html"
+        },
+        {
+            id: "faq",
+            categoryKey: "informations",
+            titleKey: "faq",
+            file: "partials/faq.html"
         },
         {
             id: "news-feed",

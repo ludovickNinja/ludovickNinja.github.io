@@ -141,6 +141,24 @@ h3 {
   margin-top: 0;
 }
 
+.faq-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-note {
+  margin: 0;
+}
+
+.faq-iframe {
+  width: 100%;
+  min-height: 80vh;
+  border: 1px solid #d4d4d8;
+  border-radius: 10px;
+  background: #fff;
+}
+
 /* Input Section */
 .input-section {
   display: flex;
