@@ -27,14 +27,16 @@
     const CAT_COLORS = { HR:"#3b82f6", IT:"#8b5cf6", Finance:"#22c55e", Operations:"#f97316", Legal:"#ef4444", General:"#6b7280" };
 
     async function loadFAQ() {
-      const r = await fetch(N8N_SEARCH.replace("faq-search","faq-load"), {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ action:"load" })
-      });
-      const d = await r.json();
-      return d.entries || [];
-    }
+  try {
+    const r = await fetch(N8N_SEARCH, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: "__load__", faqEntries: [] })
+    });
+    const d = await r.json();
+    return d.entries || [];
+  } catch { return []; }
+}
 
     async function searchFAQ(query, faqEntries) {
       const r = await fetch(N8N_SEARCH, {
