@@ -1,55 +1,57 @@
 <p class="tab-description">
-  <strong>Estimate total stone count for eternity-style bands based on finger size and coverage.</strong><br>
-  Pick full, three-quarter, or semi coverage, then enter finger size, band thickness,
-  spacing, and melee diameter to quickly preview the number of stones needed.
+  <strong data-i18n="fullEternity.descriptionStrong">Estimate total stone count for eternity-style bands based on finger size and coverage.</strong><br>
+  <span data-i18n="fullEternity.descriptionBody">Pick full, three-quarter, or semi coverage, then enter finger size, band thickness,
+  spacing, and melee diameter to quickly preview the number of stones needed.</span>
 </p>
 
 <div class="eternity-calculator">
   <div class="input-section">
-    <label>Select Coverage Type:</label>
+    <label data-i18n="fullEternity.coverageLabel">Select Coverage Type:</label>
     <div class="coverage-toggle" role="group" aria-label="Coverage type selector">
-      <button type="button" class="coverage-button active" data-coverage="full">
+      <button type="button" class="coverage-button active" data-coverage="full" data-i18n="fullEternity.coverageFull">
         Full
       </button>
       <button
         type="button"
         class="coverage-button"
         data-coverage="three-quarters"
+        data-i18n="fullEternity.coverageThreeQuarter"
       >
         Three Quarter
       </button>
-      <button type="button" class="coverage-button" data-coverage="semi">
+      <button type="button" class="coverage-button" data-coverage="semi" data-i18n="fullEternity.coverageSemi">
         Semi
       </button>
     </div>
 
-    <label for="region-type">Select Finger Size Region:</label>
+    <label for="region-type" data-i18n="common.regionLabel">Select Finger Size Region:</label>
     <select id="region-type">
-      <option value="BaseChart">US</option>
-      <option value="France">France</option>
+      <option value="BaseChart" data-i18n="common.regionUS">US</option>
+      <option value="France" data-i18n="common.regionFrance">France</option>
     </select>
 
-    <label for="finger-size">Enter Finger Size:</label>
-    <input type="number" id="finger-size" placeholder="e.g., 6.5" />
+    <label for="finger-size" data-i18n="common.fingerSizeLabel">Enter Finger Size:</label>
+    <input type="number" id="finger-size" placeholder="e.g., 6.5" min="1" max="77" step="0.25" />
 
-    <label for="band-thickness">Enter Band Thickness (mm):</label>
-    <input type="number" id="band-thickness" placeholder="e.g., 1.50" />
+    <label for="band-thickness" data-i18n="fullEternity.bandThicknessLabel">Enter Band Thickness (mm):</label>
+    <input type="number" id="band-thickness" placeholder="e.g., 1.50" min="0" step="0.01" />
 
-    <label for="spacing-eternity">Spacing Between Stones (mm):</label>
+    <label for="spacing-eternity" data-i18n="fullEternity.spacingLabel">Spacing Between Stones (mm):</label>
     <input
       type="number"
       id="spacing-eternity"
       placeholder="e.g., 0.20"
       value="0.2"
+      min="0"
       step="0.01"
     />
 
-    <label for="melee-diameter-eternity">Diameter of Melee Stones (mm):</label>
-    <input type="number" id="melee-diameter-eternity" placeholder="e.g., 1.50" />
+    <label for="melee-diameter-eternity" data-i18n="fullEternity.meleeDiameterLabel">Diameter of Melee Stones (mm):</label>
+    <input type="number" id="melee-diameter-eternity" placeholder="e.g., 1.50" min="0" step="0.01" />
   </div>
 
   <div class="output-section">
-    <label for="total-stones-eternity">Total Stones Needed:</label>
+    <label for="total-stones-eternity" data-i18n="fullEternity.totalStonesLabel">Total Stones Needed:</label>
     <input type="text" id="total-stones-eternity" readonly placeholder="0" />
     <div class="thickness-note">
       <strong id="required-band-thickness-text"></strong>
@@ -57,39 +59,39 @@
   </div>
 
   <div class="reference-equation">
-    <strong>Formula:</strong>
-    Stone Count ≈ <em>(coverage × 2πR)</em> ÷ <em>(2R·atan((d⁄2)/offset) + gap)</em>
+    <strong data-i18n="common.formulaLabel">Formula:</strong>
+    <span data-i18n-html="fullEternity.formulaInline">Stone Count ≈ <em>(coverage × 2πR)</em> ÷ <em>(2R·atan((d⁄2)/offset) + gap)</em></span>
   </div>
 
   <div class="spacing-reference">
-    <h4>Typical Spacing by Setting Style</h4>
+    <h4 data-i18n="fullEternity.spacingRefHeading">Typical Spacing by Setting Style</h4>
     <div class="table-card">
       <table>
         <thead>
           <tr>
-            <th>Setting Style</th>
-            <th>Suggested Spacing (mm)</th>
+            <th data-i18n="fullEternity.settingStyleCol">Setting Style</th>
+            <th data-i18n="fullEternity.suggestedSpacingCol">Suggested Spacing (mm)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Channel Setting</td>
+            <td data-i18n="fullEternity.channelSetting">Channel Setting</td>
             <td>0.10</td>
           </tr>
           <tr>
-            <td>Pavé</td>
+            <td data-i18n="fullEternity.pave">Pavé</td>
             <td>0.20</td>
           </tr>
           <tr>
-            <td>Shared Prong</td>
+            <td data-i18n="fullEternity.sharedProng">Shared Prong</td>
             <td>0.15</td>
           </tr>
           <tr>
-            <td>Micro Prong</td>
+            <td data-i18n="fullEternity.microProng">Micro Prong</td>
             <td>0.15</td>
           </tr>
           <tr>
-            <td>Single Prong</td>
+            <td data-i18n="fullEternity.singleProng">Single Prong</td>
             <td>0.50</td>
           </tr>
         </tbody>

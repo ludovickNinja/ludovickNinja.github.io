@@ -1,12 +1,12 @@
 <p class="tab-description">
-  <strong>Estimate the volume and finished metal weight for classic wedding bands.</strong><br>
-  Choose between a pipe-cut (tubular) profile or a round band profile, select
+  <strong data-i18n="weddingBand.descriptionStrong">Estimate the volume and finished metal weight for classic wedding bands.</strong><br>
+  <span data-i18n="weddingBand.descriptionBody">Choose between a pipe-cut (tubular) profile or a round band profile, select
   your finger size, and enter the band width and thickness to see the
-  calculated volume and weight.
+  calculated volume and weight.</span>
 </p>
 
 <div class="wedding-band-calculator">
-  
+
   <div class="band-type-grid" role="group" aria-label="Wedding band profile">
     <button class="band-type-card active" type="button" data-band="pipe">
       <div class="band-type-image" aria-hidden="true">
@@ -14,7 +14,7 @@
           <rect x="18" y="12" width="84" height="56" rx="10" fill="#f5f5f5" stroke="#000" stroke-width="2" />
         </svg>
       </div>
-      <span>Pipe Cut</span>
+      <span data-i18n="weddingBand.pipeCut">Pipe Cut</span>
     </button>
     <button class="band-type-card" type="button" data-band="round">
       <div class="band-type-image" aria-hidden="true">
@@ -22,44 +22,44 @@
           <circle cx="60" cy="40" r="28" fill="#f5f5f5" stroke="#000" stroke-width="2" />
         </svg>
       </div>
-      <span>Round Band</span>
+      <span data-i18n="weddingBand.roundBand">Round Band</span>
     </button>
   </div>
 
   <div class="input-section">
-    <label for="wedding-region-type">Select Finger Size Region:</label>
+    <label for="wedding-region-type" data-i18n="common.regionLabel">Select Finger Size Region:</label>
     <select id="wedding-region-type">
-      <option value="BaseChart">US</option>
-      <option value="France">France</option>
+      <option value="BaseChart" data-i18n="common.regionUS">US</option>
+      <option value="France" data-i18n="common.regionFrance">France</option>
     </select>
 
-    <label for="wedding-finger-size">Enter Finger Size:</label>
-    <input type="number" id="wedding-finger-size" placeholder="e.g., 6.5" />
+    <label for="wedding-finger-size" data-i18n="common.fingerSizeLabel">Enter Finger Size:</label>
+    <input type="number" id="wedding-finger-size" placeholder="e.g., 6.5" min="1" max="77" step="0.25" />
 
-    <label for="wedding-band-width">Enter Band Width (mm):</label>
-    <input type="number" id="wedding-band-width" placeholder="e.g., 4.00" />
+    <label for="wedding-band-width" data-i18n="weddingBand.bandWidthLabel">Enter Band Width (mm):</label>
+    <input type="number" id="wedding-band-width" placeholder="e.g., 4.00" min="0" step="0.01" />
 
-    <label for="wedding-band-thickness">Enter Band Thickness (mm):</label>
-    <input type="number" id="wedding-band-thickness" placeholder="e.g., 1.60" />
+    <label for="wedding-band-thickness" data-i18n="weddingBand.bandThicknessLabel">Enter Band Thickness (mm):</label>
+    <input type="number" id="wedding-band-thickness" placeholder="e.g., 1.60" min="0" step="0.01" />
 
-    <label for="wedding-karat">Select Gold Karat:</label>
+    <label for="wedding-karat" data-i18n="weddingBand.karatLabel">Select Gold Karat:</label>
     <select id="wedding-karat"></select>
   </div>
 
   <div class="output-section">
-    <label for="wedding-volume">Calculated Volume (mm³):</label>
+    <label for="wedding-volume" data-i18n="weddingBand.volumeLabel">Calculated Volume (mm³):</label>
     <input type="text" id="wedding-volume" readonly placeholder="0" />
 
-    <label for="wedding-weight">Estimated Weight (grams):</label>
+    <label for="wedding-weight" data-i18n="weddingBand.weightLabel">Estimated Weight (grams):</label>
     <input type="text" id="wedding-weight" readonly placeholder="0" />
   </div>
 
   <div class="reference-equation">
-    <strong>Pipe Cut Formula:</strong>
+    <strong data-i18n="weddingBand.pipeFormulaLabel">Pipe Cut Formula:</strong>
     Volume = π × (R<sub>outer</sub><sup>2</sup> − R<sub>inner</sub><sup>2</sup>) × Width
   </div>
   <div class="reference-equation">
-    <strong>Round Band Formula:</strong>
+    <strong data-i18n="weddingBand.roundFormulaLabel">Round Band Formula:</strong>
     Volume = (2π × R<sub>center</sub>) × (π × (Width⁄2) × (Thickness⁄2))
   </div>
 </div>

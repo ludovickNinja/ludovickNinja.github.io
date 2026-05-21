@@ -1,39 +1,39 @@
 <p class="tab-description">
-  <strong>Estimate the stone count for a hidden halo from the center stone dimensions.</strong><br>
-  Select the center stone shape, enter the width/length, then set melee diameter and spacing
-  to calculate an even hidden halo stone count around the center perimeter.
+  <strong data-i18n="hiddenHalo.descriptionStrong">Estimate the stone count for a hidden halo from the center stone dimensions.</strong><br>
+  <span data-i18n="hiddenHalo.descriptionBody">Select the center stone shape, enter the width/length, then set melee diameter and spacing
+  to calculate an even hidden halo stone count around the center perimeter.</span>
 </p>
 
 <div class="halo-calculator">
   <div class="input-section">
-    <label for="center-shape">Select Center Stone Shape:</label>
+    <label for="center-shape" data-i18n="hiddenHalo.shapeLabel">Select Center Stone Shape:</label>
     <select id="center-shape">
-      <option value="round">Round</option>
-      <option value="oval">Oval</option>
-      <option value="cushion">Cushion</option>
-      <option value="princess">Princess</option>
-      <option value="emerald">Emerald</option>
-      <option value="pear">Pear</option>
-      <option value="marquise">Marquise</option>
+      <option value="round" data-i18n="halo.shapeRound">Round</option>
+      <option value="oval" data-i18n="halo.shapeOval">Oval</option>
+      <option value="cushion" data-i18n="halo.shapeCushion">Cushion</option>
+      <option value="princess" data-i18n="halo.shapePrincess">Princess</option>
+      <option value="emerald" data-i18n="halo.shapeEmerald">Emerald</option>
+      <option value="pear" data-i18n="halo.shapePear">Pear</option>
+      <option value="marquise" data-i18n="halo.shapeMarquise">Marquise</option>
     </select>
 
-    <label for="width">Width of Center Stone (mm):</label>
-    <input type="number" id="width" placeholder="e.g., 5.00" />
+    <label for="width" data-i18n="hiddenHalo.widthLabel">Width of Center Stone (mm):</label>
+    <input type="number" id="width" placeholder="e.g., 5.00" min="0" step="0.01" />
 
-    <label for="length" id="length-label" style="display: none;">Length of Center Stone (mm):</label>
-    <input type="number" id="length" placeholder="e.g., 7.00" style="display: none;" />
+    <label for="length" id="length-label" style="display: none;" data-i18n="hiddenHalo.lengthLabel">Length of Center Stone (mm):</label>
+    <input type="number" id="length" placeholder="e.g., 7.00" style="display: none;" min="0" step="0.01" />
 
-    <label for="stone-size">Diameter of Melee Stones (mm):</label>
-    <input type="number" id="stone-size" placeholder="e.g., 1.50" />
+    <label for="stone-size" data-i18n="hiddenHalo.stoneSizeLabel">Diameter of Melee Stones (mm):</label>
+    <input type="number" id="stone-size" placeholder="e.g., 1.50" min="0" step="0.01" />
 
-    <label for="spacing">Spacing Between Melee Stones (mm):</label>
-    <input type="number" id="spacing" value="0.2" placeholder="e.g., 0.2" />
+    <label for="spacing" data-i18n="hiddenHalo.spacingLabel">Spacing Between Melee Stones (mm):</label>
+    <input type="number" id="spacing" value="0.2" placeholder="e.g., 0.2" min="0" step="0.01" />
   </div>
 
   <div class="output-section">
-    <label for="total-stones">Total Stones Needed for Hidden Halo:</label>
+    <label for="total-stones" data-i18n="hiddenHalo.totalStonesLabel">Total Stones Needed for Hidden Halo:</label>
     <input type="text" id="total-stones" readonly placeholder="0" />
 
-    <strong>Formula: </strong><small>Total Stones = Perimeter ÷ (Stone Diameter + Spacing)</small>
+    <strong data-i18n="common.formulaLabel">Formula: </strong><small data-i18n="hiddenHalo.formulaInline">Total Stones = Perimeter ÷ (Stone Diameter + Spacing)</small>
   </div>
 </div>

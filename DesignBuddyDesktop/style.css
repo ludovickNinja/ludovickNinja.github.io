@@ -27,8 +27,9 @@ footer {
   justify-content: center;
   align-items: center;
   z-index: 10;
-  animation: fadeOut 2s forwards;
-  animation-delay: 2s;
+  pointer-events: none; /* never block clicks even while visible */
+  animation: fadeOut 1s forwards;
+  animation-delay: 1s;
 }
 
 @keyframes fadeOut {
@@ -36,6 +37,12 @@ footer {
     opacity: 0;
     visibility: hidden;
   }
+}
+
+.loading-indicator {
+  padding: 1rem 0;
+  color: #555;
+  font-style: italic;
 }
 
 /* Container Layout */
