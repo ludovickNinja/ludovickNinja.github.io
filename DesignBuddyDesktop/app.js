@@ -49,6 +49,16 @@ function calcEternityStoneCount(
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Skip the splash on subsequent loads within the same browser session.
+    const splash = document.getElementById("splash-screen");
+    if (splash) {
+        if (sessionStorage.getItem("dbd-splash-seen")) {
+            splash.remove();
+        } else {
+            sessionStorage.setItem("dbd-splash-seen", "1");
+        }
+    }
+
     // Finger size data loaded from fingerSizes.js
     const fingerSizes = window.fingerSizes;
 
@@ -57,6 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
             appTitle: "Design Buddy Desktop",
             footer: "Presented by Ludo B.",
             languageLabel: "Language",
+            loading: "Loading…",
+            loadError: "Unable to load this tab.",
             categories: {
                 stoneCounts: "Stone Counts",
                 weights: "Weights",
@@ -82,12 +94,161 @@ document.addEventListener("DOMContentLoaded", () => {
                 designBuddyChat: "Design Buddy Chat",
                 designBuddyChatV2: "Design Buddy Chat V2",
                 styleMatch: "StyleMatch"
+            },
+            common: {
+                regionLabel: "Select Finger Size Region:",
+                regionUS: "US",
+                regionFrance: "France",
+                fingerSizeLabel: "Enter Finger Size:",
+                invalidInputs: "Invalid Inputs",
+                sizeNotFound: "Size Not Found",
+                formulaLabel: "Formula:"
+            },
+            fullEternity: {
+                descriptionStrong: "Estimate total stone count for eternity-style bands based on finger size and coverage.",
+                descriptionBody: "Pick full, three-quarter, or semi coverage, then enter finger size, band thickness, spacing, and melee diameter to quickly preview the number of stones needed.",
+                coverageLabel: "Select Coverage Type:",
+                coverageFull: "Full",
+                coverageThreeQuarter: "Three Quarter",
+                coverageSemi: "Semi",
+                bandThicknessLabel: "Enter Band Thickness (mm):",
+                spacingLabel: "Spacing Between Stones (mm):",
+                meleeDiameterLabel: "Diameter of Melee Stones (mm):",
+                totalStonesLabel: "Total Stones Needed:",
+                formulaInline: "Stone Count ≈ <em>(coverage × 2πR)</em> ÷ <em>(2R·atan((d⁄2)/offset) + gap)</em>",
+                spacingRefHeading: "Typical Spacing by Setting Style",
+                settingStyleCol: "Setting Style",
+                suggestedSpacingCol: "Suggested Spacing (mm)",
+                channelSetting: "Channel Setting",
+                pave: "Pavé",
+                sharedProng: "Shared Prong",
+                microProng: "Micro Prong",
+                singleProng: "Single Prong",
+                stonesUnit: "stones",
+                stepUnit: "step",
+                requiredThickness: "Required band thickness:",
+                adjustedNote: "adjusted for stone depth"
+            },
+            halo: {
+                descriptionStrong: "Estimates the number of stones in a halo based on the center size.",
+                descriptionBody: "Enter the <em>center stone shape, dimensions</em> and <em>halo stone size</em> to calculate an <u>even</u> count that fits the halo circumference.",
+                shapeLabel: "Select Center Stone Shape:",
+                shapeRound: "Round",
+                shapeOval: "Oval",
+                shapeCushion: "Cushion",
+                shapePrincess: "Princess",
+                shapeEmerald: "Emerald",
+                shapePear: "Pear",
+                shapeMarquise: "Marquise",
+                widthLabel: "Width of Center Stone (mm):",
+                lengthLabel: "Length of Center Stone (mm):",
+                spacingToCenterLabel: "Spacing to Center Stone (mm):",
+                meleeDiameterLabel: "Diameter of Melee Stones (mm):",
+                spacingBetweenLabel: "Spacing Between Melees (mm):",
+                totalStonesLabel: "Total Stones Needed:"
+            },
+            hiddenHalo: {
+                descriptionStrong: "Estimate the stone count for a hidden halo from the center stone dimensions.",
+                descriptionBody: "Select the center stone shape, enter the width/length, then set melee diameter and spacing to calculate an even hidden halo stone count around the center perimeter.",
+                shapeLabel: "Select Center Stone Shape:",
+                widthLabel: "Width of Center Stone (mm):",
+                lengthLabel: "Length of Center Stone (mm):",
+                stoneSizeLabel: "Diameter of Melee Stones (mm):",
+                spacingLabel: "Spacing Between Melee Stones (mm):",
+                totalStonesLabel: "Total Stones Needed for Hidden Halo:",
+                formulaInline: "Total Stones = Perimeter ÷ (Stone Diameter + Spacing)"
+            },
+            weightConversion: {
+                descriptionStrong: "Estimate the weight of the same design in a different gold karat.",
+                descriptionBody: "Enter the design's current weight and karat, choose a target karat, and the tool will calculate an estimated converted weight based on the density difference between the two alloys.",
+                knownMaterialLabel: "Material of Known Weight:",
+                knownWeightLabel: "Enter Known Weight (grams):",
+                knownWeightPlaceholder: "Enter weight",
+                targetMaterialLabel: "Material to Convert To:",
+                convertedWeightLabel: "Converted Weight (grams):",
+                convertedWeightPlaceholder: "Converted weight"
+            },
+            weddingBand: {
+                descriptionStrong: "Estimate the volume and finished metal weight for classic wedding bands.",
+                descriptionBody: "Choose between a pipe-cut (tubular) profile or a round band profile, select your finger size, and enter the band width and thickness to see the calculated volume and weight.",
+                pipeCut: "Pipe Cut",
+                roundBand: "Round Band",
+                bandWidthLabel: "Enter Band Width (mm):",
+                bandThicknessLabel: "Enter Band Thickness (mm):",
+                karatLabel: "Select Gold Karat:",
+                volumeLabel: "Calculated Volume (mm³):",
+                weightLabel: "Estimated Weight (grams):",
+                pipeFormulaLabel: "Pipe Cut Formula:",
+                roundFormulaLabel: "Round Band Formula:"
+            },
+            widthConversion: {
+                descriptionStrong: "Estimate updated ring weight when width or thickness changes.",
+                descriptionBody: "Enter the original weight, width, and thickness, then provide the new dimensions to calculate an adjusted weight and suggested diamond size for the updated proportions.",
+                originalWeightLabel: "Original Weight (g)",
+                originalWidthLabel: "Original Width (mm)",
+                originalThicknessLabel: "Original Thickness (mm)",
+                currentDiamondSizeLabel: "Current Diamond Size (mm)",
+                optional: "(optional)",
+                newWidthLabel: "New Width (mm)",
+                newThicknessLabel: "New Thickness (mm)",
+                estimatedWeight: "Estimated New Weight:",
+                recommendedDiamond: "Recommended Diamond Size:",
+                referenceHeading: "Average Thickness by MM Width",
+                widthCol: "MM width",
+                thicknessCol: "MM thickness"
+            },
+            diamondSizes: {
+                descriptionStrong: "Used to scale the weight of a ring when changing the diamond size.",
+                descriptionBody: "For example, if a ring currently uses 1.2&nbsp;mm diamonds and they want to upgrade to 2.0&nbsp;mm stones, enter the <em>current diamond size</em>, <em>target diamond size</em>, <em>band width</em>, <em>band thickness</em>, and <em>current weight</em>.<br> The tool will estimate the new weight and indicate whether the band thickness needs to be adjusted to maintain proper proportions.",
+                currentDiamondLabel: "Current Diamond Size (mm)",
+                targetDiamondLabel: "Target Diamond Size (mm)",
+                bandWidthLabel: "Current Band Width (mm)",
+                bandThicknessLabel: "Current Band Thickness (mm)",
+                bandWeightLabel: "Current Band Weight (g)",
+                estimatedThickness: "Estimated New Thickness:",
+                estimatedWeight: "Estimated New Weight:"
+            },
+            usefulLinks: {
+                cadHeading: "CAD",
+                shopHeading: "Shop",
+                referencesHeading: "References"
+            },
+            faq: {
+                note: "Use this embedded FAQ tool to search and submit employee questions through your n8n webhooks."
+            },
+            newsFeed: {
+                chooseSource: "Choose a source:",
+                refresh: "Refresh",
+                loading: "Loading the latest stories…",
+                noArticles: "No articles available right now.",
+                dateUnavailable: "Date unavailable",
+                rssUnavailable: "Unable to reach the RSS service.",
+                feedUnavailable: "Unable to load news right now.",
+                tagline: "Pulling live headlines from leading jewelry industry RSS feeds."
+            },
+            contactRepository: {
+                searchPlaceholder: "Search contacts...",
+                allTags: "All Tags"
+            },
+            styleMatch: {
+                description: "Upload an image to find the best matching SKU.",
+                chooseImage: "Choose an image",
+                findStyle: "Find Style",
+                pleaseSelect: "Please select an image",
+                processing: "Processing...",
+                error: "Error:"
+            },
+            employeeSuggestions: {
+                descriptionStrong: "Anonymous employee suggestion form.",
+                descriptionBody: "Use this form to submit process improvements, suggested changes, and feedback to help improve our workflow."
             }
         },
         fr: {
             appTitle: "Assistant Design Bureau",
             footer: "Présenté par Ludo B.",
             languageLabel: "Langue",
+            loading: "Chargement…",
+            loadError: "Impossible de charger cet onglet.",
             categories: {
                 stoneCounts: "Comptes de pierres",
                 weights: "Poids",
@@ -113,6 +274,153 @@ document.addEventListener("DOMContentLoaded", () => {
                 designBuddyChat: "Discussion Design Buddy",
                 designBuddyChatV2: "Discussion Design Buddy V2",
                 styleMatch: "StyleMatch"
+            },
+            common: {
+                regionLabel: "Région de taille de doigt :",
+                regionUS: "US",
+                regionFrance: "France",
+                fingerSizeLabel: "Taille de doigt :",
+                invalidInputs: "Valeurs invalides",
+                sizeNotFound: "Taille introuvable",
+                formulaLabel: "Formule :"
+            },
+            fullEternity: {
+                descriptionStrong: "Estime le nombre total de pierres pour les alliances « eternity » selon la taille du doigt et la couverture.",
+                descriptionBody: "Choisissez une couverture pleine, trois-quarts ou demi, puis entrez la taille de doigt, l'épaisseur de l'anneau, l'espacement et le diamètre du melee pour prévisualiser le nombre de pierres requis.",
+                coverageLabel: "Type de couverture :",
+                coverageFull: "Pleine",
+                coverageThreeQuarter: "Trois-quarts",
+                coverageSemi: "Demi",
+                bandThicknessLabel: "Épaisseur de l'anneau (mm) :",
+                spacingLabel: "Espacement entre les pierres (mm) :",
+                meleeDiameterLabel: "Diamètre des melees (mm) :",
+                totalStonesLabel: "Nombre total de pierres :",
+                formulaInline: "Nombre de pierres ≈ <em>(couverture × 2πR)</em> ÷ <em>(2R·atan((d⁄2)/offset) + espace)</em>",
+                spacingRefHeading: "Espacement typique selon le sertissage",
+                settingStyleCol: "Type de sertissage",
+                suggestedSpacingCol: "Espacement suggéré (mm)",
+                channelSetting: "Serti rail",
+                pave: "Pavé",
+                sharedProng: "Griffes partagées",
+                microProng: "Micro-griffes",
+                singleProng: "Griffe simple",
+                stonesUnit: "pierres",
+                stepUnit: "pas",
+                requiredThickness: "Épaisseur d'anneau requise :",
+                adjustedNote: "ajustée pour la profondeur de pierre"
+            },
+            halo: {
+                descriptionStrong: "Estime le nombre de pierres d'un halo en fonction de la taille centrale.",
+                descriptionBody: "Entrez la <em>forme et les dimensions de la pierre centrale</em> et la <em>taille du melee</em> pour calculer un nombre <u>pair</u> de pierres adapté à la circonférence du halo.",
+                shapeLabel: "Forme de la pierre centrale :",
+                shapeRound: "Ronde",
+                shapeOval: "Ovale",
+                shapeCushion: "Coussin",
+                shapePrincess: "Princesse",
+                shapeEmerald: "Émeraude",
+                shapePear: "Poire",
+                shapeMarquise: "Marquise",
+                widthLabel: "Largeur de la pierre centrale (mm) :",
+                lengthLabel: "Longueur de la pierre centrale (mm) :",
+                spacingToCenterLabel: "Espacement avec la pierre centrale (mm) :",
+                meleeDiameterLabel: "Diamètre des melees (mm) :",
+                spacingBetweenLabel: "Espacement entre les melees (mm) :",
+                totalStonesLabel: "Nombre total de pierres :"
+            },
+            hiddenHalo: {
+                descriptionStrong: "Estime le nombre de pierres d'un halo caché à partir des dimensions de la pierre centrale.",
+                descriptionBody: "Sélectionnez la forme de la pierre centrale, entrez la largeur/longueur, puis indiquez le diamètre du melee et l'espacement pour calculer un nombre pair de pierres autour du périmètre.",
+                shapeLabel: "Forme de la pierre centrale :",
+                widthLabel: "Largeur de la pierre centrale (mm) :",
+                lengthLabel: "Longueur de la pierre centrale (mm) :",
+                stoneSizeLabel: "Diamètre des melees (mm) :",
+                spacingLabel: "Espacement entre les melees (mm) :",
+                totalStonesLabel: "Nombre total de pierres pour le halo caché :",
+                formulaInline: "Nombre de pierres = Périmètre ÷ (Diamètre de la pierre + Espacement)"
+            },
+            weightConversion: {
+                descriptionStrong: "Estime le poids du même design dans un autre karat d'or.",
+                descriptionBody: "Entrez le poids actuel et le karat, choisissez un karat cible, et l'outil calculera un poids converti estimé selon la différence de densité entre les deux alliages.",
+                knownMaterialLabel: "Matière du poids connu :",
+                knownWeightLabel: "Poids connu (grammes) :",
+                knownWeightPlaceholder: "Entrer le poids",
+                targetMaterialLabel: "Matière de conversion :",
+                convertedWeightLabel: "Poids converti (grammes) :",
+                convertedWeightPlaceholder: "Poids converti"
+            },
+            weddingBand: {
+                descriptionStrong: "Estime le volume et le poids du métal pour les alliances classiques.",
+                descriptionBody: "Choisissez entre un profil pipe-cut (tubulaire) ou un anneau rond, sélectionnez la taille de doigt, et entrez la largeur et l'épaisseur pour voir le volume et le poids calculés.",
+                pipeCut: "Pipe Cut",
+                roundBand: "Anneau rond",
+                bandWidthLabel: "Largeur de l'anneau (mm) :",
+                bandThicknessLabel: "Épaisseur de l'anneau (mm) :",
+                karatLabel: "Karat de l'or :",
+                volumeLabel: "Volume calculé (mm³) :",
+                weightLabel: "Poids estimé (grammes) :",
+                pipeFormulaLabel: "Formule Pipe Cut :",
+                roundFormulaLabel: "Formule Anneau rond :"
+            },
+            widthConversion: {
+                descriptionStrong: "Estime le nouveau poids de la bague lorsque la largeur ou l'épaisseur change.",
+                descriptionBody: "Entrez le poids, la largeur et l'épaisseur d'origine, puis indiquez les nouvelles dimensions pour calculer un poids ajusté et une taille de diamant suggérée pour les nouvelles proportions.",
+                originalWeightLabel: "Poids d'origine (g)",
+                originalWidthLabel: "Largeur d'origine (mm)",
+                originalThicknessLabel: "Épaisseur d'origine (mm)",
+                currentDiamondSizeLabel: "Taille du diamant actuel (mm)",
+                optional: "(optionnel)",
+                newWidthLabel: "Nouvelle largeur (mm)",
+                newThicknessLabel: "Nouvelle épaisseur (mm)",
+                estimatedWeight: "Nouveau poids estimé :",
+                recommendedDiamond: "Taille de diamant suggérée :",
+                referenceHeading: "Épaisseur moyenne par largeur en mm",
+                widthCol: "Largeur (mm)",
+                thicknessCol: "Épaisseur (mm)"
+            },
+            diamondSizes: {
+                descriptionStrong: "Sert à recalculer le poids d'une bague lors du changement de taille du diamant.",
+                descriptionBody: "Par exemple, si une bague utilise des diamants de 1.2&nbsp;mm et que l'on souhaite passer à 2.0&nbsp;mm, entrez la <em>taille actuelle</em>, la <em>taille cible</em>, la <em>largeur</em>, l'<em>épaisseur</em> et le <em>poids</em> actuels.<br> L'outil estimera le nouveau poids et indiquera si l'épaisseur doit être ajustée pour conserver les bonnes proportions.",
+                currentDiamondLabel: "Taille du diamant actuel (mm)",
+                targetDiamondLabel: "Taille du diamant cible (mm)",
+                bandWidthLabel: "Largeur actuelle de l'anneau (mm)",
+                bandThicknessLabel: "Épaisseur actuelle de l'anneau (mm)",
+                bandWeightLabel: "Poids actuel de l'anneau (g)",
+                estimatedThickness: "Nouvelle épaisseur estimée :",
+                estimatedWeight: "Nouveau poids estimé :"
+            },
+            usefulLinks: {
+                cadHeading: "CAO",
+                shopHeading: "Achat",
+                referencesHeading: "Références"
+            },
+            faq: {
+                note: "Utilisez cet outil FAQ intégré pour rechercher et soumettre les questions des employés via vos webhooks n8n."
+            },
+            newsFeed: {
+                chooseSource: "Choisir une source :",
+                refresh: "Actualiser",
+                loading: "Chargement des dernières nouvelles…",
+                noArticles: "Aucun article disponible pour le moment.",
+                dateUnavailable: "Date indisponible",
+                rssUnavailable: "Impossible de joindre le service RSS.",
+                feedUnavailable: "Impossible de charger les nouvelles pour le moment.",
+                tagline: "Manchettes en direct des principaux flux RSS de l'industrie de la joaillerie."
+            },
+            contactRepository: {
+                searchPlaceholder: "Rechercher des contacts...",
+                allTags: "Toutes les étiquettes"
+            },
+            styleMatch: {
+                description: "Téléversez une image pour trouver le SKU le plus proche.",
+                chooseImage: "Choisir une image",
+                findStyle: "Trouver le style",
+                pleaseSelect: "Veuillez sélectionner une image",
+                processing: "Traitement…",
+                error: "Erreur :"
+            },
+            employeeSuggestions: {
+                descriptionStrong: "Formulaire de suggestions anonyme pour les employés.",
+                descriptionBody: "Utilisez ce formulaire pour soumettre des améliorations de processus, des changements suggérés et des commentaires afin d'améliorer notre flux de travail."
             }
         }
     };
@@ -121,6 +429,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function t(path) {
         return path.split(".").reduce((acc, key) => acc?.[key], translations[currentLanguage]) ?? path;
+    }
+
+    function translatePartial(root) {
+        root.querySelectorAll("[data-i18n]").forEach((el) => {
+            const key = el.dataset.i18n;
+            const value = t(key);
+            if (value !== key) el.textContent = value;
+        });
+        root.querySelectorAll("[data-i18n-html]").forEach((el) => {
+            const key = el.dataset.i18nHtml;
+            const value = t(key);
+            if (value !== key) el.innerHTML = value;
+        });
+        root.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+            const key = el.dataset.i18nPlaceholder;
+            const value = t(key);
+            if (value !== key) el.placeholder = value;
+        });
     }
 
     const tabsData = [
@@ -279,18 +605,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const contentContainer = document.querySelector(".content");
 
     function loadTabContent(tab, sectionElement) {
+        const heading = `<h3>${t(`tabs.${tab.titleKey}`)}</h3>`;
+        sectionElement.innerHTML = `${heading}<div class="loading-indicator" role="status" aria-live="polite">${t("loading")}</div>`;
         fetch(tab.file)
             .then((r) => r.text())
             .then((html) => {
-                sectionElement.innerHTML = `<h3>${t(`tabs.${tab.titleKey}`)}</h3>${html}`;
+                sectionElement.innerHTML = `${heading}${html}`;
+                translatePartial(sectionElement);
                 sectionElement.dataset.loaded = "true";
                 tab.setup?.();
+            })
+            .catch(() => {
+                sectionElement.innerHTML = `${heading}<p class="error-message">${t("loadError")}</p>`;
             });
     }
 
     function renderStaticLanguage() {
         document.documentElement.lang = currentLanguage;
-        document.getElementById("splash-title").textContent = t("appTitle");
+        const splashTitle = document.getElementById("splash-title");
+        if (splashTitle) splashTitle.textContent = t("appTitle");
         document.getElementById("sidebar-title").textContent = t("appTitle");
         document.getElementById("footer-text").textContent = t("footer");
         document.getElementById("language-label").textContent = t("languageLabel");
@@ -361,16 +694,18 @@ document.addEventListener("DOMContentLoaded", () => {
             t("tabs.styleMatch"),
             `
                 <div class="style-match-tool">
-                    <p class="style-match-description">Upload an image to find the best matching SKU.</p>
-                    <label class="file-input-label" for="imageInput">Choose an image</label>
+                    <p class="style-match-description" data-i18n="styleMatch.description">Upload an image to find the best matching SKU.</p>
+                    <label class="file-input-label" for="imageInput" data-i18n="styleMatch.chooseImage">Choose an image</label>
                     <input type="file" id="imageInput" accept="image/*" />
-                    <button id="style-match-button" type="button">Find Style</button>
+                    <button id="style-match-button" type="button" data-i18n="styleMatch.findStyle">Find Style</button>
                     <pre id="style-match-result" aria-live="polite"></pre>
                 </div>
             `,
             null,
             t("categories.gpts")
         );
+        const styleMatchSection = document.getElementById("style-match");
+        if (styleMatchSection) translatePartial(styleMatchSection);
         setupStyleMatch();
     }
 
@@ -397,7 +732,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const sendImage = async () => {
             if (!fileInput.files.length) {
-                window.alert("Please select an image");
+                window.alert(t("styleMatch.pleaseSelect"));
                 return;
             }
 
@@ -405,7 +740,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const formData = new FormData();
             formData.append("file", file);
 
-            resultBox.textContent = "Processing...";
+            resultBox.textContent = t("styleMatch.processing");
             button.disabled = true;
 
             try {
@@ -421,7 +756,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const data = await response.json();
                 resultBox.textContent = JSON.stringify(data, null, 2);
             } catch (error) {
-                resultBox.textContent = `Error: ${error.message}`;
+                resultBox.textContent = `${t("styleMatch.error")} ${error.message}`;
             } finally {
                 button.disabled = false;
             }
@@ -430,6 +765,18 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", sendImage);
     }
 
+
+    function applyFingerSizeConstraints(regionSelect, fingerInput) {
+        if (regionSelect.value === "France") {
+            fingerInput.step = "0.5";
+            fingerInput.min = "42";
+            fingerInput.max = "77";
+        } else {
+            fingerInput.step = "0.25";
+            fingerInput.min = "1";
+            fingerInput.max = "15";
+        }
+    }
 
     function setupFullEternity() {
         const regionTypeSelect = document.getElementById("region-type");
@@ -444,6 +791,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "required-band-thickness-text"
         );
 
+        applyFingerSizeConstraints(regionTypeSelect, fingerSizeInput);
+
         const calculateEternityStones = () => {
             const region = regionTypeSelect.value;
             const fingerSize = parseFloat(fingerSizeInput.value) || 0;
@@ -453,7 +802,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const coverageType = selectedCoverageType;
 
             if (fingerSize <= 0 || bandThickness < 0 || spacing < 0 || meleeDiameter <= 0) {
-                totalStonesEternityOutput.value = "Invalid Inputs";
+                totalStonesEternityOutput.value = t("common.invalidInputs");
                 if (requiredThicknessOutput) requiredThicknessOutput.textContent = "";
                 return;
             }
@@ -461,7 +810,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const regionData = fingerSizes[region];
             const sizeData = regionData.find((item) => item.Size === fingerSize);
             if (!sizeData) {
-                totalStonesEternityOutput.value = "Size Not Found";
+                totalStonesEternityOutput.value = t("common.sizeNotFound");
                 if (requiredThicknessOutput) requiredThicknessOutput.textContent = "";
                 return;
             }
@@ -488,15 +837,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 coverageRatio
             );
 
-            totalStonesEternityOutput.value = `${count} stones (${angleDeg.toFixed(2)}° step)`;
+            totalStonesEternityOutput.value = `${count} ${t("fullEternity.stonesUnit")} (${angleDeg.toFixed(2)}° ${t("fullEternity.stepUnit")})`;
 
             if (requiredThicknessOutput) {
                 const adjusted = effectiveThickness > bandThickness;
-                const baseText = `Required band thickness: ${effectiveThickness.toFixed(
+                const baseText = `${t("fullEternity.requiredThickness")} ${effectiveThickness.toFixed(
                     2
                 )} mm`;
                 requiredThicknessOutput.textContent = adjusted
-                    ? `${baseText} (adjusted for stone depth)`
+                    ? `${baseText} (${t("fullEternity.adjustedNote")})`
                     : baseText;
             }
         };
@@ -515,7 +864,10 @@ document.addEventListener("DOMContentLoaded", () => {
             calculateEternityStones();
         };
 
-        regionTypeSelect.addEventListener("change", calculateEternityStones);
+        regionTypeSelect.addEventListener("change", () => {
+            applyFingerSizeConstraints(regionTypeSelect, fingerSizeInput);
+            calculateEternityStones();
+        });
         fingerSizeInput.addEventListener("input", calculateEternityStones);
         bandThicknessInput.addEventListener("input", calculateEternityStones);
         spacingEternityInput.addEventListener("input", calculateEternityStones);
@@ -556,7 +908,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const spacingBetweenMelees = parseFloat(spacingBetweenMeleesHaloInput.value) || 0;
 
             if (meleeDiameter <= 0 || spacingBetweenMelees < 0 || spacingToCenter < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
-                totalStonesHaloOutput.value = "Invalid Inputs";
+                totalStonesHaloOutput.value = t("common.invalidInputs");
                 return;
             }
 
@@ -612,7 +964,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const spacing = parseFloat(spacingInput.value) || 0;
 
             if (stoneSize <= 0 || spacing < 0 || width <= 0 || (length <= 0 && shape !== "round")) {
-                hiddenHaloTotalStonesOutput.value = "Invalid Inputs";
+                hiddenHaloTotalStonesOutput.value = t("common.invalidInputs");
                 return;
             }
 
@@ -677,7 +1029,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 isNaN(targetDensity) ||
                 targetDensity <= 0
             ) {
-                convertedWeightInput.value = "Invalid Inputs";
+                convertedWeightInput.value = t("common.invalidInputs");
                 return;
             }
             const volume = knownWeight / knownMaterial;
@@ -702,6 +1054,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const volumeOutput = document.getElementById("wedding-volume");
         const weightOutput = document.getElementById("wedding-weight");
         const materials = window.materialDensities || [];
+
+        applyFingerSizeConstraints(regionSelect, fingerSizeInput);
 
         let selectedBand = "pipe";
 
@@ -734,16 +1088,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 width <= 0 ||
                 thickness <= 0
             ) {
-                volumeOutput.value = "Invalid Inputs";
-                weightOutput.value = "Invalid Inputs";
+                volumeOutput.value = t("common.invalidInputs");
+                weightOutput.value = t("common.invalidInputs");
                 return;
             }
 
             const regionData = fingerSizes[region];
             const sizeData = regionData?.find((item) => item.Size === fingerSize);
             if (!sizeData) {
-                volumeOutput.value = "Size Not Found";
-                weightOutput.value = "Size Not Found";
+                volumeOutput.value = t("common.sizeNotFound");
+                weightOutput.value = t("common.sizeNotFound");
                 return;
             }
 
@@ -784,7 +1138,10 @@ document.addEventListener("DOMContentLoaded", () => {
         bandButtons.forEach((button) =>
             button.addEventListener("click", handleBandSelection)
         );
-        regionSelect.addEventListener("change", calculateWeddingBandWeight);
+        regionSelect.addEventListener("change", () => {
+            applyFingerSizeConstraints(regionSelect, fingerSizeInput);
+            calculateWeddingBandWeight();
+        });
         fingerSizeInput.addEventListener("input", calculateWeddingBandWeight);
         widthInput.addEventListener("input", calculateWeddingBandWeight);
         thicknessInput.addEventListener("input", calculateWeddingBandWeight);
@@ -816,12 +1173,12 @@ document.addEventListener("DOMContentLoaded", () => {
             ];
 
             if (requiredValues.some(value => Number.isNaN(value) || value <= 0)) {
-                result.textContent = 'Estimated New Weight: 0 g';
+                result.textContent = `${t("widthConversion.estimatedWeight")} 0 g`;
             } else {
                 const newWeight =
                     originalWeight * (newWidth / originalWidth) * (newThickness / originalThickness);
 
-                result.textContent = `Estimated New Weight: ${newWeight.toFixed(2)} g`;
+                result.textContent = `${t("widthConversion.estimatedWeight")} ${newWeight.toFixed(2)} g`;
             }
 
             if (
@@ -831,9 +1188,9 @@ document.addEventListener("DOMContentLoaded", () => {
             ) {
                 const recommendedSize = newWidth - originalWidth + currentDiamondSize;
                 const formattedSize = recommendedSize > 0 ? recommendedSize.toFixed(2) : '0.00';
-                diamondResult.textContent = `Recommended Diamond Size: ${formattedSize} mm`;
+                diamondResult.textContent = `${t("widthConversion.recommendedDiamond")} ${formattedSize} mm`;
             } else {
-                diamondResult.textContent = 'Recommended Diamond Size: -- mm';
+                diamondResult.textContent = `${t("widthConversion.recommendedDiamond")} -- mm`;
             }
         }
 
@@ -853,12 +1210,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const bandWeight = parseFloat(document.getElementById('ds-current-weight').value);
 
             if (!currentSize || !targetSize || !bandWidth || !bandThickness || !bandWeight) {
-                newWeightOutput.textContent = 'Estimated New Weight: 0 g';
-                newThicknessOutput.textContent = 'Estimated New Thickness: 0 mm';
+                newWeightOutput.textContent = `${t("diamondSizes.estimatedWeight")} 0 g`;
+                newThicknessOutput.textContent = `${t("diamondSizes.estimatedThickness")} 0 mm`;
                 return;
             }
 
             const newWidth = (bandWidth - currentSize) + targetSize;
+            let newThickness;
 
             if (bandThickness - (0.65 * targetSize) > 0.4) {
                newThickness = bandThickness;
@@ -868,8 +1226,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const newBandWeight = bandWeight * (newWidth / bandWidth) * (newThickness / bandThickness);
 
-            newThicknessOutput.textContent = `Estimated New Thickness: ${newThickness.toFixed(2)} mm`;
-            newWeightOutput.textContent = `Estimated New Weight: ${newBandWeight.toFixed(2)} g`;
+            newThicknessOutput.textContent = `${t("diamondSizes.estimatedThickness")} ${newThickness.toFixed(2)} mm`;
+            newWeightOutput.textContent = `${t("diamondSizes.estimatedWeight")} ${newBandWeight.toFixed(2)} g`;
         }
 
         diamondInputs.forEach(input => input.addEventListener('input', calculateDiamondSize));
@@ -897,7 +1255,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         async function loadFeed(rssUrl) {
-            newsList.innerHTML = '<p>Loading the latest stories…</p>';
+            newsList.innerHTML = `<p>${t("newsFeed.loading")}</p>`;
 
             try {
                 const response = await fetch(
@@ -905,14 +1263,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 if (!response.ok) {
-                    throw new Error('Unable to reach the RSS service.');
+                    throw new Error(t("newsFeed.rssUnavailable"));
                 }
 
                 const data = await response.json();
                 const items = data.items ?? [];
 
                 if (!items.length) {
-                    newsList.innerHTML = '<p>No articles available right now.</p>';
+                    newsList.innerHTML = `<p>${t("newsFeed.noArticles")}</p>`;
                     return;
                 }
 
@@ -925,7 +1283,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const publishedDate = item.pubDate
                         ? new Date(item.pubDate).toLocaleDateString()
-                        : 'Date unavailable';
+                        : t("newsFeed.dateUnavailable");
 
                     li.innerHTML = `
                         <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
@@ -940,7 +1298,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 newsList.appendChild(list);
             } catch (error) {
                 newsList.innerHTML = `
-                    <p class="error-message">Unable to load news right now.</p>
+                    <p class="error-message">${t("newsFeed.feedUnavailable")}</p>
                     <p class="muted">${error.message}</p>
                 `;
             }

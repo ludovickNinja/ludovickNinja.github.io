@@ -1,22 +1,22 @@
 <p class="tab-description">
-  <strong>Estimate the weight of the same design in a different gold karat.</strong><br>
-  Enter the design's current weight and karat, choose a target karat, and the tool will calculate
-  an estimated converted weight based on the density difference between the two alloys.
+  <strong data-i18n="weightConversion.descriptionStrong">Estimate the weight of the same design in a different gold karat.</strong><br>
+  <span data-i18n="weightConversion.descriptionBody">Enter the design's current weight and karat, choose a target karat, and the tool will calculate
+  an estimated converted weight based on the density difference between the two alloys.</span>
 </p>
 
 <div class="conversion-container">
   <div class="converter">
-    <label for="known-material">Material of Known Weight:</label>
+    <label for="known-material" data-i18n="weightConversion.knownMaterialLabel">Material of Known Weight:</label>
     <select id="known-material"></select>
 
-    <label for="known-weight">Enter Known Weight (grams):</label>
-    <input type="number" id="known-weight" placeholder="Enter weight">
+    <label for="known-weight" data-i18n="weightConversion.knownWeightLabel">Enter Known Weight (grams):</label>
+    <input type="number" id="known-weight" placeholder="Enter weight" min="0" step="0.01" data-i18n-placeholder="weightConversion.knownWeightPlaceholder">
   </div>
   <div class="converter">
-    <label for="target-material">Material to Convert To:</label>
+    <label for="target-material" data-i18n="weightConversion.targetMaterialLabel">Material to Convert To:</label>
     <select id="target-material"></select>
 
-    <label for="converted-weight">Converted Weight (grams):</label>
-    <input type="text" id="converted-weight" readonly placeholder="Converted weight">
+    <label for="converted-weight" data-i18n="weightConversion.convertedWeightLabel">Converted Weight (grams):</label>
+    <input type="text" id="converted-weight" readonly placeholder="Converted weight" data-i18n-placeholder="weightConversion.convertedWeightPlaceholder">
   </div>
 </div>
