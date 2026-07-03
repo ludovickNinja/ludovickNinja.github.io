@@ -1,0 +1,204 @@
+/*
+ * RushRequestsDev — standalone dev styling.
+ *
+ * Mirrors DesignBuddyDesktop/style.css so the questionnaire already looks like
+ * a DBD tab. The reused classes below are kept identical to DBD; the .rush-*
+ * classes at the bottom are the new ones that migrate into DBD style.css later.
+ * The .header / .back chrome is dev-only and is dropped on migration.
+ */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+
+/* ---- dev-only chrome (dropped on migration) ---------------------------- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #000;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.header .back {
+    padding: 0.4rem 1rem;
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.header .back:hover {
+    background: #333;
+}
+
+main {
+    padding: 1rem;
+}
+
+/* ---- reused DBD classes (keep in sync with DesignBuddyDesktop/style.css) - */
+label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+input, select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.calculator-description {
+    background: #f9f9f9;
+    border: 1px solid #000;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.coverage-button {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: #f5f5f5;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.coverage-button:hover,
+.coverage-button:focus {
+    background: #e0e0e0;
+    outline: none;
+}
+
+.coverage-button.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.coverage-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.muted {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ---- new .rush-* classes (migrate into DBD style.css) ------------------ */
+.rush-app {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.rush-progress {
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: bold;
+}
+
+.rush-step {
+    display: flex;
+    flex-direction: column;
+}
+
+.rush-step input[type="text"],
+.rush-step input[type="number"],
+.rush-step input[type="date"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.rush-choice-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.rush-error {
+    color: #b00020;
+    font-weight: bold;
+    min-height: 1.2rem;
+}
+
+.rush-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.rush-primary {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+.rush-primary:hover {
+    background: #333;
+}
+
+.rush-result {
+    border: 1px solid #000;
+    border-left-width: 6px;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #f9f9f9;
+}
+
+.rush-result h4 {
+    margin: 0.5rem 0;
+}
+
+.rush-result.is-approved { border-left-color: #1a7f37; }
+.rush-result.is-escalate { border-left-color: #b58105; }
+.rush-result.is-denied   { border-left-color: #b00020; }
+
+.rush-verdict-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: #555;
+}
+
+.rush-result.is-approved .rush-verdict-badge { background: #1a7f37; }
+.rush-result.is-escalate .rush-verdict-badge { background: #b58105; }
+.rush-result.is-denied   .rush-verdict-badge { background: #b00020; }
+
+.rush-earliest {
+    font-size: 1.05rem;
+}
+
+.rush-summary {
+    margin: 1rem 0 0 0;
+    padding: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: #fff;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.9rem;
+}

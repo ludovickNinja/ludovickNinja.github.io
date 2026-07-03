@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="." />
+    <link rel="icon" type="image/svg+xml" href="../assets/svg/logo.svg" />
+    <title>Rush Requests (Dev)</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h2>Rush Requests</h2>
+      <a class="back" onclick="history.back()">Back</a>
+    </div>
+
+    <main>
+      <p class="calculator-description">
+        Answer a few quick questions to get an instant rush decision and the
+        earliest achievable date &mdash; no email approval needed.
+      </p>
+      <div id="rush-app" class="rush-app"></div>
+      <noscript>This questionnaire requires JavaScript to be enabled.</noscript>
+    </main>
+
+    <!-- Load order matters: date utility, then rules, then the controller. -->
+    <script src="businessDays.js"></script>
+    <script src="rushRules.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
