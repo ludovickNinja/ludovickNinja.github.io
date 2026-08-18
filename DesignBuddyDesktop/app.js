@@ -74,7 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 weights: "Weights",
                 informations: "Informations",
                 forms: "Forms",
-                gpts: "GPTs"
+                gpts: "GPTs",
+                tools: "Tools"
             },
             tabs: {
                 stoneCountFullEternity: "Stone Count: Full Eternity",
@@ -93,7 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 employeeSuggestions: "Employee Suggestions",
                 designBuddyChat: "Design Buddy Chat",
                 designBuddyChatV2: "Design Buddy Chat V2",
-                styleMatch: "StyleMatch"
+                styleMatch: "StyleMatch",
+                threeDmToGlb: "3DM to GLB"
             },
             common: {
                 regionLabel: "Select Finger Size Region:",
@@ -254,7 +256,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 weights: "Poids",
                 informations: "Informations",
                 forms: "Formulaires",
-                gpts: "GPTs"
+                gpts: "GPTs",
+                tools: "Outils"
             },
             tabs: {
                 stoneCountFullEternity: "Compte de pierres : Tour complet",
@@ -273,7 +276,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 employeeSuggestions: "Suggestions des employés",
                 designBuddyChat: "Discussion Design Buddy",
                 designBuddyChatV2: "Discussion Design Buddy V2",
-                styleMatch: "StyleMatch"
+                styleMatch: "StyleMatch",
+                threeDmToGlb: "3DM vers GLB"
             },
             common: {
                 regionLabel: "Région de taille de doigt :",
@@ -707,6 +711,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const styleMatchSection = document.getElementById("style-match");
         if (styleMatchSection) translatePartial(styleMatchSection);
         setupStyleMatch();
+
+        // Add the "3DM to GLB" converter tab dynamically
+        addTab(
+            "3dm-to-glb",
+            t("tabs.threeDmToGlb"),
+            null,
+            "https://ludovickninja.github.io/3DMtoGLB/",
+            t("categories.tools")
+        );
     }
 
     const languageSelect = document.getElementById("language-select");
