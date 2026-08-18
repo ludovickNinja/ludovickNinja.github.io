@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 employeeSuggestions: "Employee Suggestions",
                 designBuddyChat: "Design Buddy Chat",
                 designBuddyChatV2: "Design Buddy Chat V2",
-                styleMatch: "StyleMatch",
+                styleMatch: "Style Match WIP",
                 threeDmToGlb: "3DM to GLB"
             },
             common: {
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 employeeSuggestions: "Suggestions des employés",
                 designBuddyChat: "Discussion Design Buddy",
                 designBuddyChatV2: "Discussion Design Buddy V2",
-                styleMatch: "StyleMatch",
+                styleMatch: "Style Match WIP",
                 threeDmToGlb: "3DM vers GLB"
             },
             common: {
@@ -706,7 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `,
             null,
-            t("categories.gpts")
+            t("categories.tools")
         );
         const styleMatchSection = document.getElementById("style-match");
         if (styleMatchSection) translatePartial(styleMatchSection);
