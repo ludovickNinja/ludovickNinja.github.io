@@ -712,12 +712,25 @@ document.addEventListener("DOMContentLoaded", () => {
         if (styleMatchSection) translatePartial(styleMatchSection);
         setupStyleMatch();
 
-        // Add the "3DM to GLB" converter tab dynamically
+        // Add the "3DM to GLB" converter tab (embedded via iframe)
         addTab(
             "3dm-to-glb",
             t("tabs.threeDmToGlb"),
+            `
+                <iframe
+                  src="https://ludovickninja.github.io/3DMtoGLB/"
+                  loading="lazy"
+                  frameborder="0"
+                  marginwidth="0"
+                  marginheight="0"
+                  style="border: none; width: 100%; height: 100vh;"
+                  allowfullscreen
+                  webkitallowfullscreen
+                  mozallowfullscreen
+                  msallowfullscreen
+                ></iframe>
+            `,
             null,
-            "https://ludovickninja.github.io/3DMtoGLB/",
             t("categories.tools")
         );
     }
