@@ -240,6 +240,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 processing: "Processing...",
                 error: "Error:"
             },
+            threeDmToGlb: {
+                description: "Import a 3DM file and view it in the browser."
+            },
             employeeSuggestions: {
                 descriptionStrong: "Anonymous employee suggestion form.",
                 descriptionBody: "Use this form to submit process improvements, suggested changes, and feedback to help improve our workflow."
@@ -421,6 +424,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 pleaseSelect: "Veuillez sélectionner une image",
                 processing: "Traitement…",
                 error: "Erreur :"
+            },
+            threeDmToGlb: {
+                description: "Importez un fichier 3DM et visualisez-le dans le navigateur."
             },
             employeeSuggestions: {
                 descriptionStrong: "Formulaire de suggestions anonyme pour les employés.",
@@ -717,6 +723,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "3dm-to-glb",
             t("tabs.threeDmToGlb"),
             `
+                <p class="tab-description">${t("threeDmToGlb.description")}</p>
                 <iframe
                   src="https://ludovickninja.github.io/3DMtoGLB/"
                   loading="lazy"
